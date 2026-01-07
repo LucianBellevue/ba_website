@@ -1,0 +1,51 @@
+import Link from "next/link";
+import Image from "next/image";
+
+interface LogoProps {
+  className?: string;
+  variant?: "header" | "footer" | "shield";
+}
+
+export default function Logo({ className = "", variant = "header" }: LogoProps) {
+  if (variant === "footer") {
+    return (
+      <Link href="/" className={`block ${className}`}>
+        <Image
+          src="/bellevue_footer_logo.svg"
+          alt="Bellevue Assurance"
+          width={240}
+          height={80}
+          className="h-16 md:h-20 w-auto brightness-0 invert"
+          priority
+        />
+      </Link>
+    );
+  }
+
+  if (variant === "shield") {
+    return (
+      <Link href="/" className={`block ${className}`}>
+        <Image
+          src="/bellevue_shield_logo.svg"
+          alt="Bellevue Assurance"
+          width={56}
+          height={56}
+          className="h-14 w-14"
+        />
+      </Link>
+    );
+  }
+
+  return (
+    <Link href="/" className={`block shrink-0 ${className}`}>
+      <Image
+        src="/header_logo.svg"
+        alt="Bellevue Assurance"
+        width={280}
+        height={80}
+        className="h-12 sm:h-14 md:h-16 w-auto max-w-[180px] sm:max-w-[220px] md:max-w-none"
+        priority
+      />
+    </Link>
+  );
+}
