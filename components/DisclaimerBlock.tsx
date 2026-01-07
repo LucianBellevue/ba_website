@@ -4,7 +4,7 @@ interface DisclaimerBlockProps {
 }
 
 export default function DisclaimerBlock({ variant = "default", className = "" }: DisclaimerBlockProps) {
-  const baseClasses = variant === "footer" ? "text-sm text-gray-400" : "text-sm text-gray-600 bg-gray-100 p-4 rounded-lg";
+  const baseClasses = variant === "footer" ? "text-xs text-gray-400" : "text-xs text-gray-600 bg-gray-100 p-4 rounded-lg";
 
   return (
     <div className={`${baseClasses} ${className}`}>

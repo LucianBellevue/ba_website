@@ -71,7 +71,7 @@ export default function RootLayout({
       <head>
         <OrganizationSchema />
       </head>
-      <body className="min-h-screen flex flex-col bg-[var(--ba-bg)] text-[var(--ba-text)] antialiased">
+      <body className="min-h-screen flex flex-col bg-ba-bg text-ba-text antialiased">
         <Header />
         <main className="grow">{children}</main>
         <Footer />

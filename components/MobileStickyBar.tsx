@@ -15,7 +15,7 @@ export default function MobileStickyBar() {
         <a
           href={SITE_CONFIG.phoneTel}
           onClick={handleCallClick}
-          className="flex-1 flex items-center justify-center gap-2 py-4 bg-[var(--ba-navy)] text-white font-semibold"
+          className="flex-1 flex items-center justify-center gap-2 py-4 bg-ba-navy text-white font-semibold"
         >
 <FiPhone size={20} color="white" />
           Call Now
@@ -23,7 +23,7 @@ export default function MobileStickyBar() {
         <Link
           href="/get-a-quote"
           onClick={handleQuoteClick}
-          className="flex-1 flex items-center justify-center gap-2 py-4 bg-[var(--ba-gold)] text-[var(--ba-navy)] font-semibold"
+          className="flex-1 flex items-center justify-center gap-2 py-4 bg-ba-gold text-ba-navy font-semibold"
         >
 <FiFileText size={20} color="var(--ba-navy)" />
           Get a Quote

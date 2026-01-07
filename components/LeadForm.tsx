@@ -70,38 +70,38 @@ export default function LeadForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-serif text-2xl font-bold text-[var(--ba-navy)] mb-2">Thank You!</h3>
+        <h3 className="font-serif text-2xl font-bold text-ba-navy mb-2">Thank You!</h3>
         <p className="text-gray-600 mb-4">We&apos;ve received your information. A licensed agent will call you shortly.</p>
-        <p className="text-sm text-gray-500">Questions? Call us at <a href="tel:+18005550123" className="text-[var(--ba-blue)] hover:underline">(800) 555-0123</a></p>
+        <p className="text-sm text-gray-500">Questions? Call us at <a href="tel:+18005550123" className="text-ba-blue hover:underline">(800) 555-0123</a></p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-      <h3 className="font-serif text-2xl font-bold text-[var(--ba-navy)] mb-6">Get Your Free Quote</h3>
+      <h3 className="font-serif text-2xl font-bold text-ba-navy mb-6">Get Your Free Quote</h3>
       {errors.form && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">{errors.form}</div>}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <div>
           <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-          <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.firstName ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-[var(--ba-blue)] focus:border-transparent`} placeholder="John" />
+          <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.firstName ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-ba-blue focus:border-transparent`} placeholder="John" />
           {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
         </div>
         <div>
           <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-          <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.lastName ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-[var(--ba-blue)] focus:border-transparent`} placeholder="Smith" />
+          <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.lastName ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-ba-blue focus:border-transparent`} placeholder="Smith" />
           {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
         </div>
       </div>
       <div className="mb-4">
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-        <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-[var(--ba-blue)] focus:border-transparent`} placeholder="(555) 123-4567" />
+        <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-ba-blue focus:border-transparent`} placeholder="(555) 123-4567" />
         {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <div>
           <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">State *</label>
-          <select id="state" name="state" value={formData.state} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.state ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-[var(--ba-blue)] focus:border-transparent bg-white`}>
+          <select id="state" name="state" value={formData.state} onChange={handleChange} className={`w-full px-4 py-3 rounded-lg border ${errors.state ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-ba-blue focus:border-transparent bg-white`}>
             <option value="">Select State</option>
             {US_STATES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
           </select>
@@ -109,13 +109,13 @@ export default function LeadForm() {
         </div>
         <div>
           <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">Age *</label>
-          <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} min="18" max="100" className={`w-full px-4 py-3 rounded-lg border ${errors.age ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-[var(--ba-blue)] focus:border-transparent`} placeholder="65" />
+          <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} min="18" max="100" className={`w-full px-4 py-3 rounded-lg border ${errors.age ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-ba-blue focus:border-transparent`} placeholder="65" />
           {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age}</p>}
         </div>
       </div>
       <div className="mb-4">
         <label htmlFor="tobacco" className="block text-sm font-medium text-gray-700 mb-1">Tobacco Use (Optional)</label>
-        <select id="tobacco" name="tobacco" value={formData.tobacco} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ba-blue)] focus:border-transparent bg-white">
+        <select id="tobacco" name="tobacco" value={formData.tobacco} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ba-blue focus:border-transparent bg-white">
           <option value="">Prefer not to say</option>
           <option value="no">No tobacco use</option>
           <option value="yes">Yes, tobacco user</option>
@@ -123,16 +123,16 @@ export default function LeadForm() {
       </div>
       <div className="mb-4">
         <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">Additional Notes (Optional)</label>
-        <textarea id="notes" name="notes" value={formData.notes} onChange={handleChange} rows={3} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ba-blue)] focus:border-transparent" placeholder="Any questions or specific coverage needs..." />
+        <textarea id="notes" name="notes" value={formData.notes} onChange={handleChange} rows={3} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ba-blue focus:border-transparent" placeholder="Any questions or specific coverage needs..." />
       </div>
       <div className="mb-6">
         <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" name="consent" checked={formData.consent} onChange={handleChange} className="mt-1 w-5 h-5 text-[var(--ba-blue)] rounded border-gray-300 focus:ring-[var(--ba-blue)]" />
+          <input type="checkbox" name="consent" checked={formData.consent} onChange={handleChange} className="mt-1 w-5 h-5 text-ba-blue rounded border-gray-300 focus:ring-ba-blue" />
           <span className="text-sm text-gray-600">I agree to be contacted by phone, text, and/or email regarding insurance products. Message and data rates may apply. Consent is not a condition of purchase. *</span>
         </label>
         {errors.consent && <p className="text-red-500 text-sm mt-1">{errors.consent}</p>}
       </div>
-      <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-[var(--ba-gold)] text-[var(--ba-navy)] font-semibold rounded-lg hover:opacity-90 transition-colors text-lg disabled:opacity-50 disabled:cursor-not-allowed">
+      <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg disabled:opacity-50 disabled:cursor-not-allowed">
         {isSubmitting ? <span className="flex items-center justify-center gap-2"><svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg>Submitting...</span> : "Get My Free Quote"}
       </button>
       <div className="mt-6"><DisclaimerBlock variant="form" /></div>

@@ -13,7 +13,7 @@ interface PageHeaderProps {
 
 export default function PageHeader({ title, subtitle, breadcrumbs }: PageHeaderProps) {
   return (
-    <div className="bg-gradient-to-br from-[var(--ba-navy)] via-[var(--ba-navy)] to-[#1a3a5c] text-white py-12 md:py-16 relative overflow-hidden">
+    <div className="bg-linear-to-br from-ba-navy via-ba-navy to-[#1a3a5c] text-white py-12 md:py-16 relative overflow-hidden">
       {/* Shield pattern background */}
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none" aria-hidden="true">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">

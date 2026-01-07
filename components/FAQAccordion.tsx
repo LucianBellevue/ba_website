@@ -25,9 +25,9 @@ export default function FAQAccordion({ faqs, className = "" }: FAQAccordionProps
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
             aria-expanded={openIndex === index}
           >
-            <span className="font-semibold text-[var(--ba-navy)] pr-4">{faq.question}</span>
+            <span className="font-semibold text-ba-navy pr-4">{faq.question}</span>
             <svg
-              className={`w-5 h-5 text-[var(--ba-blue)] shrink-0 transition-transform ${openIndex === index ? "rotate-180" : ""}`}
+              className={`w-5 h-5 text-ba-blue shrink-0 transition-transform ${openIndex === index ? "rotate-180" : ""}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -36,7 +36,7 @@ export default function FAQAccordion({ faqs, className = "" }: FAQAccordionProps
             </svg>
           </button>
           {openIndex === index && (
-            <div className="px-6 pb-4 text-[var(--ba-text)]">
+            <div className="px-6 pb-4 text-ba-text">
               <p>{faq.answer}</p>
             </div>
           )}

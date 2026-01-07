@@ -29,11 +29,11 @@ export default function LifeInsuranceForSeniorsPage() {
       />
       <section className="py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">Life Insurance Options for Seniors</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Life Insurance Options for Seniors</h2>
           <p className="text-lg text-gray-700 mb-6">Finding life insurance as a senior doesn&apos;t have to be complicated or expensive. Whether you&apos;re 50, 65, or 80, there are coverage options designed to fit your needs and budget.</p>
           <p className="text-lg text-gray-700 mb-8">Many seniors choose final expense insurance to cover funeral costs and leave a small legacy for their loved ones. These policies offer affordable premiums, no medical exams, and guaranteed acceptance options.</p>
           
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">Coverage Options</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Coverage Options</h2>
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {[
               { title: "Final Expense Insurance", desc: "Whole life coverage from $5,000-$35,000 to cover funeral costs and small debts." },
@@ -41,14 +41,14 @@ export default function LifeInsuranceForSeniorsPage() {
               { title: "Simplified Issue", desc: "Limited health questions, no medical exam. Good rates for those in reasonably good health." },
               { title: "Graded Benefit", desc: "Coverage with a waiting period. Full benefit after 2-3 years, partial benefit before." },
             ].map((item, i) => (
-              <div key={i} className="bg-[var(--ba-bg)] p-6 rounded-lg">
-                <h3 className="font-serif text-lg font-bold text-[var(--ba-navy)] mb-2">{item.title}</h3>
+              <div key={i} className="bg-ba-bg p-6 rounded-lg">
+                <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
 
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">Common Questions</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Common Questions</h2>
           <FAQAccordion faqs={faqs} />
         </div>
       </section>

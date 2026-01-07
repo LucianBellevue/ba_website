@@ -13,9 +13,9 @@ export default function Logo({ className = "", variant = "header" }: LogoProps) 
         <Image
           src="/bellevue_footer_logo.svg"
           alt="Bellevue Assurance"
-          width={240}
-          height={80}
-          className="h-16 md:h-20 w-auto brightness-0 invert"
+          width={400}
+          height={120}
+          className="h-24 md:h-32 w-auto brightness-0 invert"
           priority
         />
       </Link>
@@ -41,9 +41,9 @@ export default function Logo({ className = "", variant = "header" }: LogoProps) 
       <Image
         src="/header_logo.svg"
         alt="Bellevue Assurance"
-        width={280}
-        height={80}
-        className="h-12 sm:h-14 md:h-16 w-auto max-w-[180px] sm:max-w-[220px] md:max-w-none"
+        width={400}
+        height={120}
+        className="h-16 sm:h-20 md:h-24 w-auto"
         priority
       />
     </Link>

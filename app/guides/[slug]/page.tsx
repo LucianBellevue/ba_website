@@ -41,26 +41,26 @@ export default async function GuidePage({ params }: Props) {
             ))}
           </div>
           
-          <div className="mt-12 p-6 bg-[var(--ba-bg)] rounded-lg">
-            <h3 className="font-serif text-xl font-bold text-[var(--ba-navy)] mb-4">Ready to Get Started?</h3>
+          <div className="mt-12 p-6 bg-ba-bg rounded-lg">
+            <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Ready to Get Started?</h3>
             <p className="text-gray-700 mb-4">Our licensed agents can answer your questions and provide personalized quotes.</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href={SITE_CONFIG.phoneTel} className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--ba-navy)] text-white font-semibold rounded-lg">
+              <a href={SITE_CONFIG.phoneTel} className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-ba-navy text-white font-semibold rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                 Call {SITE_CONFIG.phoneFormatted}
               </a>
-              <Link href="/get-a-quote" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--ba-gold)] text-[var(--ba-navy)] font-semibold rounded-lg">Get a Quote</Link>
+              <Link href="/get-a-quote" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg">Get a Quote</Link>
             </div>
           </div>
 
           {otherGuides.length > 0 && (
             <div className="mt-12">
-              <h3 className="font-serif text-2xl font-bold text-[var(--ba-navy)] mb-6">Related Guides</h3>
+              <h3 className="font-serif text-2xl font-bold text-ba-navy mb-6">Related Guides</h3>
               <div className="grid md:grid-cols-3 gap-4">
                 {otherGuides.map((g) => (
-                  <Link key={g.slug} href={`/guides/${g.slug}`} className="block p-4 bg-white rounded-lg border border-gray-200 hover:border-[var(--ba-blue)] transition-colors">
-                    <span className="text-xs text-[var(--ba-blue)] uppercase">{g.category}</span>
-                    <h4 className="font-semibold text-[var(--ba-navy)] mt-1">{g.title}</h4>
+                  <Link key={g.slug} href={`/guides/${g.slug}`} className="block p-4 bg-white rounded-lg border border-gray-200 hover:border-ba-blue transition-colors">
+                    <span className="text-xs text-ba-blue uppercase">{g.category}</span>
+                    <h4 className="font-semibold text-ba-navy mt-1">{g.title}</h4>
                   </Link>
                 ))}
               </div>

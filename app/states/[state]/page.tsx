@@ -38,22 +38,22 @@ export default async function StatePage({ params }: Props) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-lg text-gray-700 mb-8">{state.shortBlurb}</p>
           
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">How Phone Enrollment Works in {state.name}</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">How Phone Enrollment Works in {state.name}</h2>
           <p className="text-lg text-gray-700 mb-8">{state.phoneEnrollmentNote}</p>
           
-          <div className="bg-[var(--ba-bg)] rounded-lg p-6 mb-8">
-            <h3 className="font-serif text-xl font-bold text-[var(--ba-navy)] mb-4">Getting Started is Easy</h3>
+          <div className="bg-ba-bg rounded-lg p-6 mb-8">
+            <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Getting Started is Easy</h3>
             <ol className="space-y-3">
               {["Call our toll-free number or request a quote online", "Speak with a licensed agent about your coverage needs", "Compare quotes from multiple carriers", "Complete your application over the phone", "Get approved and start coverage"].map((step, i) => (
                 <li key={i} className="flex items-start gap-3 text-gray-700">
-                  <span className="w-6 h-6 bg-[var(--ba-gold)] text-[var(--ba-navy)] rounded-full flex items-center justify-center font-bold text-sm shrink-0">{i + 1}</span>
+                  <span className="w-6 h-6 bg-ba-gold text-ba-navy rounded-full flex items-center justify-center font-bold text-sm shrink-0">{i + 1}</span>
                   <span>{step}</span>
                 </li>
               ))}
             </ol>
           </div>
 
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">{state.name} Final Expense Insurance FAQ</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">{state.name} Final Expense Insurance FAQ</h2>
           <FAQAccordion faqs={faqs} />
           
           <div className="mt-8"><DisclaimerBlock /></div>

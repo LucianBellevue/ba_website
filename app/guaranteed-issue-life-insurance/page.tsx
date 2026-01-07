@@ -30,12 +30,12 @@ export default function GuaranteedIssueLifeInsurancePage() {
       />
       <section className="py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">What is Guaranteed Issue Life Insurance?</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">What is Guaranteed Issue Life Insurance?</h2>
           <p className="text-lg text-gray-700 mb-6">Guaranteed issue life insurance is designed for people who may have difficulty qualifying for traditional life insurance due to health conditions. These policies do not ask health questions and do not require a medical exam.</p>
           <p className="text-lg text-gray-700 mb-8">If you&apos;re within the eligible age range (typically 50-85), you can be accepted for coverage regardless of your health status. This makes guaranteed issue an important option for people with serious health conditions.</p>
           
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
-            <h3 className="font-serif text-lg font-bold text-[var(--ba-navy)] mb-3">Important Considerations</h3>
+            <h3 className="font-serif text-lg font-bold text-ba-navy mb-3">Important Considerations</h3>
             <ul className="space-y-2 text-gray-700">
               <li>• <strong>Graded benefit period:</strong> Most policies have a 2-year waiting period for full benefits on natural death</li>
               <li>• <strong>Higher premiums:</strong> Expect to pay more than simplified issue policies due to higher insurer risk</li>
@@ -44,17 +44,17 @@ export default function GuaranteedIssueLifeInsurancePage() {
             </ul>
           </div>
 
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">Who Should Consider Guaranteed Issue?</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Who Should Consider Guaranteed Issue?</h2>
           <ul className="space-y-3 mb-8">
             {["People with serious health conditions who can't qualify for other coverage", "Those who have been declined for traditional life insurance", "Anyone who wants coverage without answering health questions", "Seniors who want guaranteed acceptance within age limits"].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-lg text-gray-700">
-                <svg className="w-6 h-6 text-[var(--ba-gold)] shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                <svg className="w-6 h-6 text-ba-gold shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
 
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">Common Questions</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Common Questions</h2>
           <FAQAccordion faqs={faqs} />
           
           <div className="mt-8"><DisclaimerBlock /></div>

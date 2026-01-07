@@ -22,7 +22,7 @@ export default function Breadcrumbs({ items, variant = "dark" }: BreadcrumbsProp
               {i === items.length - 1 ? (
                 <span className={isLight ? 'text-gray-600' : 'text-gray-300'}>{item.name}</span>
               ) : (
-                <Link href={item.href} className={`hover:underline ${isLight ? 'text-[var(--ba-blue)]' : 'text-[var(--ba-gold)]'}`}>{item.name}</Link>
+                <Link href={item.href} className={`hover:underline ${isLight ? 'text-ba-blue' : 'text-ba-gold'}`}>{item.name}</Link>
               )}
             </li>
           ))}

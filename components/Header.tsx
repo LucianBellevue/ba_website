@@ -44,7 +44,7 @@ export default function Header() {
             >
               <button
                 type="button"
-                className="flex items-center gap-1 text-[var(--ba-text)] hover:text-[var(--ba-blue)] transition-colors font-medium text-base"
+                className="flex items-center gap-1 text-ba-text hover:text-ba-blue transition-colors font-medium text-base"
                 onClick={() => setServicesOpen(!servicesOpen)}
                 aria-expanded={servicesOpen}
               >
@@ -59,21 +59,21 @@ export default function Header() {
                         <Link
                           key={link.href}
                           href={link.href}
-                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-[var(--ba-bg)] transition-colors group"
+                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-ba-bg transition-colors group"
                           onClick={() => setServicesOpen(false)}
                         >
-                          <div className="w-10 h-10 rounded-lg bg-[var(--ba-blue)] bg-opacity-10 flex items-center justify-center shrink-0 group-hover:bg-opacity-20 transition-colors">
-                            <HiShieldCheck size={20} color="var(--ba-blue)" />
+                          <div className="w-10 h-10 rounded-lg bg-ba-blue bg-opacity-10 flex items-center justify-center shrink-0 group-hover:bg-opacity-20 transition-colors">
+                            <HiShieldCheck size={20} color="white" />
                           </div>
                           <div>
-                            <div className="font-semibold text-[var(--ba-navy)] group-hover:text-[var(--ba-blue)] transition-colors">{link.label}</div>
+                            <div className="font-semibold text-ba-navy group-hover:text-ba-blue transition-colors">{link.label}</div>
                             <div className="text-sm text-gray-500">{link.desc}</div>
                           </div>
                         </Link>
                       ))}
                     </div>
-                    <div className="bg-[var(--ba-bg)] p-4 border-t border-gray-100">
-                      <Link href="/get-a-quote" className="flex items-center justify-between text-[var(--ba-navy)] font-semibold hover:text-[var(--ba-blue)] transition-colors" onClick={() => setServicesOpen(false)}>
+                    <div className="bg-ba-bg p-4 border-t border-gray-100">
+                      <Link href="/get-a-quote" className="flex items-center justify-between text-ba-navy font-semibold hover:text-ba-blue transition-colors" onClick={() => setServicesOpen(false)}>
                         <span>Get a Free Quote</span>
                         <FiArrowRight size={20} />
                       </Link>
@@ -87,7 +87,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[var(--ba-text)] hover:text-[var(--ba-blue)] transition-colors font-medium text-base"
+                className="text-ba-text hover:text-ba-blue transition-colors font-medium text-base"
               >
                 {link.label}
               </Link>
@@ -97,21 +97,21 @@ export default function Header() {
             <a
               href={SITE_CONFIG.phoneTel}
               onClick={handleCallClick}
-              className="flex items-center gap-2 text-[var(--ba-navy)] font-semibold hover:text-[var(--ba-blue)] transition-colors"
+              className="flex items-center gap-2 text-ba-navy font-semibold hover:text-ba-blue transition-colors"
             >
 <FiPhone size={20} />
               <span className="hidden xl:inline">Call Now:</span> {SITE_CONFIG.phoneFormatted}
             </a>
             <Link
               href="/get-a-quote"
-              className="inline-flex items-center px-5 py-2.5 bg-[var(--ba-gold)] text-[var(--ba-navy)] font-semibold rounded-lg hover:opacity-90 transition-all shadow-sm"
+              className="inline-flex items-center px-5 py-2.5 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-all shadow-sm"
             >
               Get a Quote
             </Link>
           </div>
           <button
             type="button"
-            className="lg:hidden p-2 text-[var(--ba-navy)]"
+            className="lg:hidden p-2 text-ba-navy"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"
@@ -130,7 +130,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block py-2 text-[var(--ba-text)] hover:text-[var(--ba-blue)] font-medium"
+                  className="block py-2 text-ba-text hover:text-ba-blue font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -142,7 +142,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block py-2 text-[var(--ba-text)] hover:text-[var(--ba-blue)] font-medium"
+                  className="block py-2 text-ba-text hover:text-ba-blue font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -153,14 +153,14 @@ export default function Header() {
               <a
                 href={SITE_CONFIG.phoneTel}
                 onClick={handleCallClick}
-                className="flex items-center justify-center gap-2 py-3 bg-[var(--ba-navy)] text-white font-semibold rounded-lg"
+                className="flex items-center justify-center gap-2 py-3 bg-ba-navy text-white font-semibold rounded-lg"
               >
 <FiPhone size={20} color="white" />
                 Call {SITE_CONFIG.phoneFormatted}
               </a>
               <Link
                 href="/get-a-quote"
-                className="block text-center py-3 bg-[var(--ba-gold)] text-[var(--ba-navy)] font-semibold rounded-lg"
+                className="block text-center py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Get a Quote

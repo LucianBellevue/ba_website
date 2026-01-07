@@ -29,21 +29,21 @@ export default function BurialInsurancePage() {
       />
       <section className="py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">What is Burial Insurance?</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">What is Burial Insurance?</h2>
           <p className="text-lg text-gray-700 mb-6">Burial insurance is a type of whole life insurance designed to cover the costs associated with your funeral and burial. With average funeral costs ranging from $7,000 to $12,000, burial insurance ensures your family won&apos;t face unexpected expenses during an already difficult time.</p>
           <p className="text-lg text-gray-700 mb-8">Unlike pre-paid funeral plans that lock you into specific services at a particular funeral home, burial insurance provides your beneficiary with a flexible cash benefit they can use as needed.</p>
           
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">Benefits of Burial Insurance</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Benefits of Burial Insurance</h2>
           <ul className="space-y-3 mb-8">
             {["Fixed premiums that never increase", "Coverage that lasts your entire life", "No medical exam required for most policies", "Cash benefit your family can use flexibly", "Builds cash value over time", "Quick approval process"].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-lg text-gray-700">
-                <svg className="w-6 h-6 text-[var(--ba-gold)] shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                <svg className="w-6 h-6 text-ba-gold shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
 
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--ba-navy)] mb-6">Common Questions</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Common Questions</h2>
           <FAQAccordion faqs={faqs} />
         </div>
       </section>
