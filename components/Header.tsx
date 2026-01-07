@@ -3,33 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
+import NavDropdown from "./NavDropdown";
 import { SITE_CONFIG } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
-import { FiPhone, FiChevronDown, FiArrowRight, FiMenu, FiX } from "react-icons/fi";
-import { HiShieldCheck } from "react-icons/hi";
-
-const serviceLinks = [
-  { href: "/term-life-insurance", label: "Term Life Insurance", desc: "Affordable coverage for a set period" },
-  { href: "/final-expense-insurance", label: "Final Expense Insurance", desc: "Coverage for end-of-life costs" },
-  { href: "/burial-insurance", label: "Burial Insurance", desc: "Funeral and burial coverage" },
-  { href: "/guaranteed-issue-life-insurance", label: "Guaranteed Issue", desc: "No health questions asked" },
-  { href: "/quotes", label: "Free Quote Calculator", desc: "Get an instant estimate online" },
-];
-
-const mainLinks = [
-  { href: "/quotes", label: "Get Estimate" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/states", label: "Coverage Areas" },
-  { href: "/guides", label: "Guides" },
-  { href: "/faq", label: "FAQ" },
-];
+import { mainNavigation, mobileNavSections } from "@/lib/navigation";
+import { FiPhone, FiMenu, FiX } from "react-icons/fi";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
 
   const handleCallClick = () => {
     trackEvent("call_click", { location: "header" });
+  };
+
+  const toggleMobileSection = (title: string) => {
+    setMobileAccordion(mobileAccordion === title ? null : title);
   };
 
   return (
@@ -37,71 +26,35 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px] md:h-[88px]">
           <Logo />
-          <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
-            {/* Services Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
-              <button
-                type="button"
-                className="flex items-center gap-1 text-ba-text hover:text-ba-blue transition-colors font-medium text-base"
-                onClick={() => setServicesOpen(!servicesOpen)}
-                aria-expanded={servicesOpen}
-              >
-                Services
-                <span className={`inline-block transition-transform ${servicesOpen ? 'rotate-180' : ''}`}><FiChevronDown size={16} /></span>
-              </button>
-              {servicesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-[400px]">
-                  <div className="bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
-                    <div className="p-2">
-                      {serviceLinks.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-ba-bg transition-colors group"
-                          onClick={() => setServicesOpen(false)}
-                        >
-                          <div className="w-10 h-10 rounded-lg bg-ba-blue bg-opacity-10 flex items-center justify-center shrink-0 group-hover:bg-opacity-20 transition-colors">
-                            <HiShieldCheck size={20} color="white" />
-                          </div>
-                          <div>
-                            <div className="font-semibold text-ba-navy group-hover:text-ba-blue transition-colors">{link.label}</div>
-                            <div className="text-sm text-gray-500">{link.desc}</div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="bg-ba-bg p-4 border-t border-gray-100">
-                      <Link href="/get-a-quote" className="flex items-center justify-between text-ba-navy font-semibold hover:text-ba-blue transition-colors" onClick={() => setServicesOpen(false)}>
-                        <span>Get a Free Quote</span>
-                        <FiArrowRight size={20} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Other nav links */}
-            {mainLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-ba-text hover:text-ba-blue transition-colors font-medium text-base"
-              >
-                {link.label}
-              </Link>
-            ))}
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+            {mainNavigation.map((item) => {
+              if (item.type === "dropdown" && item.dropdown) {
+                return (
+                  <NavDropdown key={item.dropdown.id} dropdown={item.dropdown} />
+                );
+              }
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href!}
+                  className="text-ba-text hover:text-ba-blue transition-colors font-medium text-base px-4 py-2"
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
+
+          {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-4">
             <a
               href={SITE_CONFIG.phoneTel}
               onClick={handleCallClick}
               className="flex items-center gap-2 text-ba-navy font-semibold hover:text-ba-blue transition-colors"
             >
-<FiPhone size={20} />
+              <FiPhone size={20} />
               <span className="hidden xl:inline">Call Now:</span> {SITE_CONFIG.phoneFormatted}
             </a>
             <Link
@@ -111,6 +64,8 @@ export default function Header() {
               Get a Quote
             </Link>
           </div>
+
+          {/* Mobile Menu Toggle */}
           <button
             type="button"
             className="lg:hidden p-2 text-ba-navy"
@@ -118,46 +73,63 @@ export default function Header() {
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"
           >
-{mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+            {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200">
-          <nav className="px-4 py-4 space-y-2" aria-label="Mobile navigation">
-            {/* Mobile Services Section */}
-            <div className="pb-2">
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Insurance Products</div>
-              {serviceLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block py-2 text-ba-text hover:text-ba-blue font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+        <div className="lg:hidden bg-white border-t border-gray-200 max-h-[calc(100vh-72px)] overflow-y-auto">
+          <nav className="px-4 py-4 space-y-1" aria-label="Mobile navigation">
+            {mobileNavSections.map((section) => (
+              <div key={section.title} className="border-b border-gray-100 pb-2 mb-2">
+                <button
+                  type="button"
+                  onClick={() => toggleMobileSection(section.title)}
+                  className="w-full flex items-center justify-between py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider"
                 >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-            <div className="border-t border-gray-200 pt-2">
-              {mainLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block py-2 text-ba-text hover:text-ba-blue font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-            <div className="pt-4 border-t border-gray-200 space-y-3">
+                  {section.title}
+                  <span className={`transition-transform ${mobileAccordion === section.title ? "rotate-180" : ""}`}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </span>
+                </button>
+                {mobileAccordion === section.title && (
+                  <div className="pb-2">
+                    {section.links.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="block py-2.5 pl-2 text-ba-text hover:text-ba-blue font-medium"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Quick Links */}
+            <Link
+              href="/quotes"
+              className="block py-2.5 text-ba-text hover:text-ba-blue font-medium"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Get Estimate
+            </Link>
+
+            {/* Mobile CTAs */}
+            <div className="pt-4 border-t border-gray-200 space-y-3 mt-2">
               <a
                 href={SITE_CONFIG.phoneTel}
                 onClick={handleCallClick}
                 className="flex items-center justify-center gap-2 py-3 bg-ba-navy text-white font-semibold rounded-lg"
               >
-<FiPhone size={20} color="white" />
+                <FiPhone size={20} />
                 Call {SITE_CONFIG.phoneFormatted}
               </a>
               <Link
