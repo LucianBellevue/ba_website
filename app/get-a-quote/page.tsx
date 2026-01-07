@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import LeadForm from "@/components/LeadForm";
 import TrustBar from "@/components/TrustBar";
 import { SITE_CONFIG } from "@/lib/constants";
+import { FiArrowRight } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "Get a Free Quote",
-  description: "Get your free final expense insurance quote. No obligation, no pressure. Licensed agents ready to help you find affordable coverage.",
+  description: "Get your free life insurance quote. Compare final expense and term life options. No obligation, no pressure. Licensed agents ready to help.",
 };
 
 export default function GetAQuotePage() {
@@ -33,13 +35,25 @@ export default function GetAQuotePage() {
                   </li>
                 ))}
               </ul>
-              <div className="bg-ba-bg rounded-lg p-6">
+              <div className="bg-ba-bg rounded-lg p-6 mb-6">
                 <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Prefer to Call?</h3>
                 <p className="text-gray-700 mb-4">Speak directly with a licensed agent who can answer your questions and provide quotes over the phone.</p>
                 <a href={SITE_CONFIG.phoneTel} className="inline-flex items-center gap-2 text-2xl font-bold text-ba-blue">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                   {SITE_CONFIG.phoneFormatted}
                 </a>
+              </div>
+
+              <div className="bg-white border-2 border-ba-gold rounded-lg p-6">
+                <h3 className="font-serif text-xl font-bold text-ba-navy mb-3">Not Sure What Coverage You Need?</h3>
+                <p className="text-gray-700 mb-4">Use our free quote calculator to explore coverage options and see estimated premiums instantly — no contact info required to start.</p>
+                <Link 
+                  href="/quotes" 
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors"
+                >
+                  Try the Quote Calculator
+                  <FiArrowRight size={18} />
+                </Link>
               </div>
             </div>
             <LeadForm />

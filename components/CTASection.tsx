@@ -77,14 +77,14 @@ export default function CTASection({ headline = "Ready to Get Started?", subhead
               <h2 className={`font-serif text-3xl md:text-4xl font-bold mb-4 ${isLight ? "text-ba-navy" : "text-white"}`}>{headline}</h2>
               <p className={`text-xl mb-8 max-w-2xl ${isLight ? "text-gray-700" : "text-gray-200"}`}>{subheadline}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Link href="/quotes" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg shadow-lg">
+                  Get Free Estimate
+                  <FiArrowRight size={20} color="var(--ba-navy)" />
+                </Link>
                 <a href={SITE_CONFIG.phoneTel} className={`inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold rounded-lg text-lg shadow-lg transition-colors ${isLight ? "bg-ba-navy text-white hover:opacity-90" : "bg-white text-ba-navy hover:bg-gray-100"}`}>
                   <FiPhone size={20} color={isLight ? "white" : "var(--ba-navy)"} />
                   Call {SITE_CONFIG.phoneFormatted}
                 </a>
-                <Link href="/get-a-quote" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg shadow-lg">
-                  Get a Free Quote
-                  <FiArrowRight size={20} color="var(--ba-navy)" />
-                </Link>
               </div>
             </div>
             {/* Decorative shield - hidden on mobile */}

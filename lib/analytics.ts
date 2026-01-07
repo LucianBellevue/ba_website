@@ -4,6 +4,8 @@ type AnalyticsEvent =
   | "form_success"
   | "form_error"
   | "quote_click"
+  | "estimate_click"
+  | "lead_submit"
   | "state_page_view"
   | "guide_view";
 

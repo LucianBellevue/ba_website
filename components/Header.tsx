@@ -9,13 +9,15 @@ import { FiPhone, FiChevronDown, FiArrowRight, FiMenu, FiX } from "react-icons/f
 import { HiShieldCheck } from "react-icons/hi";
 
 const serviceLinks = [
+  { href: "/term-life-insurance", label: "Term Life Insurance", desc: "Affordable coverage for a set period" },
   { href: "/final-expense-insurance", label: "Final Expense Insurance", desc: "Coverage for end-of-life costs" },
   { href: "/burial-insurance", label: "Burial Insurance", desc: "Funeral and burial coverage" },
-  { href: "/life-insurance-for-seniors", label: "Life Insurance for Seniors", desc: "Options for ages 50-85" },
   { href: "/guaranteed-issue-life-insurance", label: "Guaranteed Issue", desc: "No health questions asked" },
+  { href: "/quotes", label: "Free Quote Calculator", desc: "Get an instant estimate online" },
 ];
 
 const mainLinks = [
+  { href: "/quotes", label: "Get Estimate" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/states", label: "Coverage Areas" },
   { href: "/guides", label: "Guides" },

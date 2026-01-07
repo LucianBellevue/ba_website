@@ -75,7 +75,10 @@ lib/
 └── guides.ts                   # Guide content data
 
 data/
-└── states.ts                   # State-specific content
+├── states.ts                   # State-specific content
+└── rates/
+    ├── finalExpense.ts         # Final expense rate tables
+    └── termLife20.ts           # Term life (20-year) rate tables
 ```
 
 ## Configuration
@@ -109,6 +112,53 @@ Edit `data/states.ts` to add new state coverage pages with:
 ### Adding Guides
 
 Edit `lib/guides.ts` to add new educational content.
+
+## Quote Estimator System
+
+The site includes lead-gated quote calculators at `/quotes` for Final Expense and Term Life products.
+
+### Rate Tables
+
+Rate data is stored in `data/rates/`:
+
+- **`finalExpense.ts`** - Contains `livingPromiseNonTobacco` and `guaranteedAcceptanceNonTobacco` arrays
+- **`termLife20.ts`** - Contains `term20PreferredNonSmoker` and `term20PreferredSmoker` arrays
+
+#### Updating Rate Tables
+
+1. Open the appropriate file in `data/rates/`
+2. Update the premium values in the arrays
+3. Each row includes: `age`, `gender`, and premium amounts for different coverage levels
+4. Update the `sourceNote` string if the data source changes
+
+Example Final Expense row:
+```typescript
+{ age: 65, gender: 'female', premium10k: 41, premium15k: 60, premium20k: 79 }
+```
+
+Example Term Life row:
+```typescript
+{ age: 45, gender: 'male', premium250k: 42, premium500k: 72, premium1m: 130 }
+```
+
+### Estimate Range Calculation
+
+The system shows a range (e.g., "$52 – $68") rather than a single value to account for underwriting variations.
+
+Range percentages (`lib/rateMath.ts`):
+- **Final Expense (non-tobacco):** ±12%
+- **Final Expense (tobacco user, no tobacco table):** ±20%
+- **Term Life (non-smoker):** ±10%
+- **Term Life (smoker):** ±15%
+
+The `nearestLowerBand()` function maps user age to the closest lower age bracket (e.g., age 68 → 65 bracket).
+
+### Lead Flow
+
+1. User completes Step 1 (basics) and Step 2 (coverage details)
+2. Step 3 requires contact info (email, phone, consent) before showing results
+3. Lead is POSTed to `/api/lead` with `productType`, `inputs`, and `contact` data
+4. Only after successful submission does Step 4 (results) display
 
 ## Lead API Integration
 

@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { US_STATES } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 import DisclaimerBlock from "./DisclaimerBlock";
+import { FiDollarSign } from "react-icons/fi";
 
 interface FormData {
   firstName: string;
@@ -11,6 +13,8 @@ interface FormData {
   phone: string;
   state: string;
   age: string;
+  gender: string;
+  productType: string;
   tobacco: string;
   notes: string;
   consent: boolean;
@@ -18,7 +22,7 @@ interface FormData {
 
 export default function LeadForm() {
   const [formData, setFormData] = useState<FormData>({
-    firstName: "", lastName: "", phone: "", state: "", age: "", tobacco: "", notes: "", consent: false,
+    firstName: "", lastName: "", phone: "", state: "", age: "", gender: "", productType: "", tobacco: "", notes: "", consent: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -81,6 +85,22 @@ export default function LeadForm() {
     <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-6 md:p-8">
       <h3 className="font-serif text-2xl font-bold text-ba-navy mb-6">Get Your Free Quote</h3>
       {errors.form && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">{errors.form}</div>}
+      
+      {/* Calculator referral */}
+      <div className="bg-ba-bg border border-gray-200 rounded-lg p-4 mb-6">
+        <div className="flex items-start gap-3">
+          <FiDollarSign className="text-ba-blue shrink-0 mt-0.5" size={20} />
+          <div>
+            <p className="text-sm text-gray-700">
+              <strong>Not sure how much coverage you need?</strong> Try our free quote calculator to see estimated premiums instantly.
+            </p>
+            <Link href="/quotes" className="text-ba-blue font-medium text-sm hover:underline mt-1 inline-block">
+              Use the Quote Calculator →
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <div>
           <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
@@ -113,8 +133,26 @@ export default function LeadForm() {
           {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age}</p>}
         </div>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+          <select id="gender" name="gender" value={formData.gender} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ba-blue focus:border-transparent bg-white">
+            <option value="">Select Gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="productType" className="block text-sm font-medium text-gray-700 mb-1">Insurance Type</label>
+          <select id="productType" name="productType" value={formData.productType} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ba-blue focus:border-transparent bg-white">
+            <option value="">Not sure / Both</option>
+            <option value="final_expense">Final Expense Insurance</option>
+            <option value="term_life">Term Life Insurance</option>
+          </select>
+        </div>
+      </div>
       <div className="mb-4">
-        <label htmlFor="tobacco" className="block text-sm font-medium text-gray-700 mb-1">Tobacco Use (Optional)</label>
+        <label htmlFor="tobacco" className="block text-sm font-medium text-gray-700 mb-1">Tobacco Use</label>
         <select id="tobacco" name="tobacco" value={formData.tobacco} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ba-blue focus:border-transparent bg-white">
           <option value="">Prefer not to say</option>
           <option value="no">No tobacco use</option>

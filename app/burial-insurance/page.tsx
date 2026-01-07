@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import { FAQSchema } from "@/components/JsonLd";
+import { FiArrowRight } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "Burial Insurance",
@@ -32,6 +34,17 @@ export default function BurialInsurancePage() {
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">What is Burial Insurance?</h2>
           <p className="text-lg text-gray-700 mb-6">Burial insurance is a type of whole life insurance designed to cover the costs associated with your funeral and burial. With average funeral costs ranging from $7,000 to $12,000, burial insurance ensures your family won&apos;t face unexpected expenses during an already difficult time.</p>
           <p className="text-lg text-gray-700 mb-8">Unlike pre-paid funeral plans that lock you into specific services at a particular funeral home, burial insurance provides your beneficiary with a flexible cash benefit they can use as needed.</p>
+          
+          <div className="bg-ba-bg border border-gray-200 rounded-xl p-6 mb-8">
+            <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">See Your Estimated Premium</h3>
+            <p className="text-gray-600 mb-4">Burial insurance rates are similar to final expense. Get an estimate in minutes.</p>
+            <Link
+              href="/quotes?product=final-expense"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors"
+            >
+              Get an Estimate <FiArrowRight size={18} />
+            </Link>
+          </div>
           
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Benefits of Burial Insurance</h2>
           <ul className="space-y-3 mb-8">

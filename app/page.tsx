@@ -20,13 +20,13 @@ export default function Home() {
   return (
     <>
       <Hero
-        headline="Final Expense & Life Insurance — Fast Phone Quotes"
-        subheadline="Protect your loved ones from the financial burden of funeral costs. Get affordable coverage with fixed premiums that never increase."
+        headline="Life Insurance Made Simple — Fast Phone Quotes"
+        subheadline="Whether you need term life coverage or final expense protection, our licensed agents help you find affordable policies tailored to your needs."
         bullets={[
-          "Fixed premiums that never increase",
-          "Coverage to help with funeral and burial expenses",
-          "No medical exam options available",
-          "Flexible coverage amounts from $5,000 to $35,000",
+          "Term life & final expense options available",
+          "Competitive rates from top-rated carriers",
+          "No medical exam options for qualified applicants",
+          "Coverage from $5,000 to $500,000+",
         ]}
       />
       <TrustBar />
@@ -35,7 +35,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-ba-navy mb-4">Why Choose Bellevue Assurance?</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">We make getting final expense insurance simple, affordable, and stress-free.</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">We make getting life insurance simple, affordable, and stress-free.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
 <div className="text-center p-6">
@@ -71,9 +71,9 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
+              { title: "Term Life Insurance", href: "/term-life-insurance", desc: "Affordable coverage for a specific period—protect your family when it matters most." },
               { title: "Final Expense Insurance", href: "/final-expense-insurance", desc: "Affordable whole life coverage to help with end-of-life costs." },
               { title: "Burial Insurance", href: "/burial-insurance", desc: "Coverage specifically designed for funeral and burial expenses." },
-              { title: "Life Insurance for Seniors", href: "/life-insurance-for-seniors", desc: "Options tailored for adults 50 and older." },
               { title: "Guaranteed Issue", href: "/guaranteed-issue-life-insurance", desc: "Coverage with no health questions—acceptance for all who qualify by age." },
             ].map((product, i) => (
               <Link key={i} href={product.href} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-ba-blue transition-all">
@@ -92,7 +92,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-ba-navy mb-4">Coverage in Your State</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">We help families across the country find affordable final expense insurance.</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">We help families across the country find affordable life insurance coverage.</p>
           </div>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {states.slice(0, 8).map((state) => (
@@ -116,7 +116,28 @@ export default function Home() {
         </div>
       </section>
 
-      <CTASection showForm headline="Get Your Free Quote Today" subheadline="Speak with a licensed agent and find the right coverage for your family." />
+      <section className="py-16 md:py-20 bg-ba-blue">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">Ready to See Your Estimated Premium?</h2>
+          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">Use our free quote calculator to get an instant estimate. No phone call required.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/quotes?product=final-expense"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg"
+            >
+              Final Expense Estimate
+            </Link>
+            <Link
+              href="/quotes?product=term"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg"
+            >
+              Term Life Estimate
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <CTASection showForm headline="Prefer to Speak with an Agent?" subheadline="Call us or fill out the form below and a licensed agent will contact you." />
     </>
   );
 }

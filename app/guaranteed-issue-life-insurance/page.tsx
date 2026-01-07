@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import DisclaimerBlock from "@/components/DisclaimerBlock";
 import { FAQSchema } from "@/components/JsonLd";
+import { FiArrowRight } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "Guaranteed Issue Life Insurance",
@@ -33,6 +35,17 @@ export default function GuaranteedIssueLifeInsurancePage() {
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">What is Guaranteed Issue Life Insurance?</h2>
           <p className="text-lg text-gray-700 mb-6">Guaranteed issue life insurance is designed for people who may have difficulty qualifying for traditional life insurance due to health conditions. These policies do not ask health questions and do not require a medical exam.</p>
           <p className="text-lg text-gray-700 mb-8">If you&apos;re within the eligible age range (typically 50-85), you can be accepted for coverage regardless of your health status. This makes guaranteed issue an important option for people with serious health conditions.</p>
+          
+          <div className="bg-ba-bg border border-gray-200 rounded-xl p-6 mb-8">
+            <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">See Estimated Premiums</h3>
+            <p className="text-gray-600 mb-4">Use our calculator to compare guaranteed acceptance rates.</p>
+            <Link
+              href="/quotes?product=final-expense"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors"
+            >
+              Get an Estimate <FiArrowRight size={18} />
+            </Link>
+          </div>
           
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
             <h3 className="font-serif text-lg font-bold text-ba-navy mb-3">Important Considerations</h3>

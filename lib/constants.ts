@@ -6,13 +6,14 @@ export const SITE_CONFIG = {
   phoneFormatted: "(800) 555-0123",
   phoneTel: "tel:+18005550123",
   email: "info@bellevueassurance.com",
-  tagline: "Final Expense & Life Insurance — Fast Phone Quotes",
+  tagline: "Life Insurance Made Simple — Fast Phone Quotes",
 };
 
 export const NAV_LINKS = [
+  { href: "/quotes", label: "Get Estimate" },
+  { href: "/term-life-insurance", label: "Term Life" },
   { href: "/final-expense-insurance", label: "Final Expense" },
   { href: "/burial-insurance", label: "Burial Insurance" },
-  { href: "/life-insurance-for-seniors", label: "Life Insurance" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/states", label: "Coverage Areas" },
   { href: "/guides", label: "Guides" },
@@ -22,9 +23,10 @@ export const NAV_LINKS = [
 
 export const FOOTER_LINKS = {
   insurance: [
+    { href: "/quotes", label: "Free Quote Calculator" },
+    { href: "/term-life-insurance", label: "Term Life Insurance" },
     { href: "/final-expense-insurance", label: "Final Expense Insurance" },
     { href: "/burial-insurance", label: "Burial Insurance" },
-    { href: "/life-insurance-for-seniors", label: "Life Insurance for Seniors" },
     { href: "/guaranteed-issue-life-insurance", label: "Guaranteed Issue Life Insurance" },
   ],
   company: [
