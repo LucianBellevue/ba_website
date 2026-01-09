@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" fill="none">
+  <!-- Optimized standalone shield logo -->
+  <path d="M50 10 L25 20 v20 c0 15 10 28 25 32 c15 -4 25 -17 25 -32 v-20 L50 10 z" fill="#0E2A47" stroke="#C9A24D" stroke-width="2"/>
+  <text x="50" y="48" font-family="serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">BA</text>
+</svg>

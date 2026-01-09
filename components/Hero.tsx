@@ -65,6 +65,7 @@ export default function Hero({ headline, subheadline, bullets, showCTAs = true, 
                   width={400}
                   height={400}
                   className="relative w-64 xl:w-80 h-auto drop-shadow-2xl brightness-0 invert"
+                  loading="eager"
                 />
               </div>
             </div>

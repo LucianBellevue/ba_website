@@ -1,8 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import FinalExpenseWizard from "@/components/calculators/FinalExpenseWizard";
-import TermLifeWizard from "@/components/calculators/TermLifeWizard";
+import dynamic from "next/dynamic";
+
+const FinalExpenseWizard = dynamic(() => import("@/components/calculators/FinalExpenseWizard"), {
+  loading: () => <div className="text-center py-12">Loading calculator...</div>,
+  ssr: false,
+});
+
+const TermLifeWizard = dynamic(() => import("@/components/calculators/TermLifeWizard"), {
+  loading: () => <div className="text-center py-12">Loading calculator...</div>,
+  ssr: false,
+});
 
 interface QuotesPageClientProps {
   defaultProduct: "final-expense" | "term";

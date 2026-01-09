@@ -8,6 +8,9 @@ import { getGuideBySlug, getAllGuideSlugs, guides } from "@/lib/guides";
 
 interface Props { params: Promise<{ slug: string }> }
 
+export const dynamicParams = false;
+export const revalidate = 86400;
+
 export async function generateStaticParams() {
   return getAllGuideSlugs().map((slug) => ({ slug }));
 }

@@ -38,7 +38,7 @@ export default function TermsPage() {
           <p className="text-gray-700 mb-6">We reserve the right to modify these terms at any time. Changes will be effective upon posting to the website. Your continued use of the website constitutes acceptance of the modified terms.</p>
 
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">Contact</h2>
-          <p className="text-gray-700">Questions about these Terms of Service may be directed to info@bellevueassurance.com or (800) 555-0123.</p>
+          <p className="text-gray-700">Questions about these Terms of Service may be directed to info@bellevueassurance.com or (470) 202-8817.</p>
         </div>
       </section>
     </>

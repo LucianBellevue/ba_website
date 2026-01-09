@@ -10,6 +10,8 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const libre = Libre_Baskerville({
@@ -17,6 +19,8 @@ const libre = Libre_Baskerville({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-libre",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {

@@ -1,8 +1,15 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { SITE_CONFIG } from "@/lib/constants";
-import LeadForm from "./LeadForm";
 import { FiPhone, FiArrowRight, FiCheckCircle } from "react-icons/fi";
+
+const LeadForm = dynamic(() => import("./LeadForm"), {
+  loading: () => <div className="bg-white rounded-xl shadow-lg p-8 text-center">Loading form...</div>,
+  ssr: false,
+});
 
 interface CTASectionProps {
   headline?: string;
@@ -70,6 +77,7 @@ export default function CTASection({ headline = "Ready to Get Started?", subhead
                   height={120}
                   className="w-24 h-24 opacity-30"
                   aria-hidden="true"
+                  loading="lazy"
                 />
               </div>
             )}
@@ -97,6 +105,7 @@ export default function CTASection({ headline = "Ready to Get Started?", subhead
                   height={120}
                   className="w-24 h-24 opacity-30"
                   aria-hidden="true"
+                  loading="lazy"
                 />
               </div>
             )}

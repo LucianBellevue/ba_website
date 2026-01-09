@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
           <p className="text-gray-700 mb-6">You may request access to, correction of, or deletion of your personal information by contacting us. You may also opt out of marketing communications at any time.</p>
 
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">Contact Us</h2>
-          <p className="text-gray-700">If you have questions about this Privacy Policy, please contact us at info@bellevueassurance.com or call (800) 555-0123.</p>
+          <p className="text-gray-700">If you have questions about this Privacy Policy, please contact us at info@bellevueassurance.com or call (470) 202-8817.</p>
         </div>
       </section>
     </>

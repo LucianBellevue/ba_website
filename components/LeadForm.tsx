@@ -76,7 +76,7 @@ export default function LeadForm() {
         </div>
         <h3 className="font-serif text-2xl font-bold text-ba-navy mb-2">Thank You!</h3>
         <p className="text-gray-600 mb-4">We&apos;ve received your information. A licensed agent will call you shortly.</p>
-        <p className="text-sm text-gray-500">Questions? Call us at <a href="tel:+18005550123" className="text-ba-blue hover:underline">(800) 555-0123</a></p>
+        <p className="text-sm text-gray-500">Questions? Call us at <a href="tel:+14702028817" className="text-ba-blue hover:underline">(470) 202-8817</a></p>
       </div>
     );
   }

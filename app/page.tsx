@@ -1,13 +1,23 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
-import CTASection from "@/components/CTASection";
-import Testimonials from "@/components/Testimonials";
-import FAQAccordion from "@/components/FAQAccordion";
 import StateCard from "@/components/StateCard";
 import { states } from "@/data/states";
 import { HiShieldCheck } from "react-icons/hi";
 import { FiPhone, FiCheckCircle, FiChevronRight, FiArrowRight } from "react-icons/fi";
+
+const Testimonials = dynamic(() => import("@/components/Testimonials"), {
+  loading: () => <div className="py-16 md:py-20 bg-white"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">Loading...</div></div>,
+});
+
+const FAQAccordion = dynamic(() => import("@/components/FAQAccordion"), {
+  loading: () => <div className="text-center py-8">Loading...</div>,
+});
+
+const CTASection = dynamic(() => import("@/components/CTASection"), {
+  loading: () => <div className="py-16 md:py-20 bg-ba-blue"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">Loading...</div></div>,
+});
 
 const homeFaqs = [
   { question: "What is final expense insurance?", answer: "Final expense insurance is a type of whole life insurance designed to cover end-of-life costs such as funeral expenses, burial costs, and outstanding medical bills. It typically offers coverage amounts between $5,000 and $35,000." },

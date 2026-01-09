@@ -2,9 +2,9 @@ export const SITE_CONFIG = {
   name: "Bellevue Assurance",
   domain: "bellevueassurance.com",
   url: "https://bellevueassurance.com",
-  phone: "1-800-555-0123", // TODO: Replace with actual phone number
-  phoneFormatted: "(800) 555-0123",
-  phoneTel: "tel:+18005550123",
+  phone: "1-470-202-8817",
+  phoneFormatted: "(470) 202-8817",
+  phoneTel: "tel:+14702028817",
   email: "info@bellevueassurance.com",
   tagline: "Life Insurance Made Simple — Fast Phone Quotes",
 };

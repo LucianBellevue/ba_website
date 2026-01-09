@@ -9,6 +9,9 @@ import { getStateBySlug, getAllStateSlugs } from "@/data/states";
 
 interface Props { params: Promise<{ state: string }> }
 
+export const dynamicParams = false;
+export const revalidate = 86400;
+
 export async function generateStaticParams() {
   return getAllStateSlugs().map((state) => ({ state }));
 }
