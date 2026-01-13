@@ -46,3 +46,40 @@ export function FAQSchema({ faqs }: { faqs: FAQItem[] }) {
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }
+
+interface ArticleProps {
+  headline: string;
+  description: string;
+  datePublished: string;
+  author: string;
+  image?: string;
+}
+
+export function ArticleSchema({ headline, description, datePublished, author, image }: ArticleProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    author: {
+      "@type": "Person",
+      name: author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_CONFIG.url}/logo.png`,
+      },
+    },
+    datePublished,
+    dateModified: datePublished,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": SITE_CONFIG.url,
+    },
+    image: image || `${SITE_CONFIG.url}/logo.png`,
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}

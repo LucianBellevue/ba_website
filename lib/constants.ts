@@ -18,6 +18,7 @@ export const NAV_LINKS = [
   { href: "/how-it-works", label: "How It Works" },
   { href: "/states", label: "Coverage Areas" },
   { href: "/guides", label: "Guides" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
 ];
@@ -36,6 +37,7 @@ export const FOOTER_LINKS = {
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
     { href: "/guides", label: "Insurance Guides" },
+    { href: "/blog", label: "Blog" },
   ],
   legal: [
     { href: "/privacy-policy", label: "Privacy Policy" },
