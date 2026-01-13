@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import PageHeader from "@/components/PageHeader";
 import CTASection from "@/components/CTASection";
+import ComparisonTable, { TableHead, TableBody, TableRow, TableHeader, TableCell } from "@/components/ComparisonTable";
 import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog";
 import { FiClock, FiCalendar, FiTag, FiUser } from "react-icons/fi";
 import { ArticleSchema } from "@/components/JsonLd";
@@ -62,6 +63,12 @@ const mdxComponents = {
   ),
   code: (props: React.HTMLAttributes<HTMLElement>) => <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono" {...props} />,
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-6" {...props} />,
+  table: (props: React.TableHTMLAttributes<HTMLTableElement>) => <ComparisonTable {...props} />,
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <TableHead {...props} />,
+  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <TableBody {...props} />,
+  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => <TableRow {...props} />,
+  th: (props: React.ThHTMLAttributes<HTMLTableHeaderCellElement>) => <TableHeader {...props} />,
+  td: (props: React.TdHTMLAttributes<HTMLTableDataCellElement>) => <TableCell {...props} />,
 };
 
 export default async function BlogPostPage({ params }: Props) {
