@@ -3,8 +3,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import PageHeader from "@/components/PageHeader";
-import CTASection from "@/components/CTASection";
-import ComparisonTable, { TableHead, TableBody, TableRow, TableHeader, TableCell } from "@/components/ComparisonTable";
 import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog";
 import { FiClock, FiCalendar, FiTag, FiUser } from "react-icons/fi";
 import { ArticleSchema } from "@/components/JsonLd";
@@ -63,12 +61,29 @@ const mdxComponents = {
   ),
   code: (props: React.HTMLAttributes<HTMLElement>) => <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono" {...props} />,
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-6" {...props} />,
-  table: (props: React.TableHTMLAttributes<HTMLTableElement>) => <ComparisonTable {...props} />,
-  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <TableHead {...props} />,
-  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => <TableBody {...props} />,
-  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => <TableRow {...props} />,
-  th: (props: React.ThHTMLAttributes<HTMLTableHeaderCellElement>) => <TableHeader {...props} />,
-  td: (props: React.TdHTMLAttributes<HTMLTableDataCellElement>) => <TableCell {...props} />,
+  table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
+    <div className="overflow-x-auto my-8 rounded-lg border border-gray-200 shadow-md">
+      <table className="min-w-full border-collapse blog-table" {...props} />
+    </div>
+  ),
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className="bg-ba-navy" {...props} />
+  ),
+  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <tbody className="bg-white" {...props} />
+  ),
+  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr className="border-b border-gray-200 hover:bg-gray-50" {...props} />
+  ),
+  th: (props: React.ThHTMLAttributes<HTMLTableHeaderCellElement>) => (
+    <th className="px-4 py-3 text-left text-sm font-semibold text-white bg-ba-navy" {...props} />
+  ),
+  td: (props: React.TdHTMLAttributes<HTMLTableDataCellElement>) => (
+    <td className="px-4 py-3 text-sm text-gray-700" {...props} />
+  ),
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <img className="w-full h-auto rounded-lg shadow-md my-8" {...props} />
+  ),
 };
 
 export default async function BlogPostPage({ params }: Props) {
@@ -96,6 +111,17 @@ export default async function BlogPostPage({ params }: Props) {
           { name: post.title, href: `/blog/${post.slug}` }
         ]}
       />
+      {post.image && (
+        <div className="w-full bg-gray-100 border-b border-gray-200">
+          <div className="max-w-5xl mx-auto">
+            <img 
+              src={post.image} 
+              alt={post.title}
+              className="w-full h-auto object-cover max-h-[500px]"
+            />
+          </div>
+        </div>
+      )}
       <article className="py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-ba-bg rounded-lg p-6 mb-8">
@@ -128,7 +154,7 @@ export default async function BlogPostPage({ params }: Props) {
             )}
           </div>
 
-          <div className="prose prose-lg max-w-none">
+          <div className="max-w-none">
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
 
@@ -145,7 +171,6 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
       </article>
-      <CTASection headline="Need Help Choosing Coverage?" subheadline="Our licensed agents are here to answer your questions and provide personalized guidance." />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { FiShield, FiHelpCircle, FiMap, FiClock, FiCheckCircle, FiBook } from "react-icons/fi";
+import { FiShield, FiHelpCircle, FiMap, FiClock, FiCheckCircle, FiBook, FiFileText, FiUsers } from "react-icons/fi";
 import { IconType } from "react-icons";
 
 export interface NavLink {
@@ -83,10 +83,22 @@ export const resourcesDropdown: NavDropdown = {
       icon: FiBook,
     },
     {
+      href: "/blog",
+      label: "Blog",
+      description: "Tips and insights",
+      icon: FiFileText,
+    },
+    {
       href: "/faq",
       label: "FAQ",
       description: "Common questions answered",
       icon: FiHelpCircle,
+    },
+    {
+      href: "/about",
+      label: "About Us",
+      description: "Learn about our company",
+      icon: FiUsers,
     },
     {
       href: "/states",
