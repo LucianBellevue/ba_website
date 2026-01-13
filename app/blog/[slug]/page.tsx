@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import PageHeader from "@/components/PageHeader";
 import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog";
@@ -55,7 +56,16 @@ const mdxComponents = {
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="list-disc list-inside text-lg text-gray-700 mb-6 space-y-2" {...props} />,
   ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="list-decimal list-inside text-lg text-gray-700 mb-6 space-y-2" {...props} />,
   li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="ml-4" {...props} />,
-  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => <a className="text-ba-blue hover:text-ba-navy underline font-semibold" {...props} />,
+  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+    const { href, children, ...rest } = props;
+    const isInternal = href && (href.startsWith('/') || href.startsWith('#'));
+    const className = "text-ba-blue hover:text-ba-navy underline font-semibold";
+    
+    if (isInternal && href) {
+      return <Link href={href} className={className} {...rest}>{children}</Link>;
+    }
+    return <a href={href} className={className} target="_blank" rel="noopener noreferrer" {...rest}>{children}</a>;
+  },
   blockquote: (props: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => (
     <blockquote className="border-l-4 border-ba-gold pl-6 py-2 italic text-gray-600 my-6 bg-gray-50" {...props} />
   ),
@@ -81,9 +91,22 @@ const mdxComponents = {
   td: (props: React.TdHTMLAttributes<HTMLTableDataCellElement>) => (
     <td className="px-4 py-3 text-sm text-gray-700" {...props} />
   ),
-  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    <img className="w-full h-auto rounded-lg shadow-md my-8" {...props} />
-  ),
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    const { src, alt } = props;
+    if (!src || typeof src !== 'string') return null;
+    return (
+      <span className="block relative w-full my-8">
+        <Image
+          src={src}
+          alt={alt || ''}
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-lg shadow-md"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      </span>
+    );
+  },
 };
 
 export default async function BlogPostPage({ params }: Props) {
@@ -113,11 +136,15 @@ export default async function BlogPostPage({ params }: Props) {
       />
       {post.image && (
         <div className="w-full bg-gray-100 border-b border-gray-200">
-          <div className="max-w-5xl mx-auto">
-            <img 
+          <div className="max-w-5xl mx-auto relative">
+            <Image 
               src={post.image} 
               alt={post.title}
+              width={1200}
+              height={500}
               className="w-full h-auto object-cover max-h-[500px]"
+              style={{ width: '100%', height: 'auto' }}
+              priority
             />
           </div>
         </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
 import { getAllBlogPosts } from "@/lib/blog";
 import { FiClock, FiCalendar, FiTag } from "react-icons/fi";
@@ -35,11 +36,19 @@ export default function BlogPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post) => (
                 <article key={post.slug} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  {post.image && (
-                    <div className="aspect-video bg-ba-navy relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-ba-blue to-ba-navy opacity-80" />
-                    </div>
-                  )}
+                  <Link href={`/blog/${post.slug}`} className="block aspect-video bg-ba-navy relative overflow-hidden">
+                    {post.image ? (
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-linear-to-br from-ba-blue to-ba-navy" />
+                    )}
+                  </Link>
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="inline-flex items-center gap-1 text-xs font-semibold text-ba-blue bg-blue-50 px-2 py-1 rounded">
