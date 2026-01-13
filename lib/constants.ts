@@ -6,6 +6,7 @@ export const SITE_CONFIG = {
   phoneFormatted: "(470) 202-8817",
   phoneTel: "tel:+14702028817",
   email: "info@bellevueassurance.com",
+  npn: "21538890",
   tagline: "Life Insurance Made Simple — Fast Phone Quotes",
 };
 

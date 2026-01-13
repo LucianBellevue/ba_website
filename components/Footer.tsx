@@ -71,7 +71,7 @@ export default function Footer() {
             </ul>
             <div className="mt-6 pt-6 border-t border-gray-700">
               <p className="text-sm text-gray-400"><strong className="text-gray-300">Licensed Agents</strong></p>
-              <p className="text-sm text-gray-400 mt-1">NPN: #XXXXXXX<br />State Licenses: Available upon request</p>
+              <p className="text-sm text-gray-400 mt-1">NPN: {SITE_CONFIG.npn}<br />State Licenses: Available upon request</p>
             </div>
           </div>
         </div>

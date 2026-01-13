@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -38,7 +39,12 @@ export default function TermsPage() {
           <p className="text-gray-700 mb-6">We reserve the right to modify these terms at any time. Changes will be effective upon posting to the website. Your continued use of the website constitutes acceptance of the modified terms.</p>
 
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">Contact</h2>
-          <p className="text-gray-700">Questions about these Terms of Service may be directed to info@bellevueassurance.com or (470) 202-8817.</p>
+          <p className="text-gray-700 mb-2">Questions about these Terms of Service may be directed to:</p>
+          <p className="text-gray-700">
+            Email: {SITE_CONFIG.email}<br />
+            Phone: {SITE_CONFIG.phoneFormatted}<br />
+            NPN: {SITE_CONFIG.npn}
+          </p>
         </div>
       </section>
     </>

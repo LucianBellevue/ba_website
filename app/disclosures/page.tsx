@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import DisclaimerBlock from "@/components/DisclaimerBlock";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Disclosures",
@@ -38,7 +39,11 @@ export default function DisclosuresPage() {
           <p className="text-gray-700 mb-6">By submitting a form on our website or providing your contact information, you consent to be contacted by Bellevue Assurance and its partners via phone, text message, and email regarding insurance products. Standard message and data rates may apply. Consent is not required as a condition of purchase.</p>
 
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">Licensing Information</h2>
-          <p className="text-gray-700 mb-6">Bellevue Assurance maintains appropriate licenses in states where it conducts business. License information is available upon request. For questions about licensing, please contact us at info@bellevueassurance.com.</p>
+          <p className="text-gray-700 mb-4">Bellevue Assurance maintains appropriate licenses in states where it conducts business. License information is available upon request.</p>
+          <p className="text-gray-700 mb-6">
+            <strong>National Producer Number (NPN):</strong> {SITE_CONFIG.npn}<br />
+            For questions about licensing, please contact us at {SITE_CONFIG.email}.
+          </p>
 
           <div className="mt-12"><DisclaimerBlock /></div>
         </div>

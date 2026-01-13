@@ -6,6 +6,7 @@ import CTASection from "@/components/CTASection";
 import DisclaimerBlock from "@/components/DisclaimerBlock";
 import { FAQSchema } from "@/components/JsonLd";
 import { getStateBySlug, getAllStateSlugs } from "@/data/states";
+import { SITE_CONFIG } from "@/lib/constants";
 
 interface Props { params: Promise<{ state: string }> }
 
@@ -58,6 +59,15 @@ export default async function StatePage({ params }: Props) {
 
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">{state.name} Final Expense Insurance FAQ</h2>
           <FAQAccordion faqs={faqs} />
+          
+          {state.slug === "california" && (
+            <div className="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+              <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">California Licensed Agent</h3>
+              <p className="text-gray-700">
+                Our agents are properly licensed to serve California residents. National Producer Number (NPN): <strong>{SITE_CONFIG.npn}</strong>
+              </p>
+            </div>
+          )}
           
           <div className="mt-8"><DisclaimerBlock /></div>
         </div>
