@@ -33,7 +33,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-gray-300 text-base mb-4 text-center lg:text-left">
-              Helping families protect their loved ones with affordable final expense and life insurance coverage.
+              Helping families protect their loved ones with simplified issue term life, fast issue term, and final expense insurance coverage.
             </p>
             <a href={SITE_CONFIG.phoneTel} className="inline-flex items-center gap-2 text-ba-gold hover:text-white transition-colors font-semibold text-lg">
               <FiPhone size={20} color="var(--ba-gold)" />

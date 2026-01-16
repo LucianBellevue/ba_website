@@ -38,13 +38,13 @@ export default function Logo({ className = "", variant = "header" }: LogoProps) 
 
   return (
     <Link href="/" className={`block shrink-0 ${className}`}>
-      <Image
-        src="/header_logo.svg"
-        alt="Bellevue Assurance"
-        width={400}
-        height={120}
-        className="h-16 sm:h-20 md:h-24 w-auto"
+      <Image 
+        src="/bellevue_logo.svg" 
+        alt="Bellevue Assurance - Simplified Issue Term Life Insurance" 
+        width={280}
+        height={200}
         priority
+        className="w-40 md:w-48 h-auto"
       />
     </Link>
   );

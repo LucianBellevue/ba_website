@@ -3,6 +3,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import StateCard from "@/components/StateCard";
+import OurCarriers from "@/components/OurCarriers";
 import { states } from "@/data/states";
 import { HiShieldCheck } from "react-icons/hi";
 import { FiPhone, FiCheckCircle, FiChevronRight, FiArrowRight } from "react-icons/fi";
@@ -31,10 +32,11 @@ export default function Home() {
     <>
       <Hero
         headline="Life Insurance Made Simple — Fast Phone Quotes"
-        subheadline="Whether you need term life coverage or final expense protection, our licensed agents help you find affordable policies tailored to your needs."
+        subheadline="From simplified issue term life and fast issue term to final expense protection, our licensed agents help you find affordable policies tailored to your needs."
         bullets={[
-          "Term life & final expense options available",
-          "Competitive rates from top-rated carriers",
+          "Simplified issue term & fast issue term life insurance",
+          "Final expense and burial insurance coverage",
+          "Competitive rates from top-rated carriers like Ethos",
           "No medical exam options for qualified applicants",
           "Coverage from $5,000 to $500,000+",
         ]}
@@ -81,9 +83,9 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "Term Life Insurance", href: "/term-life-insurance", desc: "Affordable coverage for a specific period—protect your family when it matters most." },
+              { title: "Simplified Issue Term", href: "/term-life-insurance", desc: "Affordable term life coverage with minimal health questions—get approved faster." },
+              { title: "Fast Issue Term Life", href: "/term-life-insurance", desc: "Quick approval term life insurance to protect your family when it matters most." },
               { title: "Final Expense Insurance", href: "/final-expense-insurance", desc: "Affordable whole life coverage to help with end-of-life costs." },
-              { title: "Burial Insurance", href: "/burial-insurance", desc: "Coverage specifically designed for funeral and burial expenses." },
               { title: "Guaranteed Issue", href: "/guaranteed-issue-life-insurance", desc: "Coverage with no health questions—acceptance for all who qualify by age." },
             ].map((product, i) => (
               <Link key={i} href={product.href} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-ba-blue transition-all">
@@ -97,6 +99,8 @@ export default function Home() {
       </section>
 
       <Testimonials />
+
+      <OurCarriers />
 
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

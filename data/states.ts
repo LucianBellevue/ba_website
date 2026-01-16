@@ -42,16 +42,16 @@ export const states: StateData[] = [
   {
     slug: "california",
     name: "California",
-    shortBlurb: "California's enormous senior population makes it one of the largest markets for final expense insurance in the country. Our licensed agents help Golden State residents find affordable coverage options from trusted carriers.",
-    phoneEnrollmentNote: "California residents can complete their final expense insurance application entirely by phone. Our California-licensed agents provide personalized guidance and help you compare policies from multiple carriers.",
-    seoTitle: "Final Expense Insurance in California | Bellevue Assurance",
-    seoDescription: "Get final expense insurance quotes in California. Affordable burial insurance for seniors, no medical exam options. Call our licensed California agents.",
+    shortBlurb: "California residents can access simplified issue term life, fast issue term, and final expense insurance through Bellevue Insurance Center (our California DBA). Our licensed agents help Golden State residents find affordable coverage options from trusted carriers like Ethos, Ameritas, and more.",
+    phoneEnrollmentNote: "California residents can complete their life insurance application entirely by phone through Bellevue Insurance Center. Our California-licensed agents provide personalized guidance on simplified issue term, fast issue term, and final expense policies from multiple carriers.",
+    seoTitle: "Life Insurance in California - Simplified Issue Term & Final Expense | Bellevue Insurance Center",
+    seoDescription: "Get simplified issue term life, fast issue term, and final expense insurance in California. No medical exam options from Ethos and other carriers. Licensed California agents at Bellevue Insurance Center.",
     faq: [
-      { q: "How much does final expense insurance cost in California?", a: "California final expense insurance typically costs $30-$100 per month for coverage amounts between $5,000 and $25,000." },
-      { q: "Can I get burial insurance without a medical exam in California?", a: "Yes, many final expense policies in California don't require a medical exam. Simplified issue and guaranteed issue options are available." },
-      { q: "Is final expense insurance regulated in California?", a: "Yes, the California Department of Insurance regulates all insurance products sold in the state to protect consumers." },
-      { q: "What ages qualify for final expense insurance in California?", a: "Most carriers offer final expense insurance to California residents ages 50-85, with some options outside this range." },
-      { q: "How quickly can I get coverage in California?", a: "Many policies offer same-day approval and immediate coverage for California residents." }
+      { q: "What is Bellevue Insurance Center?", a: "Bellevue Insurance Center is the California business name for Bellevue Assurance. We offer the same great service, licensed agents, and insurance products including simplified issue term life, fast issue term, and final expense coverage." },
+      { q: "Can I get term life insurance without a medical exam in California?", a: "Yes, we offer simplified issue and fast issue term life insurance options that require minimal health questions and no medical exam for qualified California residents. Carriers like Ethos specialize in quick approval processes." },
+      { q: "How much does life insurance cost in California?", a: "California life insurance costs vary by product type. Simplified issue term life can start as low as $20-50/month for younger applicants, while final expense insurance typically costs $30-$100 per month for coverage amounts between $5,000 and $25,000." },
+      { q: "Is life insurance regulated in California?", a: "Yes, the California Department of Insurance regulates all insurance products sold in the state to protect consumers. Bellevue Insurance Center maintains all required California licenses." },
+      { q: "How quickly can I get approved for life insurance in California?", a: "Fast issue and simplified issue term life policies can be approved in days, often within 24-48 hours. Final expense policies may offer same-day approval for California residents." }
     ]
   },
   {

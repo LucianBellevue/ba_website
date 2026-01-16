@@ -5,7 +5,10 @@ import { SITE_CONFIG } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Disclosures",
-  description: "Important disclosures about Bellevue Assurance insurance products and services.",
+  description: "Important disclosures about Bellevue Assurance insurance products and services, including state-specific licensing information.",
+  alternates: {
+    canonical: "/disclosures",
+  },
 };
 
 export default function DisclosuresPage() {
@@ -18,10 +21,17 @@ export default function DisclosuresPage() {
       <section className="py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">About Bellevue Assurance</h2>
-          <p className="text-gray-700 mb-6">Bellevue Assurance is a licensed insurance agency that works with multiple insurance carriers to provide final expense, burial insurance, and life insurance products. We are not an insurance company; we are an independent agency that helps consumers find and apply for insurance coverage.</p>
+          <p className="text-gray-700 mb-6">Bellevue Assurance is a licensed insurance agency that works with multiple insurance carriers to provide simplified issue term life, fast issue term life, final expense, burial insurance, and life insurance products. We are not an insurance company; we are an independent agency that helps consumers find and apply for insurance coverage.</p>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6">
+            <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">California Residents</h3>
+            <p className="text-gray-700">
+              In California, we do business as <strong>Bellevue Insurance Center</strong>. All services, products, and licensed agents remain the same. This name is used to comply with California state regulations.
+            </p>
+          </div>
 
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">Product Availability</h2>
-          <p className="text-gray-700 mb-6">Insurance products and coverage options vary by state. Not all products are available in all states. Coverage amounts, premiums, and policy features are determined by the insurance carrier and may vary based on factors including age, health status, and state of residence.</p>
+          <p className="text-gray-700 mb-6">Insurance products and coverage options vary by state. Not all products are available in all states. Coverage amounts, premiums, and policy features are determined by the insurance carrier and may vary based on factors including age, health status, and state of residence. We offer simplified issue term life, fast issue term life, final expense, burial insurance, and guaranteed issue life insurance products from carriers including Ethos, Ameritas, LFG, Truestage, and Mutual of Omaha.</p>
 
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">No Government Affiliation</h2>
           <p className="text-gray-700 mb-6">Bellevue Assurance is not affiliated with, endorsed by, or connected to any government agency, including Medicare, Medicaid, the Social Security Administration, or the Department of Health and Human Services. The products we offer are not government programs.</p>

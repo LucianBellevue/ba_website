@@ -25,18 +25,25 @@ const libre = Libre_Baskerville({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bellevueassurance.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
-    default: "Bellevue Assurance | Final Expense & Life Insurance",
+    default: "Bellevue Assurance | Simplified Issue & Fast Issue Term Life Insurance",
     template: "%s | Bellevue Assurance",
   },
   description:
-    "Get affordable final expense and life insurance quotes by phone. Licensed agents, no-obligation quotes, coverage options for seniors. Call today.",
+    "Get simplified issue term life and fast issue term life insurance quotes by phone. No medical exam options from carriers like Ethos. Licensed agents, quick approval, affordable coverage.",
   keywords: [
+    "simplified issue term life insurance",
+    "fast issue term life insurance",
+    "no medical exam term life",
+    "ethos life insurance",
+    "quick approval life insurance",
     "final expense insurance",
     "burial insurance",
-    "life insurance for seniors",
     "affordable life insurance",
-    "no medical exam life insurance",
+    "no exam life insurance",
   ],
   authors: [{ name: "Bellevue Assurance" }],
   creator: "Bellevue Assurance",
@@ -47,22 +54,32 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://bellevueassurance.com",
     siteName: "Bellevue Assurance",
-    title: "Bellevue Assurance | Final Expense & Life Insurance",
+    title: "Bellevue Assurance | Simplified Issue & Fast Issue Term Life Insurance",
     description:
-      "Get affordable final expense and life insurance quotes by phone. Licensed agents, no-obligation quotes.",
+      "Get simplified issue term life and fast issue term life insurance quotes by phone. No medical exam options from carriers like Ethos. Licensed agents, quick approval.",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Bellevue Assurance" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bellevue Assurance | Final Expense & Life Insurance",
-    description: "Get affordable final expense and life insurance quotes by phone.",
+    title: "Bellevue Assurance | Simplified Issue & Fast Issue Term Life Insurance",
+    description: "Get simplified issue and fast issue term life insurance with no medical exam options. Quick approval from carriers like Ethos.",
     images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
+    googleBot: { 
+      index: true, 
+      follow: true, 
+      "max-video-preview": -1, 
+      "max-image-preview": "large", 
+      "max-snippet": 320 
+    },
   },
+  verification: {
+    google: "google-site-verification=N2AWoOyp_7NyZQsfFvSOvFBT_s57uHF-LM-NweFLFcs",
+  },
+  category: "Insurance",
 };
 
 export default function RootLayout({

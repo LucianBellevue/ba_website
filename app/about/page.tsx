@@ -6,7 +6,16 @@ import { FiCheckCircle } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn about Bellevue Assurance and our mission to help families find affordable final expense and life insurance coverage.",
+  description: "Learn about Bellevue Assurance and our mission to help families find affordable life insurance coverage including simplified issue term, fast issue term, and final expense insurance.",
+  keywords: ["simplified issue term life", "fast issue term life", "no medical exam term life", "final expense insurance", "life insurance agency"],
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Bellevue Assurance - Life Insurance Experts",
+    description: "Licensed insurance agency specializing in simplified issue term life, fast issue term, and final expense insurance. Partnered with Ethos, Ameritas, and top carriers.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {
@@ -22,24 +31,25 @@ export default function AboutPage() {
           <div className="prose max-w-none">
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Our Mission</h2>
             <p className="text-lg text-gray-700 mb-6">
-              At Bellevue Assurance, we believe every family deserves access to affordable final expense and life insurance coverage. 
+              At Bellevue Assurance, we believe every family deserves access to affordable life insurance coverage—whether you need simplified issue term life, fast issue term, or final expense protection. 
               Our mission is to simplify the process of protecting your loved ones by providing clear information, personalized guidance, 
               and compassionate service.
             </p>
             <p className="text-lg text-gray-700 mb-8">
-              We understand that discussing end-of-life planning can be difficult. That&apos;s why our licensed agents are trained to listen, 
-              answer your questions, and help you find coverage that fits your needs—without any pressure or obligation.
+              We work with modern carriers like Ethos, Ameritas, and others to offer quick approval processes with minimal health questions. 
+              Our licensed agents are trained to listen, answer your questions, and help you find coverage that fits your needs—without any pressure or obligation.
             </p>
 
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Who We Are</h2>
             <p className="text-lg text-gray-700 mb-6">
-              Bellevue Assurance is a telesales insurance agency specializing in final expense, burial insurance, and life insurance 
-              for seniors. We work with multiple top-rated insurance carriers to offer our clients a range of coverage options at 
-              competitive prices.
+              Bellevue Assurance is a licensed insurance agency specializing in simplified issue term life, fast issue term life, 
+              final expense, and burial insurance. We partner with top-rated carriers including Ethos, Ameritas, LFG, Truestage, 
+              and Mutual of Omaha to offer our clients a range of coverage options at competitive prices.
             </p>
             <p className="text-lg text-gray-700 mb-8">
               Our team of licensed agents serves families across multiple states, providing personalized quotes and enrollment 
-              assistance entirely by phone. We&apos;re committed to making the insurance process as simple and stress-free as possible.
+              assistance entirely by phone. From no medical exam term life to guaranteed issue coverage, we&apos;re committed to making 
+              the insurance process as simple and stress-free as possible.
             </p>
 
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Our Values</h2>
@@ -60,11 +70,12 @@ export default function AboutPage() {
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Why Choose Us?</h2>
             <ul className="space-y-4 mb-8">
               {[
-                "Licensed agents available to answer your questions",
-                "Quotes from multiple top-rated insurance carriers",
+                "Licensed agents specializing in term life and final expense",
+                "Quotes from carriers like Ethos, Ameritas, and more",
+                "Simplified issue and fast issue term life options",
+                "No medical exam coverage for qualified applicants",
                 "No-obligation consultations—take your time to decide",
                 "Phone-based enrollment from the comfort of your home",
-                "Coverage options for various health conditions and budgets",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-lg text-gray-700">
                   <FiCheckCircle className="w-6 h-6 text-ba-gold shrink-0 mt-0.5" />

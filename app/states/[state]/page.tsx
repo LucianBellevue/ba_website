@@ -61,9 +61,12 @@ export default async function StatePage({ params }: Props) {
           <FAQAccordion faqs={faqs} />
           
           {state.slug === "california" && (
-            <div className="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
-              <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">California Licensed Agent</h3>
-              <p className="text-gray-700">
+            <div className="mt-8 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
+              <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">California Residents — Important Notice</h3>
+              <p className="text-gray-700 mb-3">
+                In California, we do business as <strong>Bellevue Insurance Center</strong>. All services, products, and licensed agents remain the same. This name is used to comply with California state regulations.
+              </p>
+              <p className="text-gray-700 text-sm">
                 Our agents are properly licensed to serve California residents. National Producer Number (NPN): <strong>{SITE_CONFIG.npn}</strong>
               </p>
             </div>

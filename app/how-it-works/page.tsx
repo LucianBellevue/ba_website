@@ -6,7 +6,16 @@ import { FiCheckCircle, FiPhone } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "How It Works",
-  description: "Learn how easy it is to get final expense insurance with Bellevue Assurance. Simple phone enrollment, fast quotes, and coverage that starts quickly.",
+  description: "Learn how easy it is to get life insurance with Bellevue Assurance. Simplified issue term, fast issue term, and final expense options. Simple phone enrollment, fast quotes.",
+  keywords: ["simplified issue term life", "fast issue term", "no medical exam life insurance", "how to buy life insurance", "phone enrollment"],
+  alternates: {
+    canonical: "/how-it-works",
+  },
+  openGraph: {
+    title: "How to Get Life Insurance - Simple Process",
+    description: "Get simplified issue term life, fast issue term, or final expense insurance in 4 easy steps. Phone enrollment, quick approval.",
+    url: "/how-it-works",
+  },
 };
 
 const steps = [
@@ -21,7 +30,7 @@ export default function HowItWorksPage() {
     <>
       <PageHeader 
         title="How It Works"
-        subtitle="Getting final expense insurance is simple. Here's what to expect."
+        subtitle="Getting life insurance is simple. Whether you need simplified issue term, fast issue term, or final expense coverage, here's what to expect."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "How It Works", href: "/how-it-works" }]}
       />
       <section className="py-16 md:py-20">
@@ -48,8 +57,9 @@ export default function HowItWorksPage() {
             <ul className="space-y-4">
               {[
                 "A friendly, licensed agent will introduce themselves and ask about your coverage needs",
-                "We'll answer any questions you have about final expense insurance",
-                "You'll receive quotes from multiple carriers based on your age, health, and budget",
+                "We'll discuss options including simplified issue term, fast issue term, and final expense coverage",
+                "You'll receive quotes from carriers like Ethos, Ameritas, and others based on your needs",
+                "Learn about no medical exam options and quick approval processes",
                 "If you're ready, we can complete the application together over the phone",
                 "There's no obligation—take your time to decide what's right for you",
               ].map((item, i) => (
