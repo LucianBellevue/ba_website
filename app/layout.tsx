@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "google-site-verification=N2AWoOyp_7NyZQsfFvSOvFBT_s57uHF-LM-NweFLFcs",
+    google: "N2AWoOyp_7NyZQsfFvSOvFBT_s57uHF-LM-Nwe",
   },
   category: "Insurance",
 };
