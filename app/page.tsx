@@ -31,6 +31,9 @@ export default function Home() {
   return (
     <>
       <Hero
+        variant="image"
+        backgroundImage="/hero-img.jpg"
+        overlayOpacity={0.65}
         headline="Life Insurance Made Simple — Fast Phone Quotes"
         subheadline="From simplified term life and whole life to final expense protection, our licensed agents help you find affordable policies tailored to your needs."
         bullets={[
@@ -40,6 +43,7 @@ export default function Home() {
           "Guaranteed issue options for all health conditions",
           "Coverage from $5,000 to $500,000+",
         ]}
+        showShield={true}
       />
       <TrustBar />
       
