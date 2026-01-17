@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     title: "Bellevue Assurance | Simplified Term Life & Final Expense Insurance",
     description:
       "Get simplified term life, whole life, and final expense insurance quotes by phone. No medical exam options from top carriers. Licensed agents, affordable coverage.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Bellevue Assurance" }],
+    images: [{ url: "https://bellevueassurance.com/og-image.png", width: 1200, height: 630, alt: "Bellevue Assurance - Life Insurance Made Simple" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bellevue Assurance | Simplified Term Life & Final Expense Insurance",
     description: "Get simplified term life, whole life, and final expense insurance with no medical exam options. Quick approval from top carriers.",
-    images: ["/og-image.png"],
+    images: ["https://bellevueassurance.com/og-image.png"],
   },
   robots: {
     index: true,

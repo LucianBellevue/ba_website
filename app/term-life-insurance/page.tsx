@@ -5,6 +5,7 @@ import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import { FAQSchema } from "@/components/JsonLd";
 import { FiArrowRight } from "react-icons/fi";
+import { defaultOgImage } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Simplified Term Life Insurance - No Medical Exam",
@@ -16,8 +17,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Simplified Term Life Insurance - No Medical Exam Required",
     description: "No medical exam term life insurance with quick approval. Get quotes from top carriers with competitive rates.",
-    url: "/term-life-insurance",
+    url: "https://bellevueassurance.com/term-life-insurance",
     type: "website",
+    images: [defaultOgImage],
   },
 };
 

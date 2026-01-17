@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import CTASection from "@/components/CTASection";
 import TrustBar from "@/components/TrustBar";
 import { FiCheckCircle } from "react-icons/fi";
+import { defaultOgImage } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Bellevue Assurance - Life Insurance Experts",
     description: "Licensed insurance agency specializing in simplified term life, whole life, and final expense insurance. Partnered with Ameritas and top carriers.",
-    url: "/about",
+    url: "https://bellevueassurance.com/about",
+    images: [defaultOgImage],
   },
 };
 
