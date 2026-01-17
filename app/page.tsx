@@ -32,12 +32,12 @@ export default function Home() {
     <>
       <Hero
         headline="Life Insurance Made Simple — Fast Phone Quotes"
-        subheadline="From simplified issue term life and fast issue term to final expense protection, our licensed agents help you find affordable policies tailored to your needs."
+        subheadline="From simplified term life and whole life to final expense protection, our licensed agents help you find affordable policies tailored to your needs."
         bullets={[
-          "Simplified issue term & fast issue term life insurance",
-          "Final expense and burial insurance coverage",
-          "Competitive rates from top-rated carriers like Ethos",
-          "No medical exam options for qualified applicants",
+          "Simplified term life insurance with no medical exam",
+          "Whole life and final expense insurance coverage",
+          "Competitive rates from top-rated carriers",
+          "Guaranteed issue options for all health conditions",
           "Coverage from $5,000 to $500,000+",
         ]}
       />
@@ -83,10 +83,10 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "Simplified Issue Term", href: "/term-life-insurance", desc: "Affordable term life coverage with minimal health questions—get approved faster." },
-              { title: "Fast Issue Term Life", href: "/term-life-insurance", desc: "Quick approval term life insurance to protect your family when it matters most." },
-              { title: "Final Expense Insurance", href: "/final-expense-insurance", desc: "Affordable whole life coverage to help with end-of-life costs." },
-              { title: "Guaranteed Issue", href: "/guaranteed-issue-life-insurance", desc: "Coverage with no health questions—acceptance for all who qualify by age." },
+              { title: "Simplified Term Life", href: "/term-life-insurance", desc: "Affordable term life coverage with no medical exam—protect your family's future." },
+              { title: "Whole Life Insurance", href: "/final-expense-insurance", desc: "Permanent coverage with level premiums and guaranteed benefits for life." },
+              { title: "Final Expense Insurance", href: "/final-expense-insurance", desc: "Affordable whole life coverage designed to cover end-of-life costs." },
+              { title: "Guaranteed Issue", href: "/guaranteed-issue-life-insurance", desc: "Coverage with no health questions—acceptance guaranteed for qualifying ages." },
             ].map((product, i) => (
               <Link key={i} href={product.href} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-ba-blue transition-all">
                 <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">{product.title}</h3>

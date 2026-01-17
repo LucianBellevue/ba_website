@@ -6,26 +6,26 @@ import { FAQSchema } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
-  description: "Get answers to common questions about simplified issue term life, fast issue term, final expense insurance, and no medical exam coverage options.",
-  keywords: ["simplified issue term life faq", "fast issue term faq", "no medical exam life insurance questions", "final expense insurance faq"],
+  description: "Get answers to common questions about simplified term life, whole life, final expense insurance, and no medical exam coverage options.",
+  keywords: ["simplified term life faq", "whole life insurance faq", "no medical exam life insurance questions", "final expense insurance faq"],
   alternates: {
     canonical: "/faq",
   },
   openGraph: {
     title: "Life Insurance FAQ - Common Questions Answered",
-    description: "Get answers about simplified issue term life, fast issue term, and final expense insurance. No medical exam options explained.",
+    description: "Get answers about simplified term life, whole life, and final expense insurance. No medical exam options explained.",
     url: "/faq",
   },
 };
 
 const faqs = [
-  { question: "What is simplified issue term life insurance?", answer: "Simplified issue term life insurance is a type of term life policy that streamlines the application process with minimal health questions and no medical exam required. Carriers like Ethos use this approach to provide faster approvals, often within days. Coverage is available for 10, 20, or 30 years." },
-  { question: "What is fast issue term life insurance?", answer: "Fast issue term life insurance uses advanced underwriting technology to provide quick approval decisions—often within 24-48 hours. These policies typically don't require medical exams for qualified applicants, making them ideal for people who need coverage quickly." },
+  { question: "What is simplified term life insurance?", answer: "Simplified term life insurance is a type of term life policy that streamlines the application process with minimal health questions and no medical exam required. This approach provides faster approvals, often within days. Coverage is available for 10, 20, or 30 years with level premiums." },
+  { question: "What is whole life insurance?", answer: "Whole life insurance is permanent life insurance that provides coverage for your entire lifetime. It features level premiums that never increase, guaranteed death benefits, and cash value that accumulates over time. It's ideal for long-term financial planning and leaving a legacy." },
   { question: "What is final expense insurance?", answer: "Final expense insurance is a type of whole life insurance designed to cover end-of-life costs such as funeral expenses, burial costs, outstanding medical bills, and other debts. Coverage amounts typically range from $5,000 to $35,000." },
   { question: "What is the difference between final expense and burial insurance?", answer: "The terms are often used interchangeably. Both refer to small whole life insurance policies designed to cover funeral and burial costs. Some people use 'burial insurance' specifically for policies intended to cover funeral expenses only." },
-  { question: "How much does term life insurance cost?", answer: "Term life insurance costs vary by age, health, coverage amount, and term length. Simplified issue and fast issue term policies can start as low as $20-50 per month for younger, healthy applicants. We work with carriers like Ethos to find you competitive rates." },
+  { question: "How much does term life insurance cost?", answer: "Term life insurance costs vary by age, health, coverage amount, and term length. Simplified term life policies can start as low as $20-50 per month for younger, healthy applicants. We work with top carriers to find you competitive rates." },
   { question: "How much does final expense insurance cost?", answer: "Premiums vary based on age, health, coverage amount, and policy type. Most people pay between $30-$100 per month. We can provide a personalized quote based on your specific situation." },
-  { question: "Do I need a medical exam to get coverage?", answer: "Many of our policies don't require a medical exam. Simplified issue term life and fast issue term ask minimal health questions but no exam. Final expense and guaranteed issue policies also offer no-exam options for qualified applicants." },
+  { question: "Do I need a medical exam to get coverage?", answer: "Many of our policies don't require a medical exam. Simplified term life insurance asks minimal health questions but no exam for qualified applicants. Whole life, final expense, and guaranteed issue policies also offer no-exam options." },
   { question: "What ages can apply for final expense insurance?", answer: "Most carriers offer coverage to applicants ages 50-85. Some products are available to younger or older applicants depending on the carrier." },
   { question: "Can I get coverage if I have health problems?", answer: "Yes. Many carriers offer coverage to people with health conditions like diabetes, heart disease, or cancer history. Guaranteed issue policies accept all applicants regardless of health status." },
   { question: "How do I apply?", answer: "You can apply by calling our toll-free number or submitting our online quote form. A licensed agent will review your options and help you complete the application—typically in 15-30 minutes." },

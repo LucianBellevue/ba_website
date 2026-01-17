@@ -12,14 +12,14 @@ export function OrganizationSchema() {
       width: "280",
       height: "200"
     },
-    description: "Bellevue Assurance provides simplified issue term life, fast issue term life, and final expense insurance through licensed agents. Quick approval with no medical exam options from carriers like Ethos.",
+    description: "Bellevue Assurance provides simplified term life, whole life, and final expense insurance through licensed agents. Quick approval with no medical exam options from carriers like Ethos, Ameritas, and others.",
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,
     areaServed: { "@type": "Country", name: "United States" },
     serviceType: [
-      "Simplified Issue Term Life Insurance",
-      "Fast Issue Term Life Insurance",
-      "No Medical Exam Life Insurance",
+      "Simplified Term Life Insurance",
+      "No Medical Exam Term Life Insurance",
+      "Whole Life Insurance",
       "Final Expense Insurance",
       "Burial Insurance",
       "Guaranteed Issue Life Insurance"
@@ -32,7 +32,7 @@ export function OrganizationSchema() {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Simplified Issue Term Life Insurance",
+            name: "Simplified Term Life Insurance",
             description: "Quick approval term life insurance with minimal health questions and no medical exam."
           }
         },
@@ -40,8 +40,8 @@ export function OrganizationSchema() {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Fast Issue Term Life Insurance",
-            description: "Rapid approval life insurance using advanced underwriting technology."
+            name: "Whole Life Insurance",
+            description: "Permanent life insurance with level premiums and cash value accumulation."
           }
         },
         {
@@ -175,16 +175,16 @@ export function LocalBusinessSchema() {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Simplified Issue Term Life Insurance",
-            description: "Fast approval term life insurance with no medical exam"
+            name: "Simplified Term Life Insurance",
+            description: "Quick approval term life insurance with no medical exam"
           }
         },
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Fast Issue Term Life Insurance",
-            description: "Quick approval process using advanced technology"
+            name: "Whole Life Insurance",
+            description: "Permanent life insurance with guaranteed premiums and benefits"
           }
         }
       ]

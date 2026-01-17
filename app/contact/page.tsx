@@ -6,8 +6,8 @@ import { FiPhone, FiMail, FiCheckCircle } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Contact Bellevue Assurance for simplified issue term, fast issue term, and final expense insurance questions. Call our licensed agents or submit a form for a free quote.",
-  keywords: ["contact life insurance agent", "simplified issue term quote", "fast issue term quote", "life insurance help"],
+  description: "Contact Bellevue Assurance for simplified term life, whole life, and final expense insurance questions. Call our licensed agents or submit a form for a free quote.",
+  keywords: ["contact life insurance agent", "simplified term life quote", "whole life insurance quote", "life insurance help"],
   alternates: {
     canonical: "/contact",
   },
@@ -27,8 +27,8 @@ export default function ContactPage() {
             <div>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Get in Touch</h2>
               <p className="text-lg text-gray-700 mb-8">
-                Our licensed agents are available to answer your questions about simplified issue term life, 
-                fast issue term life, final expense insurance, and no medical exam coverage options. Call us directly or fill out the form 
+                Our licensed agents are available to answer your questions about simplified term life, 
+                whole life, final expense insurance, and no medical exam coverage options. Call us directly or fill out the form 
                 and we&apos;ll call you back.
               </p>
               <div className="space-y-6">

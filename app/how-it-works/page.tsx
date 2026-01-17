@@ -6,14 +6,14 @@ import { FiCheckCircle, FiPhone } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "How It Works",
-  description: "Learn how easy it is to get life insurance with Bellevue Assurance. Simplified issue term, fast issue term, and final expense options. Simple phone enrollment, fast quotes.",
-  keywords: ["simplified issue term life", "fast issue term", "no medical exam life insurance", "how to buy life insurance", "phone enrollment"],
+  description: "Learn how easy it is to get life insurance with Bellevue Assurance. Simplified term life, whole life, and final expense options. Simple phone enrollment, fast quotes.",
+  keywords: ["simplified term life insurance", "whole life insurance", "no medical exam life insurance", "how to buy life insurance", "phone enrollment"],
   alternates: {
     canonical: "/how-it-works",
   },
   openGraph: {
     title: "How to Get Life Insurance - Simple Process",
-    description: "Get simplified issue term life, fast issue term, or final expense insurance in 4 easy steps. Phone enrollment, quick approval.",
+    description: "Get simplified term life, whole life, or final expense insurance in 4 easy steps. Phone enrollment, quick approval.",
     url: "/how-it-works",
   },
 };
@@ -30,7 +30,7 @@ export default function HowItWorksPage() {
     <>
       <PageHeader 
         title="How It Works"
-        subtitle="Getting life insurance is simple. Whether you need simplified issue term, fast issue term, or final expense coverage, here's what to expect."
+        subtitle="Getting life insurance is simple. Whether you need simplified term life, whole life, or final expense coverage, here's what to expect."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "How It Works", href: "/how-it-works" }]}
       />
       <section className="py-16 md:py-20">
@@ -57,8 +57,8 @@ export default function HowItWorksPage() {
             <ul className="space-y-4">
               {[
                 "A friendly, licensed agent will introduce themselves and ask about your coverage needs",
-                "We'll discuss options including simplified issue term, fast issue term, and final expense coverage",
-                "You'll receive quotes from carriers like Ethos, Ameritas, and others based on your needs",
+                "We'll discuss options including simplified term life, whole life, and final expense coverage",
+                "You'll receive quotes from top carriers including Ethos, Ameritas, LFG, and Mutual of Omaha",
                 "Learn about no medical exam options and quick approval processes",
                 "If you're ready, we can complete the application together over the phone",
                 "There's no obligation—take your time to decide what's right for you",

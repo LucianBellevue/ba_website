@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" fill="none">
-  <!-- Optimized shield logo for header -->
-  <g>
-    <path d="M40 15 L20 23 v20 c0 15 8 27 20 31 c12 -4 20 -16 20 -31 v-20 L40 15 z" fill="#0E2A47" opacity="0.95"/>
-    <text x="75" y="55" font-family="serif" font-size="32" font-weight="bold" fill="#0E2A47">Bellevue</text>
-    <text x="75" y="80" font-family="serif" font-size="20" fill="#2F6DA3">Assurance</text>
-  </g>
-</svg>
