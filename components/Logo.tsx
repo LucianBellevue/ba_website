@@ -6,7 +6,10 @@ interface LogoProps {
   variant?: "header" | "footer" | "shield";
 }
 
-export default function Logo({ className = "", variant = "header" }: LogoProps) {
+export default function Logo({
+  className = "",
+  variant = "header",
+}: LogoProps) {
   if (variant === "footer") {
     return (
       <Link href="/" className={`block ${className}`}>
@@ -38,9 +41,9 @@ export default function Logo({ className = "", variant = "header" }: LogoProps) 
 
   return (
     <Link href="/" className={`block shrink-0 ${className}`}>
-      <Image 
-        src="/bellevue_logo.svg" 
-        alt="Bellevue Assurance - Simplified Issue Term Life Insurance" 
+      <Image
+        src="/header_logo.svg"
+        alt="Bellevue Assurance - Simplified Issue Term Life Insurance"
         width={280}
         height={200}
         priority
