@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { hubspotService } from "@/lib/hubspot";
+import { resendService } from "@/lib/resend";
 
 interface BasicLeadData {
   firstName: string;
@@ -7,6 +7,8 @@ interface BasicLeadData {
   phone: string;
   state: string;
   age: string;
+  gender?: string;
+  productType?: string;
   tobacco?: string;
   notes?: string;
   consent: boolean;
@@ -22,6 +24,11 @@ interface CalculatorLeadData {
     coverage?: string;
     policyStyle?: string;
     termLength?: string;
+  };
+  estimate?: {
+    low: number;
+    high: number;
+    coverageAmount?: string;
   };
   contact: {
     firstName: string;
@@ -58,59 +65,53 @@ export async function POST(request: NextRequest) {
       source: isCalculatorLead(data) ? data.source : 'form',
     });
 
-    // Send to HubSpot
-    let hubspotContact;
+    // Send email notification via Resend
+    let emailResult = false;
     if (isCalculatorLead(data)) {
-      hubspotContact = {
-        firstname: data.contact.firstName,
-        lastname: data.contact.lastName,
+      emailResult = await resendService.sendLeadNotification({
+        leadId,
+        firstName: data.contact.firstName,
+        lastName: data.contact.lastName,
         phone: data.contact.phone,
         email: data.contact.email,
         state: data.inputs.state,
-        age: data.inputs.age.toString(),
-        gender: data.inputs.gender,
-        tobacco_use: data.inputs.tobacco ? 'yes' : 'no',
-        insurance_type: data.productType,
-        lead_source: data.source,
-        lead_id: leadId,
-      };
+        productType: data.productType,
+        source: data.source,
+        isHighIntent: true,
+        estimate: data.estimate,
+        details: {
+          age: data.inputs.age.toString(),
+          gender: data.inputs.gender,
+          tobacco: data.inputs.tobacco ? 'Yes' : 'No',
+          coverage: data.estimate?.coverageAmount || data.inputs.coverage,
+          termLength: data.inputs.termLength,
+          policyStyle: data.inputs.policyStyle,
+        },
+      });
     } else {
-      hubspotContact = {
-        firstname: data.firstName,
-        lastname: data.lastName,
+      emailResult = await resendService.sendLeadNotification({
+        leadId,
+        firstName: data.firstName,
+        lastName: data.lastName,
         phone: data.phone,
         state: data.state,
-        age: data.age,
-        tobacco_use: data.tobacco,
+        productType: data.productType,
+        source: 'contact_form',
+        isHighIntent: false,
         notes: data.notes,
-        lead_source: 'contact_form',
-        lead_id: leadId,
-      };
-    }
-
-    const hubspotResult = await hubspotService.createOrUpdateContact(hubspotContact);
-
-    // Add detailed note for calculator leads
-    if (hubspotResult.success && isCalculatorLead(data) && hubspotResult.id) {
-      const noteContent = `Lead from ${data.source}\n\nQuote Details:\n` +
-        `- Product: ${data.productType}\n` +
-        `- Age: ${data.inputs.age}\n` +
-        `- Gender: ${data.inputs.gender}\n` +
-        `- State: ${data.inputs.state}\n` +
-        `- Tobacco: ${data.inputs.tobacco ? 'Yes' : 'No'}\n` +
-        (data.inputs.coverage ? `- Coverage: ${data.inputs.coverage}\n` : '') +
-        (data.inputs.termLength ? `- Term Length: ${data.inputs.termLength}\n` : '') +
-        (data.inputs.policyStyle ? `- Policy Style: ${data.inputs.policyStyle}\n` : '') +
-        `\nLead ID: ${leadId}`;
-      
-      await hubspotService.addNoteToContact(hubspotResult.id, noteContent);
+        details: {
+          age: data.age,
+          gender: data.gender,
+          tobacco: data.tobacco || 'Not specified',
+        },
+      });
     }
 
     return NextResponse.json({ 
       ok: true, 
       leadId, 
       message: "Lead received successfully",
-      hubspotSync: hubspotResult.success 
+      emailSent: emailResult 
     });
   } catch (error) {
     console.error("[Lead Submission Error]", error);

@@ -161,6 +161,7 @@ export default function FinalExpenseWizard() {
     try {
       const coverageAmount = getCoverageAmount(formData.coverage);
       const needsAgent = exceedsCoverageLimit(formData.age, coverageAmount);
+      const calculatedEstimate = calculateEstimate();
 
       const response = await fetch("/api/lead", {
         method: "POST",
@@ -175,8 +176,13 @@ export default function FinalExpenseWizard() {
             coverage: getCoverageLabel(formData.coverage),
             policyStyle: policyLabels[formData.policyStyle],
           },
+          estimate: calculatedEstimate ? {
+            low: calculatedEstimate.low,
+            high: calculatedEstimate.high,
+            coverageAmount: getCoverageLabel(formData.coverage),
+          } : undefined,
           contact: contactInfo,
-          source: needsAgent ? "calculator_agent_referral" : "calculator",
+          source: needsAgent ? "final_expense_calculator" : "final_expense_calculator",
           createdAt: new Date().toISOString(),
         }),
       });

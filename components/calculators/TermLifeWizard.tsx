@@ -150,6 +150,7 @@ export default function TermLifeWizard() {
     try {
       const coverageAmount = getCoverageAmount(formData.coverage);
       const needsAgent = exceedsTermCoverageLimit(formData.age, coverageAmount);
+      const calculatedEstimate = calculateEstimate();
 
       const response = await fetch("/api/lead", {
         method: "POST",
@@ -164,8 +165,13 @@ export default function TermLifeWizard() {
             coverage: getCoverageLabel(formData.coverage),
             termLength: "20 years",
           },
+          estimate: calculatedEstimate ? {
+            low: calculatedEstimate.low,
+            high: calculatedEstimate.high,
+            coverageAmount: getCoverageLabel(formData.coverage),
+          } : undefined,
           contact: contactInfo,
-          source: needsAgent ? "calculator_agent_referral" : "calculator",
+          source: needsAgent ? "term_life_calculator" : "term_life_calculator",
           createdAt: new Date().toISOString(),
         }),
       });
