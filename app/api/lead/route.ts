@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { hubspotService } from "@/lib/hubspot";
 
 interface BasicLeadData {
   firstName: string;
@@ -57,33 +58,60 @@ export async function POST(request: NextRequest) {
       source: isCalculatorLead(data) ? data.source : 'form',
     });
 
-    // TODO: Forward to CRM/webhook integration
-    // Example: Zapier webhook
-    // await fetch('https://hooks.zapier.com/hooks/catch/...', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ leadId, ...data }),
-    // });
+    // Send to HubSpot
+    let hubspotContact;
+    if (isCalculatorLead(data)) {
+      hubspotContact = {
+        firstname: data.contact.firstName,
+        lastname: data.contact.lastName,
+        phone: data.contact.phone,
+        email: data.contact.email,
+        state: data.inputs.state,
+        age: data.inputs.age.toString(),
+        gender: data.inputs.gender,
+        tobacco_use: data.inputs.tobacco ? 'yes' : 'no',
+        insurance_type: data.productType,
+        lead_source: data.source,
+        lead_id: leadId,
+      };
+    } else {
+      hubspotContact = {
+        firstname: data.firstName,
+        lastname: data.lastName,
+        phone: data.phone,
+        state: data.state,
+        age: data.age,
+        tobacco_use: data.tobacco,
+        notes: data.notes,
+        lead_source: 'contact_form',
+        lead_id: leadId,
+      };
+    }
 
-    // Example: HubSpot
-    // const contactData = isCalculatorLead(data) ? data.contact : data;
-    // await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${process.env.HUBSPOT_API_KEY}`,
-    //   },
-    //   body: JSON.stringify({
-    //     properties: {
-    //       firstname: contactData.firstName,
-    //       lastname: contactData.lastName,
-    //       phone: contactData.phone,
-    //       email: isCalculatorLead(data) ? contactData.email : undefined,
-    //     },
-    //   }),
-    // });
+    const hubspotResult = await hubspotService.createOrUpdateContact(hubspotContact);
 
-    return NextResponse.json({ ok: true, leadId, message: "Lead received successfully" });
+    // Add detailed note for calculator leads
+    if (hubspotResult.success && isCalculatorLead(data) && hubspotResult.id) {
+      const noteContent = `Lead from ${data.source}\n\nQuote Details:\n` +
+        `- Product: ${data.productType}\n` +
+        `- Age: ${data.inputs.age}\n` +
+        `- Gender: ${data.inputs.gender}\n` +
+        `- State: ${data.inputs.state}\n` +
+        `- Tobacco: ${data.inputs.tobacco ? 'Yes' : 'No'}\n` +
+        (data.inputs.coverage ? `- Coverage: ${data.inputs.coverage}\n` : '') +
+        (data.inputs.termLength ? `- Term Length: ${data.inputs.termLength}\n` : '') +
+        (data.inputs.policyStyle ? `- Policy Style: ${data.inputs.policyStyle}\n` : '') +
+        `\nLead ID: ${leadId}`;
+      
+      await hubspotService.addNoteToContact(hubspotResult.id, noteContent);
+    }
+
+    return NextResponse.json({ 
+      ok: true, 
+      leadId, 
+      message: "Lead received successfully",
+      hubspotSync: hubspotResult.success 
+    });
   } catch (error) {
     console.error("[Lead Submission Error]", error);
     return NextResponse.json({ ok: false, message: "Failed to process lead" }, { status: 500 });
