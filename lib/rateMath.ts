@@ -32,7 +32,7 @@ export function estimateRange(value: number, pct: number): { low: number; high: 
  * Get the range percentage based on product type and tobacco status
  */
 export function getRangePercentage(
-  productType: 'final_expense' | 'term_life',
+  productType: 'final_expense' | 'term_life' | 'whole_life',
   isTobacco: boolean,
   isTobaccoTableMissing: boolean = false
 ): number {
@@ -40,6 +40,12 @@ export function getRangePercentage(
     // If tobacco user but only non-tobacco table, widen range
     if (isTobacco && isTobaccoTableMissing) {
       return 20;
+    }
+    return 12;
+  } else if (productType === 'whole_life') {
+    // Whole life has wider variance due to cash value component
+    if (isTobacco) {
+      return 18;
     }
     return 12;
   } else {

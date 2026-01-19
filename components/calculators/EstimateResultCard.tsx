@@ -22,7 +22,7 @@ interface InputSummary {
 }
 
 interface EstimateResultCardProps {
-  productType: "final_expense" | "term_life";
+  productType: "final_expense" | "term_life" | "whole_life";
   estimate: EstimateResult;
   inputs: InputSummary;
   tobaccoWarning?: boolean;
@@ -57,6 +57,15 @@ const factorsTermLife = [
   { factor: "Gender", description: "Premiums may vary between male and female applicants." },
 ];
 
+const factorsWholeLife = [
+  { factor: "Age", description: "Younger applicants lock in lower rates for life." },
+  { factor: "Health Classification", description: "Preferred, standard, and substandard ratings affect your rate." },
+  { factor: "Tobacco Use", description: "Smokers pay significantly higher premiums than non-smokers." },
+  { factor: "Coverage Amount", description: "Higher face amounts result in higher monthly premiums." },
+  { factor: "Cash Value", description: "Whole life builds cash value over time, which affects pricing." },
+  { factor: "Gender", description: "Premiums may vary between male and female applicants." },
+];
+
 export default function EstimateResultCard({
   productType,
   estimate,
@@ -68,8 +77,16 @@ export default function EstimateResultCard({
 }: EstimateResultCardProps) {
   const [factorsOpen, setFactorsOpen] = useState(false);
 
-  const factors = productType === "final_expense" ? factorsFinalExpense : factorsTermLife;
-  const productLabel = productType === "final_expense" ? "Final Expense" : "Term Life";
+  const factors = productType === "final_expense" 
+    ? factorsFinalExpense 
+    : productType === "whole_life" 
+      ? factorsWholeLife 
+      : factorsTermLife;
+  const productLabel = productType === "final_expense" 
+    ? "Final Expense" 
+    : productType === "whole_life" 
+      ? "Whole Life" 
+      : "Term Life";
 
   return (
     <div className="space-y-6">

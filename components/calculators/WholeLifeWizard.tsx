@@ -9,15 +9,15 @@ import CoverageSlider from "./CoverageSlider";
 import HealthInputs from "./HealthInputs";
 import { states } from "@/data/states";
 import {
-  term20PreferredNonSmoker,
-  term20PreferredSmoker,
-  availableAges as termAges,
+  wholeLifePreferredNonTobacco,
+  wholeLifeStandardTobacco,
+  availableAges as wlAges,
   sourceNote,
-  exceedsTermCoverageLimit,
-  getMaxTermCoverageForAge,
-} from "@/data/rates/termLife20";
+  exceedsWholeLifeCoverageLimit,
+  getMaxWholeLifeCoverageForAge,
+} from "@/data/rates/wholeLife";
 import { nearestLowerBand, estimateRange, getRangePercentage, formatCurrency } from "@/lib/rateMath";
-import { calculateBMI, determineHealthClass, type HealthClassResult } from "@/lib/healthClass";
+import { calculateBMI, determineHealthClass } from "@/lib/healthClass";
 
 const stepLabels = ["Basic Info", "Health Details", "Coverage", "Contact Info", "Your Estimate"];
 
@@ -51,21 +51,21 @@ interface EstimateResult {
   baseValue: number;
 }
 
-const MIN_COVERAGE = 100000;
-const MAX_COVERAGE = 2000000;
-const COVERAGE_STEP = 50000;
+const MIN_COVERAGE = 25000;
+const MAX_COVERAGE = 250000;
+const COVERAGE_STEP = 25000;
 
-export default function TermLifeWizard() {
+export default function WholeLifeWizard() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     state: "",
-    age: 35,
+    age: 40,
     gender: "female",
     tobacco: false,
     heightFeet: 5,
     heightInches: 6,
     weightLbs: 160,
-    coverageAmount: 500000,
+    coverageAmount: 100000,
     hasChronicCondition: false,
     hasFamilyHistory: false,
     takingMedications: false,
@@ -76,11 +76,10 @@ export default function TermLifeWizard() {
   const [submitError, setSubmitError] = useState<string>();
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [requiresAgent, setRequiresAgent] = useState(false);
-  const [healthClassResult, setHealthClassResult] = useState<HealthClassResult | null>(null);
 
   // Calculate max coverage based on age
   const maxCoverageForAge = useMemo(() => {
-    return Math.min(MAX_COVERAGE, getMaxTermCoverageForAge(formData.age));
+    return Math.min(MAX_COVERAGE, getMaxWholeLifeCoverageForAge(formData.age));
   }, [formData.age]);
 
   // Ensure coverage doesn't exceed max for age
@@ -89,7 +88,7 @@ export default function TermLifeWizard() {
   const validateStep1 = (): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
     if (!formData.state) newErrors.state = "Please select a state";
-    if (formData.age < 18 || formData.age > 75) newErrors.age = "Age must be between 18 and 75";
+    if (formData.age < 25 || formData.age > 70) newErrors.age = "Age must be between 25 and 70";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -111,39 +110,38 @@ export default function TermLifeWizard() {
 
   const calculateEstimate = (): EstimateResult | null => {
     // Check if coverage exceeds limit for age
-    if (exceedsTermCoverageLimit(formData.age, effectiveCoverage)) {
+    if (exceedsWholeLifeCoverageLimit(formData.age, effectiveCoverage)) {
       return null;
     }
 
-    const ageBand = nearestLowerBand(formData.age, termAges);
-    const table = formData.tobacco ? term20PreferredSmoker : term20PreferredNonSmoker;
+    const ageBand = nearestLowerBand(formData.age, wlAges);
+    const table = formData.tobacco ? wholeLifeStandardTobacco : wholeLifePreferredNonTobacco;
     const row = table.find((r) => r.age === ageBand && r.gender === formData.gender);
 
     let baseValue = 0;
     if (row) {
-      // Find closest premium tier and interpolate
-      const coverageKey = effectiveCoverage <= 100000 ? "premium100k" 
-        : effectiveCoverage <= 250000 ? "premium250k"
-        : effectiveCoverage <= 500000 ? "premium500k"
-        : effectiveCoverage <= 750000 ? "premium750k"
-        : effectiveCoverage <= 1000000 ? "premium1m"
-        : effectiveCoverage <= 1500000 ? "premium1_5m"
-        : "premium2m";
-      
+      // Find closest premium tier
+      const coverageKey = effectiveCoverage <= 25000 ? "premium25k"
+        : effectiveCoverage <= 50000 ? "premium50k"
+        : effectiveCoverage <= 100000 ? "premium100k"
+        : effectiveCoverage <= 150000 ? "premium150k"
+        : effectiveCoverage <= 200000 ? "premium200k"
+        : "premium250k";
+
       const premium = row[coverageKey as keyof typeof row];
       if (typeof premium === "number") {
-        // Interpolate for exact coverage
-        const tierAmount = coverageKey === "premium100k" ? 100000
-          : coverageKey === "premium250k" ? 250000
-          : coverageKey === "premium500k" ? 500000
-          : coverageKey === "premium750k" ? 750000
-          : coverageKey === "premium1m" ? 1000000
-          : coverageKey === "premium1_5m" ? 1500000
-          : 2000000;
+        const tierAmount = coverageKey === "premium25k" ? 25000
+          : coverageKey === "premium50k" ? 50000
+          : coverageKey === "premium100k" ? 100000
+          : coverageKey === "premium150k" ? 150000
+          : coverageKey === "premium200k" ? 200000
+          : 250000;
         
         baseValue = premium * (effectiveCoverage / tierAmount);
       } else {
-        baseValue = row.premium250k * (effectiveCoverage / 250000);
+        // Fallback interpolation
+        const basePremium = row.premium50k || row.premium25k * 2;
+        baseValue = basePremium * (effectiveCoverage / 50000);
       }
     }
 
@@ -156,7 +154,6 @@ export default function TermLifeWizard() {
       gender: formData.gender,
       tobacco: formData.tobacco,
     });
-    setHealthClassResult(healthClass);
 
     baseValue *= healthClass.rateMultiplier;
 
@@ -165,7 +162,7 @@ export default function TermLifeWizard() {
     if (formData.hasFamilyHistory) baseValue *= 1.05;
     if (formData.takingMedications) baseValue *= 1.08;
 
-    const rangePct = getRangePercentage("term_life", formData.tobacco);
+    const rangePct = getRangePercentage("whole_life", formData.tobacco);
     const range = estimateRange(baseValue, rangePct);
 
     return { ...range, baseValue };
@@ -197,7 +194,7 @@ export default function TermLifeWizard() {
     setSubmitError(undefined);
 
     try {
-      const needsAgent = exceedsTermCoverageLimit(formData.age, effectiveCoverage);
+      const needsAgent = exceedsWholeLifeCoverageLimit(formData.age, effectiveCoverage);
       const calculatedEstimate = calculateEstimate();
       
       // Calculate BMI for internal tracking
@@ -215,14 +212,13 @@ export default function TermLifeWizard() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          productType: "term_life",
+          productType: "whole_life",
           inputs: {
             state: formData.state,
             age: formData.age,
             gender: formData.gender,
             tobacco: formData.tobacco,
             coverage: formatCurrency(effectiveCoverage),
-            termLength: "20 years",
             heightFeet: formData.heightFeet,
             heightInches: formData.heightInches,
             weightLbs: formData.weightLbs,
@@ -239,7 +235,7 @@ export default function TermLifeWizard() {
             coverageAmount: formatCurrency(effectiveCoverage),
           } : undefined,
           contact: contactInfo,
-          source: "term_life_calculator",
+          source: "whole_life_calculator",
           createdAt: new Date().toISOString(),
         }),
       });
@@ -269,13 +265,13 @@ export default function TermLifeWizard() {
     setStep(1);
     setFormData({
       state: "",
-      age: 35,
+      age: 40,
       gender: "female",
       tobacco: false,
       heightFeet: 5,
       heightInches: 6,
       weightLbs: 160,
-      coverageAmount: 500000,
+      coverageAmount: 100000,
       hasChronicCondition: false,
       hasFamilyHistory: false,
       takingMedications: false,
@@ -283,7 +279,6 @@ export default function TermLifeWizard() {
     setContact(null);
     setEstimate(null);
     setRequiresAgent(false);
-    setHealthClassResult(null);
   };
 
   const showAgeWarning = formData.age > 55;
@@ -301,11 +296,11 @@ export default function TermLifeWizard() {
           <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Tell us about yourself</h3>
 
           <div>
-            <label htmlFor="term-state" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="wl-state" className="block text-sm font-medium text-gray-700 mb-1">
               State
             </label>
             <select
-              id="term-state"
+              id="wl-state"
               value={formData.state}
               onChange={(e) => setFormData({ ...formData, state: e.target.value })}
               className={`w-full px-4 py-3 rounded-lg border ${errors.state ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-ba-blue focus:border-transparent`}
@@ -319,22 +314,22 @@ export default function TermLifeWizard() {
           </div>
 
           <div>
-            <label htmlFor="term-age" className="block text-sm font-medium text-gray-700 mb-1">
-              Age (18-75)
+            <label htmlFor="wl-age" className="block text-sm font-medium text-gray-700 mb-1">
+              Age (25-70)
             </label>
             <input
               type="number"
-              id="term-age"
-              min={18}
-              max={75}
+              id="wl-age"
+              min={25}
+              max={70}
               value={formData.age}
-              onChange={(e) => setFormData({ ...formData, age: parseInt(e.target.value) || 18 })}
+              onChange={(e) => setFormData({ ...formData, age: parseInt(e.target.value) || 25 })}
               className={`w-full px-4 py-3 rounded-lg border ${errors.age ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-ba-blue focus:border-transparent`}
             />
             {errors.age && <p className="mt-1 text-sm text-red-500">{errors.age}</p>}
             {showAgeWarning && !errors.age && (
               <p className="mt-1 text-sm text-amber-600">
-                For applicants over 60, call for personalized options.
+                For applicants over 55, coverage options may be limited.
               </p>
             )}
           </div>
@@ -472,17 +467,20 @@ export default function TermLifeWizard() {
 
           {maxCoverageForAge < MAX_COVERAGE && (
             <p className="text-xs text-amber-600">
-              Higher coverage amounts may be available — speak with an agent for options above {formatCurrency(maxCoverageForAge)}.
+              Higher coverage may be available — speak with an agent for options above {formatCurrency(maxCoverageForAge)}.
             </p>
           )}
 
           <div className="bg-ba-bg rounded-lg p-4">
             <p className="text-sm text-gray-600">
-              <strong className="text-ba-navy">Term Length:</strong> 20 years
+              <strong className="text-ba-navy">Whole Life Insurance</strong>
             </p>
-            <p className="text-xs text-gray-500 mt-1">
-              Call for 10-year or 30-year term options.
-            </p>
+            <ul className="text-xs text-gray-500 mt-2 space-y-1 list-disc list-inside">
+              <li>Permanent coverage that never expires</li>
+              <li>Builds cash value over time</li>
+              <li>Fixed premiums for life</li>
+              <li>Tax-advantaged death benefit</li>
+            </ul>
           </div>
 
           <button
@@ -501,7 +499,7 @@ export default function TermLifeWizard() {
 
       {step === 5 && requiresAgent && (
         <AgentReferralCard
-          productType="term_life"
+          productType="whole_life"
           reason="coverage_limit"
           inputs={{
             age: formData.age,
@@ -516,7 +514,7 @@ export default function TermLifeWizard() {
 
       {step === 5 && !requiresAgent && estimate && (
         <EstimateResultCard
-          productType="term_life"
+          productType="whole_life"
           estimate={estimate}
           inputs={{
             state: formData.state,
@@ -524,7 +522,6 @@ export default function TermLifeWizard() {
             gender: formData.gender,
             tobacco: formData.tobacco,
             coverage: formatCurrency(effectiveCoverage),
-            termLength: "20 years",
           }}
           ageWarning={showAgeWarning}
           onStartOver={handleStartOver}

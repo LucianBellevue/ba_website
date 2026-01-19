@@ -5,7 +5,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { FiPhone, FiArrowRight, FiAlertCircle } from "react-icons/fi";
 
 interface AgentReferralCardProps {
-  productType: "final_expense" | "term_life";
+  productType: "final_expense" | "term_life" | "whole_life";
   reason: "coverage_limit" | "income_limit" | "age_coverage" | "custom";
   customMessage?: string;
   inputs: {
@@ -25,7 +25,11 @@ export default function AgentReferralCard({
   maxAvailable,
   onEditDetails,
 }: AgentReferralCardProps) {
-  const productName = productType === "final_expense" ? "Final Expense" : "Term Life";
+  const productName = productType === "final_expense" 
+    ? "Final Expense" 
+    : productType === "whole_life" 
+      ? "Whole Life" 
+      : "Term Life";
 
   const getMessage = () => {
     switch (reason) {

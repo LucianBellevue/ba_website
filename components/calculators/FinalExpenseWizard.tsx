@@ -5,6 +5,8 @@ import QuoteWizardShell from "./QuoteWizardShell";
 import LeadGateStep from "@/components/forms/LeadGateStep";
 import EstimateResultCard from "./EstimateResultCard";
 import AgentReferralCard from "./AgentReferralCard";
+import CoverageSlider from "./CoverageSlider";
+import HealthInputs from "./HealthInputs";
 import { states } from "@/data/states";
 import {
   livingPromiseNonTobacco,
@@ -15,20 +17,26 @@ import {
   getMaxCoverageForAge,
 } from "@/data/rates/finalExpense";
 import { nearestLowerBand, estimateRange, getRangePercentage, formatCurrency } from "@/lib/rateMath";
+import { calculateBMI, determineHealthClass } from "@/lib/healthClass";
 
-const stepLabels = ["Basic Info", "Coverage Details", "Contact Info", "Your Estimate"];
+const stepLabels = ["Basic Info", "Health Details", "Coverage", "Contact Info", "Your Estimate"];
 
 type Gender = "female" | "male";
 type PolicyStyle = "immediate" | "guaranteed";
-type Coverage = "5k" | "10k" | "15k" | "20k" | "25k" | "30k" | "35k" | "40k" | "50k";
 
 interface FormData {
   state: string;
   age: number;
   gender: Gender;
   tobacco: boolean;
-  coverage: Coverage;
+  heightFeet: number;
+  heightInches: number;
+  weightLbs: number;
+  coverageAmount: number;
   policyStyle: PolicyStyle;
+  hasChronicCondition: boolean;
+  hasFamilyHistory: boolean;
+  takingMedications: boolean;
 }
 
 interface ContactInfo {
@@ -45,22 +53,14 @@ interface EstimateResult {
   baseValue: number;
 }
 
-const allCoverageOptions: { value: Coverage; amount: number; label: string }[] = [
-  { value: "5k", amount: 5000, label: "$5,000" },
-  { value: "10k", amount: 10000, label: "$10,000" },
-  { value: "15k", amount: 15000, label: "$15,000" },
-  { value: "20k", amount: 20000, label: "$20,000" },
-  { value: "25k", amount: 25000, label: "$25,000" },
-  { value: "30k", amount: 30000, label: "$30,000" },
-  { value: "35k", amount: 35000, label: "$35,000" },
-  { value: "40k", amount: 40000, label: "$40,000" },
-  { value: "50k", amount: 50000, label: "$50,000" },
-];
-
 const policyLabels: Record<PolicyStyle, string> = {
-  immediate: "Immediate (health questions)",
-  guaranteed: "Guaranteed acceptance (waiting period)",
+  immediate: "Immediate Coverage",
+  guaranteed: "Guaranteed Acceptance",
 };
+
+const MIN_COVERAGE = 5000;
+const MAX_COVERAGE = 50000;
+const COVERAGE_STEP = 5000;
 
 export default function FinalExpenseWizard() {
   const [step, setStep] = useState(1);
@@ -69,8 +69,14 @@ export default function FinalExpenseWizard() {
     age: 65,
     gender: "female",
     tobacco: false,
-    coverage: "15k",
+    heightFeet: 5,
+    heightInches: 4,
+    weightLbs: 160,
+    coverageAmount: 15000,
     policyStyle: "immediate",
+    hasChronicCondition: false,
+    hasFamilyHistory: false,
+    takingMedications: false,
   });
   const [, setContact] = useState<ContactInfo | null>(null);
   const [estimate, setEstimate] = useState<EstimateResult | null>(null);
@@ -79,21 +85,13 @@ export default function FinalExpenseWizard() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [requiresAgent, setRequiresAgent] = useState(false);
 
-  // Get available coverage options based on age
-  const availableCoverageOptions = useMemo(() => {
-    const maxCoverage = getMaxCoverageForAge(formData.age);
-    return allCoverageOptions.filter((opt) => opt.amount <= maxCoverage);
+  // Calculate max coverage based on age
+  const maxCoverageForAge = useMemo(() => {
+    return Math.min(MAX_COVERAGE, getMaxCoverageForAge(formData.age));
   }, [formData.age]);
 
-  // Get current coverage label
-  const getCoverageLabel = (coverage: Coverage): string => {
-    return allCoverageOptions.find((opt) => opt.value === coverage)?.label || coverage;
-  };
-
-  // Get coverage amount from key
-  const getCoverageAmount = (coverage: Coverage): number => {
-    return allCoverageOptions.find((opt) => opt.value === coverage)?.amount || 0;
-  };
+  // Ensure coverage doesn't exceed max for age
+  const effectiveCoverage = Math.min(formData.coverageAmount, maxCoverageForAge);
 
   const validateStep1 = (): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
@@ -103,12 +101,25 @@ export default function FinalExpenseWizard() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const validateStep2 = (): boolean => {
+    const newErrors: Partial<Record<keyof FormData, string>> = {};
+    if (formData.heightFeet < 4 || formData.heightFeet > 7) {
+      newErrors.heightFeet = "Height must be between 4 and 7 feet";
+    }
+    if (formData.heightInches < 0 || formData.heightInches > 11) {
+      newErrors.heightInches = "Inches must be between 0 and 11";
+    }
+    if (formData.weightLbs < 80 || formData.weightLbs > 500) {
+      newErrors.weightLbs = "Please enter a valid weight";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const calculateEstimate = (): EstimateResult | null => {
-    const coverageAmount = getCoverageAmount(formData.coverage);
-    
     // Check if coverage exceeds limit for age
-    if (exceedsCoverageLimit(formData.age, coverageAmount)) {
-      return null; // Will trigger agent referral
+    if (exceedsCoverageLimit(formData.age, effectiveCoverage)) {
+      return null;
     }
 
     const ageBand = nearestLowerBand(formData.age, feAges);
@@ -117,15 +128,51 @@ export default function FinalExpenseWizard() {
 
     let baseValue = 0;
     if (row) {
-      const premiumKey = `premium${formData.coverage}` as keyof typeof row;
-      const premium = row[premiumKey];
+      // Find closest premium tier
+      const coverageKey = effectiveCoverage <= 5000 ? "premium5k"
+        : effectiveCoverage <= 10000 ? "premium10k"
+        : effectiveCoverage <= 15000 ? "premium15k"
+        : effectiveCoverage <= 20000 ? "premium20k"
+        : effectiveCoverage <= 25000 ? "premium25k"
+        : effectiveCoverage <= 30000 ? "premium30k"
+        : effectiveCoverage <= 35000 ? "premium35k"
+        : effectiveCoverage <= 40000 ? "premium40k"
+        : "premium50k";
+
+      const premium = row[coverageKey as keyof typeof row];
       if (typeof premium === "number") {
-        baseValue = premium;
+        const tierAmount = coverageKey === "premium5k" ? 5000
+          : coverageKey === "premium10k" ? 10000
+          : coverageKey === "premium15k" ? 15000
+          : coverageKey === "premium20k" ? 20000
+          : coverageKey === "premium25k" ? 25000
+          : coverageKey === "premium30k" ? 30000
+          : coverageKey === "premium35k" ? 35000
+          : coverageKey === "premium40k" ? 40000
+          : 50000;
+        
+        baseValue = premium * (effectiveCoverage / tierAmount);
       } else {
-        // Interpolate if exact coverage not available
-        baseValue = row.premium10k * (coverageAmount / 10000);
+        baseValue = row.premium10k * (effectiveCoverage / 10000);
       }
     }
+
+    // Apply health class multiplier based on BMI
+    const healthClass = determineHealthClass({
+      heightFeet: formData.heightFeet,
+      heightInches: formData.heightInches,
+      weightLbs: formData.weightLbs,
+      age: formData.age,
+      gender: formData.gender,
+      tobacco: formData.tobacco,
+    });
+
+    baseValue *= healthClass.rateMultiplier;
+
+    // Apply additional risk factors
+    if (formData.hasChronicCondition) baseValue *= 1.2;
+    if (formData.hasFamilyHistory) baseValue *= 1.05;
+    if (formData.takingMedications) baseValue *= 1.1;
 
     const rangePct = getRangePercentage("final_expense", formData.tobacco, true);
     const range = estimateRange(baseValue, rangePct);
@@ -135,13 +182,13 @@ export default function FinalExpenseWizard() {
 
   const handleNext = () => {
     if (step === 1 && !validateStep1()) return;
+    if (step === 2 && !validateStep2()) return;
     setStep(step + 1);
   };
 
   const handleBack = () => {
-    if (step === 4) {
-      // From results, go back to step 2 to edit coverage
-      setStep(2);
+    if (step === 5) {
+      setStep(3);
       setRequiresAgent(false);
     } else {
       setStep(step - 1);
@@ -159,9 +206,19 @@ export default function FinalExpenseWizard() {
     setSubmitError(undefined);
 
     try {
-      const coverageAmount = getCoverageAmount(formData.coverage);
-      const needsAgent = exceedsCoverageLimit(formData.age, coverageAmount);
+      const needsAgent = exceedsCoverageLimit(formData.age, effectiveCoverage);
       const calculatedEstimate = calculateEstimate();
+      
+      // Calculate BMI for internal tracking
+      const bmi = calculateBMI(formData.heightFeet, formData.heightInches, formData.weightLbs);
+      const healthClass = determineHealthClass({
+        heightFeet: formData.heightFeet,
+        heightInches: formData.heightInches,
+        weightLbs: formData.weightLbs,
+        age: formData.age,
+        gender: formData.gender,
+        tobacco: formData.tobacco,
+      });
 
       const response = await fetch("/api/lead", {
         method: "POST",
@@ -173,16 +230,25 @@ export default function FinalExpenseWizard() {
             age: formData.age,
             gender: formData.gender,
             tobacco: formData.tobacco,
-            coverage: getCoverageLabel(formData.coverage),
+            coverage: formatCurrency(effectiveCoverage),
             policyStyle: policyLabels[formData.policyStyle],
+            heightFeet: formData.heightFeet,
+            heightInches: formData.heightInches,
+            weightLbs: formData.weightLbs,
+            bmi: bmi,
+            healthClass: healthClass.healthClass,
+            healthClassMultiplier: healthClass.rateMultiplier,
+            hasChronicCondition: formData.hasChronicCondition,
+            hasFamilyHistory: formData.hasFamilyHistory,
+            takingMedications: formData.takingMedications,
           },
           estimate: calculatedEstimate ? {
             low: calculatedEstimate.low,
             high: calculatedEstimate.high,
-            coverageAmount: getCoverageLabel(formData.coverage),
+            coverageAmount: formatCurrency(effectiveCoverage),
           } : undefined,
           contact: contactInfo,
-          source: needsAgent ? "final_expense_calculator" : "final_expense_calculator",
+          source: "final_expense_calculator",
           createdAt: new Date().toISOString(),
         }),
       });
@@ -194,12 +260,12 @@ export default function FinalExpenseWizard() {
       
       if (needsAgent) {
         setRequiresAgent(true);
-        setStep(4);
+        setStep(5);
       } else {
         const est = calculateEstimate();
         setEstimate(est);
         setRequiresAgent(est === null);
-        setStep(4);
+        setStep(5);
       }
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -215,8 +281,14 @@ export default function FinalExpenseWizard() {
       age: 65,
       gender: "female",
       tobacco: false,
-      coverage: "15k",
+      heightFeet: 5,
+      heightInches: 4,
+      weightLbs: 160,
+      coverageAmount: 15000,
       policyStyle: "immediate",
+      hasChronicCondition: false,
+      hasFamilyHistory: false,
+      takingMedications: false,
     });
     setContact(null);
     setEstimate(null);
@@ -226,10 +298,10 @@ export default function FinalExpenseWizard() {
   return (
     <QuoteWizardShell
       currentStep={step}
-      totalSteps={4}
+      totalSteps={5}
       stepLabels={stepLabels}
-      onBack={step > 1 && step < 4 ? handleBack : undefined}
-      showBack={step > 1 && step < 4}
+      onBack={step > 1 && step < 5 ? handleBack : undefined}
+      showBack={step > 1 && step < 5}
     >
       {step === 1 && (
         <div className="space-y-4">
@@ -320,38 +392,91 @@ export default function FinalExpenseWizard() {
       )}
 
       {step === 2 && (
-        <div className="space-y-4">
-          <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Coverage Details</h3>
+        <div className="space-y-6">
+          <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Health Information</h3>
+          
+          <HealthInputs
+            heightFeet={formData.heightFeet}
+            heightInches={formData.heightInches}
+            weightLbs={formData.weightLbs}
+            onHeightFeetChange={(val) => setFormData({ ...formData, heightFeet: val })}
+            onHeightInchesChange={(val) => setFormData({ ...formData, heightInches: val })}
+            onWeightChange={(val) => setFormData({ ...formData, weightLbs: val })}
+            errors={{
+              heightFeet: errors.heightFeet,
+              heightInches: errors.heightInches,
+              weightLbs: errors.weightLbs,
+            }}
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Coverage Amount
-              <span className="text-gray-400 font-normal ml-1">
-                (max {formatCurrency(getMaxCoverageForAge(formData.age))} for age {formData.age})
+          <div className="space-y-3 pt-4 border-t border-gray-200">
+            <p className="text-sm font-medium text-gray-700">Health Screening Questions</p>
+            
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={formData.hasChronicCondition}
+                onChange={(e) => setFormData({ ...formData, hasChronicCondition: e.target.checked })}
+                className="mt-1 h-4 w-4 rounded border-gray-300 text-ba-blue focus:ring-ba-blue"
+              />
+              <span className="text-sm text-gray-600">
+                Have you been diagnosed with any chronic conditions (diabetes, heart disease, COPD, etc.)?
               </span>
             </label>
-            <div className="grid grid-cols-3 gap-2">
-              {availableCoverageOptions.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => setFormData({ ...formData, coverage: opt.value })}
-                  className={`py-3 px-2 rounded-lg border-2 font-medium transition-colors text-sm ${
-                    formData.coverage === opt.value
-                      ? "border-ba-blue bg-ba-blue/10 text-ba-navy"
-                      : "border-gray-200 text-gray-600 hover:border-gray-300"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-            {availableCoverageOptions.length < allCoverageOptions.length && (
-              <p className="text-xs text-amber-600 mt-2">
-                Higher coverage amounts may be available — speak with an agent for options above {formatCurrency(getMaxCoverageForAge(formData.age))}.
-              </p>
-            )}
+
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={formData.hasFamilyHistory}
+                onChange={(e) => setFormData({ ...formData, hasFamilyHistory: e.target.checked })}
+                className="mt-1 h-4 w-4 rounded border-gray-300 text-ba-blue focus:ring-ba-blue"
+              />
+              <span className="text-sm text-gray-600">
+                Do you have a family history of heart disease or cancer?
+              </span>
+            </label>
+
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={formData.takingMedications}
+                onChange={(e) => setFormData({ ...formData, takingMedications: e.target.checked })}
+                className="mt-1 h-4 w-4 rounded border-gray-300 text-ba-blue focus:ring-ba-blue"
+              />
+              <span className="text-sm text-gray-600">
+                Are you currently taking prescription medications for ongoing health conditions?
+              </span>
+            </label>
           </div>
+
+          <button
+            type="button"
+            onClick={handleNext}
+            className="w-full py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg mt-4"
+          >
+            Continue
+          </button>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="space-y-6">
+          <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Coverage Details</h3>
+
+          <CoverageSlider
+            value={effectiveCoverage}
+            onChange={(val) => setFormData({ ...formData, coverageAmount: val })}
+            min={MIN_COVERAGE}
+            max={maxCoverageForAge}
+            step={COVERAGE_STEP}
+            label="Coverage Amount"
+          />
+
+          {maxCoverageForAge < MAX_COVERAGE && (
+            <p className="text-xs text-amber-600">
+              Higher coverage may be available — speak with an agent for options above {formatCurrency(maxCoverageForAge)}.
+            </p>
+          )}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Policy Type</label>
@@ -383,33 +508,33 @@ export default function FinalExpenseWizard() {
           <button
             type="button"
             onClick={handleNext}
-            className="w-full py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg mt-6"
+            className="w-full py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg mt-4"
           >
             Continue
           </button>
         </div>
       )}
 
-      {step === 3 && (
+      {step === 4 && (
         <LeadGateStep onSubmit={handleLeadSubmit} isSubmitting={isSubmitting} error={submitError} />
       )}
 
-      {step === 4 && requiresAgent && (
+      {step === 5 && requiresAgent && (
         <AgentReferralCard
           productType="final_expense"
           reason="coverage_limit"
           inputs={{
             age: formData.age,
-            coverage: getCoverageLabel(formData.coverage),
+            coverage: formatCurrency(effectiveCoverage),
             state: formData.state,
             gender: formData.gender,
           }}
-          maxAvailable={formatCurrency(getMaxCoverageForAge(formData.age))}
-          onEditDetails={() => handleEditDetails(2)}
+          maxAvailable={formatCurrency(maxCoverageForAge)}
+          onEditDetails={() => handleEditDetails(3)}
         />
       )}
 
-      {step === 4 && !requiresAgent && estimate && (
+      {step === 5 && !requiresAgent && estimate && (
         <EstimateResultCard
           productType="final_expense"
           estimate={estimate}
@@ -418,16 +543,16 @@ export default function FinalExpenseWizard() {
             age: formData.age,
             gender: formData.gender,
             tobacco: formData.tobacco,
-            coverage: getCoverageLabel(formData.coverage),
+            coverage: formatCurrency(effectiveCoverage),
             policyStyle: policyLabels[formData.policyStyle],
           }}
           tobaccoWarning={formData.tobacco}
           onStartOver={handleStartOver}
-          onEditDetails={() => handleEditDetails(2)}
+          onEditDetails={() => handleEditDetails(3)}
         />
       )}
 
-      {step < 4 && (
+      {step < 5 && (
         <p className="text-xs text-gray-500 text-center mt-4">{sourceNote}</p>
       )}
     </QuoteWizardShell>

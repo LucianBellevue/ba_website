@@ -15,7 +15,7 @@ interface BasicLeadData {
 }
 
 interface CalculatorLeadData {
-  productType: 'final_expense' | 'term_life';
+  productType: 'final_expense' | 'term_life' | 'whole_life';
   inputs: {
     state: string;
     age: number;
@@ -24,6 +24,15 @@ interface CalculatorLeadData {
     coverage?: string;
     policyStyle?: string;
     termLength?: string;
+    heightFeet?: number;
+    heightInches?: number;
+    weightLbs?: number;
+    bmi?: number;
+    healthClass?: string;
+    healthClassMultiplier?: number;
+    hasChronicCondition?: boolean;
+    hasFamilyHistory?: boolean;
+    takingMedications?: boolean;
   };
   estimate?: {
     low: number;
@@ -86,6 +95,14 @@ export async function POST(request: NextRequest) {
           coverage: data.estimate?.coverageAmount || data.inputs.coverage,
           termLength: data.inputs.termLength,
           policyStyle: data.inputs.policyStyle,
+          heightFeet: data.inputs.heightFeet,
+          heightInches: data.inputs.heightInches,
+          weightLbs: data.inputs.weightLbs,
+          bmi: data.inputs.bmi,
+          healthClass: data.inputs.healthClass,
+          hasChronicCondition: data.inputs.hasChronicCondition,
+          hasFamilyHistory: data.inputs.hasFamilyHistory,
+          takingMedications: data.inputs.takingMedications,
         },
       });
     } else {

@@ -23,6 +23,14 @@ interface LeadEmailData {
     termLength?: string;
     policyStyle?: string;
     coverage?: string;
+    heightFeet?: number;
+    heightInches?: number;
+    weightLbs?: number;
+    bmi?: number;
+    healthClass?: string;
+    hasChronicCondition?: boolean;
+    hasFamilyHistory?: boolean;
+    takingMedications?: boolean;
   };
 }
 
@@ -30,22 +38,33 @@ class ResendService {
   private resend: Resend | null = null;
   private fromEmail: string;
   private notificationEmail: string;
+  private isConfigured: boolean = false;
 
   constructor() {
     const apiKey = process.env.RESEND_API_KEY;
-    this.fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    this.fromEmail = process.env.RESEND_FROM_EMAIL || 'Bellevue Assurance <onboarding@resend.dev>';
     this.notificationEmail = process.env.LEAD_NOTIFICATION_EMAIL || '';
 
-    if (apiKey) {
+    // Log configuration status
+    console.log('[Resend] Initializing with config:', {
+      hasApiKey: !!apiKey,
+      fromEmail: this.fromEmail,
+      notificationEmail: this.notificationEmail ? '***configured***' : 'NOT SET',
+    });
+
+    if (apiKey && this.notificationEmail) {
       this.resend = new Resend(apiKey);
+      this.isConfigured = true;
+      console.log('[Resend] Service configured successfully');
     } else {
-      console.warn('[Resend] API key not configured');
+      if (!apiKey) console.warn('[Resend] Missing RESEND_API_KEY');
+      if (!this.notificationEmail) console.warn('[Resend] Missing LEAD_NOTIFICATION_EMAIL');
     }
   }
 
   async sendLeadNotification(data: LeadEmailData): Promise<boolean> {
-    if (!this.resend || !this.notificationEmail) {
-      console.error('[Resend] Not configured - missing API key or notification email');
+    if (!this.resend || !this.isConfigured) {
+      console.error('[Resend] Service not configured - check environment variables');
       return false;
     }
 
@@ -57,7 +76,15 @@ class ResendService {
 
       const htmlContent = this.buildEmailHtml(data, isHighIntent ?? false);
 
-      const { error } = await this.resend.emails.send({
+      console.log('[Resend] Sending email:', {
+        from: this.fromEmail,
+        to: this.notificationEmail,
+        subject,
+        leadId: data.leadId,
+        source: data.source,
+      });
+
+      const { data: responseData, error } = await this.resend.emails.send({
         from: this.fromEmail,
         to: this.notificationEmail,
         subject,
@@ -65,14 +92,14 @@ class ResendService {
       });
 
       if (error) {
-        console.error('[Resend] Error sending notification:', error);
+        console.error('[Resend] API Error:', JSON.stringify(error, null, 2));
         return false;
       }
 
-      console.log('[Resend] Lead notification sent successfully');
+      console.log('[Resend] Email sent successfully:', responseData);
       return true;
     } catch (error) {
-      console.error('[Resend] Error sending notification:', error);
+      console.error('[Resend] Exception:', error instanceof Error ? error.message : error);
       return false;
     }
   }
@@ -104,6 +131,25 @@ class ResendService {
       if (data.details.coverage) details.push(`<li><strong>Coverage Amount:</strong> ${data.details.coverage}</li>`);
       if (data.details.termLength) details.push(`<li><strong>Term Length:</strong> ${data.details.termLength}</li>`);
       if (data.details.policyStyle) details.push(`<li><strong>Policy Style:</strong> ${data.details.policyStyle}</li>`);
+      
+      // Health metrics (internal data)
+      if (data.details.heightFeet !== undefined && data.details.heightInches !== undefined) {
+        details.push(`<li><strong>Height:</strong> ${data.details.heightFeet}'${data.details.heightInches}"</li>`);
+      }
+      if (data.details.weightLbs) details.push(`<li><strong>Weight:</strong> ${data.details.weightLbs} lbs</li>`);
+      if (data.details.bmi) details.push(`<li><strong>BMI:</strong> ${data.details.bmi.toFixed(1)}</li>`);
+      if (data.details.healthClass) details.push(`<li><strong>Health Class:</strong> ${data.details.healthClass.replace('_', ' ')}</li>`);
+      
+      // Health screening questions
+      if (data.details.hasChronicCondition !== undefined) {
+        details.push(`<li><strong>Chronic Conditions:</strong> ${data.details.hasChronicCondition ? 'Yes' : 'No'}</li>`);
+      }
+      if (data.details.hasFamilyHistory !== undefined) {
+        details.push(`<li><strong>Family History:</strong> ${data.details.hasFamilyHistory ? 'Yes' : 'No'}</li>`);
+      }
+      if (data.details.takingMedications !== undefined) {
+        details.push(`<li><strong>Taking Medications:</strong> ${data.details.takingMedications ? 'Yes' : 'No'}</li>`);
+      }
       
       if (details.length > 0) {
         detailsSection = `

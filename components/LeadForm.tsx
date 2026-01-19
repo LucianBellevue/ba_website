@@ -145,9 +145,10 @@ export default function LeadForm() {
         <div>
           <label htmlFor="productType" className="block text-sm font-medium text-gray-700 mb-1">Insurance Type</label>
           <select id="productType" name="productType" value={formData.productType} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ba-blue focus:border-transparent bg-white">
-            <option value="">Not sure / Both</option>
+            <option value="">Not sure / All</option>
             <option value="final_expense">Final Expense Insurance</option>
             <option value="term_life">Term Life Insurance</option>
+            <option value="whole_life">Whole Life Insurance</option>
           </select>
         </div>
       </div>
