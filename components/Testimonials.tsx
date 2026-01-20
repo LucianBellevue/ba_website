@@ -50,10 +50,19 @@ export default function Testimonials() {
     return () => observer.disconnect();
   }, []);
 
+  const avgRating = testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length;
+  
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Bellevue Assurance",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: avgRating.toFixed(1),
+      bestRating: 5,
+      worstRating: 1,
+      reviewCount: testimonials.length,
+    },
     review: testimonials.map((t) => ({
       "@type": "Review",
       author: {
