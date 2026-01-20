@@ -8,6 +8,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 import { mainNavigation, mobileNavSections } from "@/lib/navigation";
 import { FiPhone, FiMenu, FiX } from "react-icons/fi";
+import { FaFacebook, FaLinkedin } from "react-icons/fa";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -139,6 +140,26 @@ export default function Header() {
               >
                 Get a Quote
               </Link>
+              <div className="flex items-center justify-center gap-4 pt-2">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61586684075863"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow us on Facebook"
+                  className="text-gray-500 hover:text-ba-blue transition-colors"
+                >
+                  <FaFacebook size={24} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/bellevue-assurance"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow us on LinkedIn"
+                  className="text-gray-500 hover:text-ba-blue transition-colors"
+                >
+                  <FaLinkedin size={24} />
+                </a>
+              </div>
             </div>
           </nav>
         </div>

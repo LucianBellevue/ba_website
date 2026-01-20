@@ -3,6 +3,7 @@ import Image from "next/image";
 import { SITE_CONFIG, FOOTER_LINKS } from "@/lib/constants";
 import DisclaimerBlock from "./DisclaimerBlock";
 import { FiPhone } from "react-icons/fi";
+import { FaFacebook, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -86,7 +87,27 @@ export default function Footer() {
             <Link href="/disclosures" className="text-sm text-gray-400 hover:text-ba-gold transition-colors">Disclosures</Link>
           </div>
         </div>
-        <div className="mt-6 text-center">
+        <div className="mt-6 flex flex-col items-center gap-4">
+          <div className="flex items-center gap-4">
+            <a 
+              href="https://www.facebook.com/profile.php?id=61586684075863" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Follow us on Facebook"
+              className="text-gray-400 hover:text-ba-gold transition-colors"
+            >
+              <FaFacebook size={24} />
+            </a>
+            <a 
+              href="https://www.linkedin.com/company/bellevue-assurance" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Follow us on LinkedIn"
+              className="text-gray-400 hover:text-ba-gold transition-colors"
+            >
+              <FaLinkedin size={24} />
+            </a>
+          </div>
           <a href="https://uiforge.io" target="_blank" rel="noopener noreferrer" className="text-xs text-gray-500 hover:text-ba-gold transition-colors">
             Powered by UiForge
           </a>

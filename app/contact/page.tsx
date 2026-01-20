@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import LeadForm from "@/components/LeadForm";
 import { SITE_CONFIG } from "@/lib/constants";
 import { FiPhone, FiMail, FiCheckCircle } from "react-icons/fi";
+import { FaFacebook, FaLinkedin } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -49,6 +50,32 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-ba-navy text-lg">Email</h3>
                     <a href={`mailto:${SITE_CONFIG.email}`} className="text-ba-blue hover:underline">{SITE_CONFIG.email}</a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-ba-blue bg-opacity-10 rounded-full flex items-center justify-center shrink-0">
+                    <FaFacebook className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-ba-navy text-lg">Follow Us</h3>
+                    <div className="flex items-center gap-4 mt-1">
+                      <a 
+                        href="https://www.facebook.com/profile.php?id=61586684075863" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-ba-blue hover:underline flex items-center gap-1"
+                      >
+                        <FaFacebook className="w-5 h-5" /> Facebook
+                      </a>
+                      <a 
+                        href="https://www.linkedin.com/company/bellevue-assurance" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-ba-blue hover:underline flex items-center gap-1"
+                      >
+                        <FaLinkedin className="w-5 h-5" /> LinkedIn
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
