@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/final-expense-insurance`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
     { url: `${baseUrl}/burial-insurance`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
     { url: `${baseUrl}/guaranteed-issue-life-insurance`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/life-insurance-for-seniors`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
     { url: `${baseUrl}/states`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
@@ -27,26 +28,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/disclosures`, lastModified: new Date(), changeFrequency: "yearly" as const, priority: 0.3 },
   ];
 
-  const statePages = getAllStateSlugs().map((slug) => ({
-    url: `${baseUrl}/states/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  let statePages: MetadataRoute.Sitemap = [];
+  let guidePages: MetadataRoute.Sitemap = [];
+  let blogPages: MetadataRoute.Sitemap = [];
 
-  const guidePages = getAllGuideSlugs().map((slug) => ({
-    url: `${baseUrl}/guides/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  try {
+    statePages = getAllStateSlugs().map((slug) => ({
+      url: `${baseUrl}/states/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }));
+  } catch (error) {
+    console.error("Error generating state pages for sitemap:", error);
+  }
 
-  const blogPages = getAllBlogSlugs().map((slug) => ({
-    url: `${baseUrl}/blog/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.75,
-  }));
+  try {
+    guidePages = getAllGuideSlugs().map((slug) => ({
+      url: `${baseUrl}/guides/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+  } catch (error) {
+    console.error("Error generating guide pages for sitemap:", error);
+  }
+
+  try {
+    blogPages = getAllBlogSlugs().map((slug) => ({
+      url: `${baseUrl}/blog/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    }));
+  } catch (error) {
+    console.error("Error generating blog pages for sitemap:", error);
+  }
 
   return [...staticPages, ...statePages, ...guidePages, ...blogPages];
 }

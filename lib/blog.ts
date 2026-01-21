@@ -18,13 +18,18 @@ export interface BlogPost {
 }
 
 export function getAllBlogSlugs(): string[] {
-  if (!fs.existsSync(contentDirectory)) {
+  try {
+    if (!fs.existsSync(contentDirectory)) {
+      return [];
+    }
+    const files = fs.readdirSync(contentDirectory);
+    return files
+      .filter((file) => file.endsWith('.mdx'))
+      .map((file) => file.replace(/\.mdx$/, ''));
+  } catch (error) {
+    console.error('Error reading blog directory:', error);
     return [];
   }
-  const files = fs.readdirSync(contentDirectory);
-  return files
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => file.replace(/\.mdx$/, ''));
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | null {
