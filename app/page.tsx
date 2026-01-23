@@ -34,14 +34,14 @@ export default function Home() {
         variant="image"
         backgroundImage="/hero-img.jpg"
         overlayOpacity={0.65}
-        headline="Life Insurance Made Simple — Fast Phone Quotes"
+        headline="Life Insurance Made Simple — Free Quote"
         subheadline="From simplified term life and whole life to final expense protection, our licensed agents help you find affordable policies tailored to your needs."
         bullets={[
           "Simplified term life insurance with no medical exam",
           "Whole life and final expense insurance coverage",
           "Competitive rates from top-rated carriers",
           "Guaranteed issue options for all health conditions",
-          "Coverage from $5,000 to $500,000+",
+          "Coverage from $5,000 to $1,000,000+",
         ]}
         showShield={true}
       />
