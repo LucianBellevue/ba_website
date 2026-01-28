@@ -2,10 +2,31 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import GuideCard from "@/components/GuideCard";
 import CTASection from "@/components/CTASection";
+import { BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Insurance Guides",
-  description: "Learn about final expense insurance, burial insurance, and coverage options. Educational guides to help you make informed decisions.",
+  title: "Insurance Guides | Educational Resources | Bellevue Assurance",
+  description: "Learn about final expense insurance, burial insurance, and coverage options. Educational guides to help you make informed decisions about life insurance.",
+  keywords: ["insurance guides", "final expense guides", "burial insurance guides", "life insurance education", "insurance resources"],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/guides`,
+  },
+  openGraph: {
+    title: "Insurance Guides | Educational Resources",
+    description: "Learn about final expense insurance, burial insurance, and coverage options. Educational guides to help you make informed decisions.",
+    url: `${SITE_CONFIG.url}/guides`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Insurance Guides | Educational Resources",
+    description: "Educational guides to help you make informed decisions about life insurance.",
+    images: [defaultOgImage.url],
+  },
 };
 
 const guides = [
@@ -20,7 +41,8 @@ const guides = [
 export default function GuidesPage() {
   return (
     <>
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Guides", href: "/guides" }]} />
+      <PageHeader
         title="Insurance Guides"
         subtitle="Educational resources to help you understand your insurance options."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Guides", href: "/guides" }]}

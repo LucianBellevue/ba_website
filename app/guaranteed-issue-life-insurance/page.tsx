@@ -4,13 +4,32 @@ import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import DisclaimerBlock from "@/components/DisclaimerBlock";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 import { FiArrowRight } from "react-icons/fi";
 
 export const metadata: Metadata = {
-  title: "Guaranteed Issue Life Insurance",
-  description: "Guaranteed issue life insurance with no health questions. Coverage available for eligible applicants ages 50-85. Learn about benefits and limitations.",
-  keywords: ["guaranteed issue life insurance", "no health questions life insurance", "guaranteed acceptance life insurance"],
+  title: "Guaranteed Issue Life Insurance | No Health Questions Required",
+  description: "Guaranteed issue life insurance with no health questions. Coverage available for eligible applicants ages 50-85. Learn about benefits, limitations, and graded benefit periods.",
+  keywords: ["guaranteed issue life insurance", "no health questions life insurance", "guaranteed acceptance life insurance", "no exam life insurance seniors"],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/guaranteed-issue-life-insurance`,
+  },
+  openGraph: {
+    title: "Guaranteed Issue Life Insurance | No Health Questions Required",
+    description: "Guaranteed issue life insurance with no health questions. Coverage available for eligible applicants ages 50-85.",
+    url: `${SITE_CONFIG.url}/guaranteed-issue-life-insurance`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Guaranteed Issue Life Insurance | No Health Questions",
+    description: "Coverage available for eligible applicants ages 50-85. No health questions required.",
+    images: [defaultOgImage.url],
+  },
 };
 
 const faqs = [
@@ -25,7 +44,8 @@ export default function GuaranteedIssueLifeInsurancePage() {
   return (
     <>
       <FAQSchema faqs={faqs} />
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Guaranteed Issue Life Insurance", href: "/guaranteed-issue-life-insurance" }]} />
+      <PageHeader
         title="Guaranteed Issue Life Insurance"
         subtitle="Coverage with no health questions for eligible applicants."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Guaranteed Issue Life Insurance", href: "/guaranteed-issue-life-insurance" }]}
@@ -35,7 +55,7 @@ export default function GuaranteedIssueLifeInsurancePage() {
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">What is Guaranteed Issue Life Insurance?</h2>
           <p className="text-lg text-gray-700 mb-6">Guaranteed issue life insurance is designed for people who may have difficulty qualifying for traditional life insurance due to health conditions. These policies do not ask health questions and do not require a medical exam.</p>
           <p className="text-lg text-gray-700 mb-8">If you&apos;re within the eligible age range (typically 50-85), you can be accepted for coverage regardless of your health status. This makes guaranteed issue an important option for people with serious health conditions.</p>
-          
+
           <div className="bg-ba-bg border border-gray-200 rounded-xl p-6 mb-8">
             <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">See Estimated Premiums</h3>
             <p className="text-gray-600 mb-4">Use our calculator to compare guaranteed acceptance rates.</p>
@@ -46,7 +66,7 @@ export default function GuaranteedIssueLifeInsurancePage() {
               Get an Estimate <FiArrowRight size={18} />
             </Link>
           </div>
-          
+
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
             <h3 className="font-serif text-lg font-bold text-ba-navy mb-3">Important Considerations</h3>
             <ul className="space-y-2 text-gray-700">
@@ -69,7 +89,7 @@ export default function GuaranteedIssueLifeInsurancePage() {
 
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Common Questions</h2>
           <FAQAccordion faqs={faqs} />
-          
+
           <div className="mt-8"><DisclaimerBlock /></div>
         </div>
       </section>

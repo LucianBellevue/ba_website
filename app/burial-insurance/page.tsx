@@ -3,13 +3,32 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 import { FiArrowRight } from "react-icons/fi";
 
 export const metadata: Metadata = {
-  title: "Burial Insurance",
-  description: "Get affordable burial insurance to cover funeral costs. No medical exam options available. Compare quotes from licensed agents.",
-  keywords: ["burial insurance", "funeral insurance", "burial coverage", "funeral coverage"],
+  title: "Burial Insurance | Affordable Funeral Coverage | Bellevue Assurance",
+  description: "Get affordable burial insurance to cover funeral costs. No medical exam options available. Compare quotes from licensed agents. Coverage from $5,000-$25,000.",
+  keywords: ["burial insurance", "funeral insurance", "burial coverage", "funeral coverage", "burial insurance quotes"],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/burial-insurance`,
+  },
+  openGraph: {
+    title: "Burial Insurance | Affordable Funeral Coverage",
+    description: "Get affordable burial insurance to cover funeral costs. No medical exam options available. Compare quotes from licensed agents.",
+    url: `${SITE_CONFIG.url}/burial-insurance`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Burial Insurance | Affordable Funeral Coverage",
+    description: "Get affordable burial insurance to cover funeral costs. No medical exam options available.",
+    images: [defaultOgImage.url],
+  },
 };
 
 const faqs = [
@@ -24,7 +43,8 @@ export default function BurialInsurancePage() {
   return (
     <>
       <FAQSchema faqs={faqs} />
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Burial Insurance", href: "/burial-insurance" }]} />
+      <PageHeader
         title="Burial Insurance"
         subtitle="Coverage specifically designed to help with funeral and burial expenses."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Burial Insurance", href: "/burial-insurance" }]}
@@ -34,7 +54,7 @@ export default function BurialInsurancePage() {
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">What is Burial Insurance?</h2>
           <p className="text-lg text-gray-700 mb-6">Burial insurance is a type of whole life insurance designed to cover the costs associated with your funeral and burial. With average funeral costs ranging from $7,000 to $12,000, burial insurance ensures your family won&apos;t face unexpected expenses during an already difficult time.</p>
           <p className="text-lg text-gray-700 mb-8">Unlike pre-paid funeral plans that lock you into specific services at a particular funeral home, burial insurance provides your beneficiary with a flexible cash benefit they can use as needed.</p>
-          
+
           <div className="bg-ba-bg border border-gray-200 rounded-xl p-6 mb-8">
             <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">See Your Estimated Premium</h3>
             <p className="text-gray-600 mb-4">Burial insurance rates are similar to final expense. Get an estimate in minutes.</p>
@@ -45,7 +65,7 @@ export default function BurialInsurancePage() {
               Get an Estimate <FiArrowRight size={18} />
             </Link>
           </div>
-          
+
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Benefits of Burial Insurance</h2>
           <ul className="space-y-3 mb-8">
             {["Fixed premiums that never increase", "Coverage that lasts your entire life", "No medical exam required for most policies", "Cash benefit your family can use flexibly", "Builds cash value over time", "Quick approval process"].map((item, i) => (

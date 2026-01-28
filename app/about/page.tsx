@@ -2,29 +2,40 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import CTASection from "@/components/CTASection";
 import TrustBar from "@/components/TrustBar";
+import { BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 import { FiCheckCircle } from "react-icons/fi";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
-import { defaultOgImage } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Us | Bellevue Assurance - Life Insurance Experts",
   description: "Learn about Bellevue Assurance and our mission to help families find affordable life insurance coverage including simplified term life, whole life, and final expense insurance.",
   keywords: ["simplified term life insurance", "whole life insurance", "no medical exam term life", "final expense insurance", "life insurance agency"],
   alternates: {
-    canonical: "/about",
+    canonical: `${SITE_CONFIG.url}/about`,
   },
   openGraph: {
     title: "About Bellevue Assurance - Life Insurance Experts",
     description: "Licensed insurance agency specializing in simplified term life, whole life, and final expense insurance. Partnered with Ameritas and top carriers.",
-    url: "https://bellevueassurance.com/about",
+    url: `${SITE_CONFIG.url}/about`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
     images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Bellevue Assurance - Life Insurance Experts",
+    description: "Licensed insurance agency specializing in simplified term life, whole life, and final expense insurance.",
+    images: [defaultOgImage.url],
   },
 };
 
 export default function AboutPage() {
   return (
     <>
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "About Us", href: "/about" }]} />
+      <PageHeader
         title="About Bellevue Assurance"
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "About Us", href: "/about" }]}
       />
@@ -34,24 +45,24 @@ export default function AboutPage() {
           <div className="prose max-w-none">
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Our Mission</h2>
             <p className="text-lg text-gray-700 mb-6">
-              At Bellevue Assurance, we believe every family deserves access to affordable life insurance coverage—whether you need simplified term life, whole life, or final expense protection. 
-              Our mission is to simplify the process of protecting your loved ones by providing clear information, personalized guidance, 
+              At Bellevue Assurance, we believe every family deserves access to affordable life insurance coverage—whether you need simplified term life, whole life, or final expense protection.
+              Our mission is to simplify the process of protecting your loved ones by providing clear information, personalized guidance,
               and compassionate service.
             </p>
             <p className="text-lg text-gray-700 mb-8">
-              We work with top carriers including Ethos, Ameritas, LFG, Truestage, and Mutual of Omaha to offer quick approval processes with minimal health questions. 
+              We work with top carriers including Ethos, Ameritas, LFG, Truestage, and Mutual of Omaha to offer quick approval processes with minimal health questions.
               Our licensed agents are trained to listen, answer your questions, and help you find coverage that fits your needs—without any pressure or obligation.
             </p>
 
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Who We Are</h2>
             <p className="text-lg text-gray-700 mb-6">
-              Bellevue Assurance is a licensed insurance agency specializing in simplified term life, whole life, 
-              final expense, and burial insurance. We partner with top-rated carriers including Ethos, Ameritas, LFG, Truestage, 
+              Bellevue Assurance is a licensed insurance agency specializing in simplified term life, whole life,
+              final expense, and burial insurance. We partner with top-rated carriers including Ethos, Ameritas, LFG, Truestage,
               and Mutual of Omaha to offer our clients a range of coverage options at competitive prices.
             </p>
             <p className="text-lg text-gray-700 mb-8">
-              Our team of licensed agents serves families across multiple states, providing personalized quotes and enrollment 
-              assistance entirely by phone. From no medical exam term life to guaranteed issue coverage, we&apos;re committed to making 
+              Our team of licensed agents serves families across multiple states, providing personalized quotes and enrollment
+              assistance entirely by phone. From no medical exam term life to guaranteed issue coverage, we&apos;re committed to making
               the insurance process as simple and stress-free as possible.
             </p>
 

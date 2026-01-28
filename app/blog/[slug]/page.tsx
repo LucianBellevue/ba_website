@@ -8,8 +8,8 @@ import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog";
 import { FiClock, FiCalendar, FiTag, FiUser } from "react-icons/fi";
 import { ArticleSchema } from "@/components/JsonLd";
 
-interface Props { 
-  params: Promise<{ slug: string }> 
+interface Props {
+  params: Promise<{ slug: string }>
 }
 
 export const dynamicParams = false;
@@ -22,16 +22,23 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
-  
+
   if (!post) {
     return { title: "Post Not Found" };
   }
+
+  const { SITE_CONFIG } = await import("@/lib/constants");
+  const { defaultOgImage } = await import("@/lib/metadata");
+  const ogImage = post.image || defaultOgImage.url;
 
   return {
     title: `${post.title} | Bellevue Assurance Blog`,
     description: post.description,
     keywords: post.tags.join(', '),
     authors: [{ name: post.author }],
+    alternates: {
+      canonical: `${SITE_CONFIG.url}/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
@@ -39,11 +46,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
+      url: `${SITE_CONFIG.url}/blog/${slug}`,
+      siteName: SITE_CONFIG.name,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [ogImage],
     },
   };
 }
@@ -60,7 +78,7 @@ const mdxComponents = {
     const { href, children, ...rest } = props;
     const isInternal = href && (href.startsWith('/') || href.startsWith('#'));
     const className = "text-ba-blue hover:text-ba-navy underline font-semibold";
-    
+
     if (isInternal && href) {
       return <Link href={href} className={className} {...rest}>{children}</Link>;
     }
@@ -117,28 +135,37 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+  const { BreadcrumbSchema } = await import("@/components/JsonLd");
+
   return (
     <>
-      <ArticleSchema 
+      <ArticleSchema
         headline={post.title}
         description={post.description}
         datePublished={post.date}
         author={post.author}
         image={post.image}
       />
-      <PageHeader 
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: post.title, href: `/blog/${post.slug}` }
+        ]}
+      />
+      <PageHeader
         title={post.title}
         breadcrumbs={[
-          { name: "Home", href: "/" }, 
-          { name: "Blog", href: "/blog" }, 
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
           { name: post.title, href: `/blog/${post.slug}` }
         ]}
       />
       {post.image && (
         <div className="w-full bg-gray-100 border-b border-gray-200">
           <div className="max-w-5xl mx-auto relative">
-            <Image 
-              src={post.image} 
+            <Image
+              src={post.image}
               alt={post.title}
               width={1200}
               height={500}
@@ -186,7 +213,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           <div className="mt-12 pt-8 border-t border-gray-200">
-            <Link 
+            <Link
               href="/blog"
               className="inline-flex items-center gap-2 text-ba-blue hover:text-ba-navy font-semibold transition-colors"
             >

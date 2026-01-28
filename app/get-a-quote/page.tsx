@@ -4,17 +4,38 @@ import PageHeader from "@/components/PageHeader";
 import LeadForm from "@/components/LeadForm";
 import TrustBar from "@/components/TrustBar";
 import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { FiArrowRight, FiCheckCircle, FiPhone } from "react-icons/fi";
 
 export const metadata: Metadata = {
-  title: "Get a Free Quote",
-  description: "Get your free life insurance quote. Compare final expense and term life options. No obligation, no pressure. Licensed agents ready to help.",
+  title: "Get a Free Life Insurance Quote | Bellevue Assurance",
+  description: "Get your free life insurance quote. Compare final expense and term life options from top carriers. No obligation, no pressure. Licensed agents ready to help. Call (470) 202-8817.",
+  keywords: ["free life insurance quote", "life insurance quote", "get insurance quote", "life insurance application", "insurance quote request"],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/get-a-quote`,
+  },
+  openGraph: {
+    title: "Get a Free Life Insurance Quote | Bellevue Assurance",
+    description: "Get your free life insurance quote. Compare final expense and term life options. No obligation, licensed agents ready to help.",
+    url: `${SITE_CONFIG.url}/get-a-quote`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Get a Free Life Insurance Quote",
+    description: "Compare final expense and term life options. No obligation, licensed agents ready to help.",
+    images: [defaultOgImage.url],
+  },
 };
 
 export default function GetAQuotePage() {
   return (
     <>
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Get a Quote", href: "/get-a-quote" }]} />
+      <PageHeader
         title="Get Your Free Quote"
         subtitle="Fill out the form below and a licensed agent will contact you with personalized quotes."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Get a Quote", href: "/get-a-quote" }]}
@@ -45,8 +66,8 @@ export default function GetAQuotePage() {
               <div className="bg-white border-2 border-ba-gold rounded-lg p-6">
                 <h3 className="font-serif text-xl font-bold text-ba-navy mb-3">Not Sure What Coverage You Need?</h3>
                 <p className="text-gray-700 mb-4">Use our free quote calculator to explore coverage options and see estimated premiums instantly — no contact info required to start.</p>
-                <Link 
-                  href="/quotes" 
+                <Link
+                  href="/quotes"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors"
                 >
                   Try the Quote Calculator

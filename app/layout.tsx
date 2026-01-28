@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: "%s | Bellevue Assurance",
   },
   description:
-    "Get simplified term life, whole life, and final expense insurance quotes by phone. No medical exam options from carriers like Ethos. Licensed agents, quick approval, affordable coverage.",
+    "Get simplified term life, whole life, and final expense insurance quotes by phone. Use our free life insurance rate calculator for instant estimates. No medical exam options from carriers like Ethos. Licensed agents, quick approval, affordable coverage.",
   keywords: [
     "simplified term life insurance",
     "no medical exam term life",
@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     "guaranteed issue life insurance",
     "affordable life insurance",
     "no exam life insurance",
+    "life insurance calculator",
+    "life insurance rate calculator",
+    "free life insurance quote calculator",
   ],
   authors: [{ name: "Bellevue Assurance" }],
   creator: "Bellevue Assurance",
@@ -67,12 +70,12 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { 
-      index: true, 
-      follow: true, 
-      "max-video-preview": -1, 
-      "max-image-preview": "large", 
-      "max-snippet": 320 
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": 320
     },
   },
   verification: {

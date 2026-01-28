@@ -3,13 +3,32 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 import { FiArrowRight } from "react-icons/fi";
 
 export const metadata: Metadata = {
-  title: "Final Expense Insurance",
-  description: "Learn about final expense insurance coverage to help protect your loved ones from funeral costs. Get quotes from licensed agents.",
-  keywords: ["final expense insurance", "funeral insurance", "end of life insurance", "burial coverage"],
+  title: "Final Expense Insurance | Affordable Funeral Coverage | Bellevue Assurance",
+  description: "Learn about final expense insurance coverage to help protect your loved ones from funeral costs. Get quotes from licensed agents. Coverage from $5,000-$35,000.",
+  keywords: ["final expense insurance", "funeral insurance", "end of life insurance", "burial coverage", "final expense quotes"],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/final-expense-insurance`,
+  },
+  openGraph: {
+    title: "Final Expense Insurance | Affordable Funeral Coverage",
+    description: "Learn about final expense insurance coverage to help protect your loved ones from funeral costs. Get quotes from licensed agents.",
+    url: `${SITE_CONFIG.url}/final-expense-insurance`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Final Expense Insurance | Affordable Funeral Coverage",
+    description: "Learn about final expense insurance coverage. Get quotes from licensed agents.",
+    images: [defaultOgImage.url],
+  },
 };
 
 const faqs = [
@@ -24,7 +43,8 @@ export default function FinalExpenseInsurancePage() {
   return (
     <>
       <FAQSchema faqs={faqs} />
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Final Expense Insurance", href: "/final-expense-insurance" }]} />
+      <PageHeader
         title="Final Expense Insurance"
         subtitle="Affordable coverage to protect your loved ones from funeral and burial costs."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Final Expense Insurance", href: "/final-expense-insurance" }]}
@@ -34,18 +54,19 @@ export default function FinalExpenseInsurancePage() {
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">What is Final Expense Insurance?</h2>
           <p className="text-lg text-gray-700 mb-6">Final expense insurance, also known as burial insurance or funeral insurance, is a type of whole life insurance designed to cover end-of-life expenses. Unlike traditional life insurance with large coverage amounts, final expense policies typically offer $5,000 to $35,000 in coverage at affordable premiums.</p>
           <p className="text-lg text-gray-700 mb-8">The death benefit can be used for funeral and burial costs, outstanding medical bills, credit card debt, or any other expenses your beneficiaries choose. This helps ensure your family isn&apos;t left with a financial burden during an already difficult time.</p>
-          
+
           <div className="not-prose bg-ba-bg border border-gray-200 rounded-xl p-6 mb-8">
-            <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">See Your Estimated Premium</h3>
-            <p className="text-gray-600 mb-4">Get a personalized estimate in minutes. No obligation, no pressure.</p>
+            <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">Calculate Your Final Expense Insurance Rates</h3>
+            <p className="text-gray-600 mb-4">Use our free <Link href="/quotes?product=final-expense" className="text-ba-blue font-medium hover:underline">final expense insurance rate calculator</Link> to get a personalized estimate in minutes. No obligation, no pressure.</p>
             <Link
               href="/quotes?product=final-expense"
               className="inline-flex items-center gap-2 px-6 py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors"
+              aria-label="Calculate final expense insurance rates"
             >
-              Get an Estimate <FiArrowRight size={18} />
+              Try the Calculator <FiArrowRight size={18} />
             </Link>
           </div>
-          
+
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Who Is Final Expense Insurance For?</h2>
           <p className="text-lg text-gray-700 mb-4">Final expense insurance may be right for you if:</p>
           <ul className="space-y-3 mb-8">

@@ -2,19 +2,30 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import CTASection from "@/components/CTASection";
 import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { FiCheckCircle, FiPhone } from "react-icons/fi";
 
 export const metadata: Metadata = {
-  title: "How It Works",
-  description: "Learn how easy it is to get life insurance with Bellevue Assurance. Simplified term life, whole life, and final expense options. Simple phone enrollment, fast quotes.",
+  title: "How It Works | Simple Life Insurance Enrollment Process",
+  description: "Learn how easy it is to get life insurance with Bellevue Assurance. Simplified term life, whole life, and final expense options. Simple phone enrollment, fast quotes in 4 easy steps.",
   keywords: ["simplified term life insurance", "whole life insurance", "no medical exam life insurance", "how to buy life insurance", "phone enrollment"],
   alternates: {
-    canonical: "/how-it-works",
+    canonical: `${SITE_CONFIG.url}/how-it-works`,
   },
   openGraph: {
     title: "How to Get Life Insurance - Simple Process",
     description: "Get simplified term life, whole life, or final expense insurance in 4 easy steps. Phone enrollment, quick approval.",
-    url: "/how-it-works",
+    url: `${SITE_CONFIG.url}/how-it-works`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How to Get Life Insurance - Simple Process",
+    description: "Get life insurance in 4 easy steps. Phone enrollment, quick approval.",
+    images: [defaultOgImage.url],
   },
 };
 
@@ -28,7 +39,8 @@ const steps = [
 export default function HowItWorksPage() {
   return (
     <>
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "How It Works", href: "/how-it-works" }]} />
+      <PageHeader
         title="How It Works"
         subtitle="Getting life insurance is simple. Whether you need simplified term life, whole life, or final expense coverage, here's what to expect."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "How It Works", href: "/how-it-works" }]}

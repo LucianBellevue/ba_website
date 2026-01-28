@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import DisclaimerBlock from "@/components/DisclaimerBlock";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { getStateBySlug, getAllStateSlugs } from "@/data/states";
 import { SITE_CONFIG } from "@/lib/constants";
 
@@ -21,7 +21,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { state: slug } = await params;
   const state = getStateBySlug(slug);
   if (!state) return { title: "State Not Found" };
-  return { title: state.seoTitle.replace(" | Bellevue Assurance", ""), description: state.seoDescription };
+
+  const { defaultOgImage } = await import("@/lib/metadata");
+  const stateUrl = `${SITE_CONFIG.url}/states/${slug}`;
+
+  return {
+    title: state.seoTitle.replace(" | Bellevue Assurance", ""),
+    description: state.seoDescription,
+    alternates: {
+      canonical: stateUrl,
+    },
+    openGraph: {
+      title: state.seoTitle.replace(" | Bellevue Assurance", ""),
+      description: state.seoDescription,
+      url: stateUrl,
+      siteName: SITE_CONFIG.name,
+      type: "website",
+      images: [defaultOgImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: state.seoTitle.replace(" | Bellevue Assurance", ""),
+      description: state.seoDescription,
+      images: [defaultOgImage.url],
+    },
+  };
 }
 
 export default async function StatePage({ params }: Props) {
@@ -34,17 +58,24 @@ export default async function StatePage({ params }: Props) {
   return (
     <>
       <FAQSchema faqs={faqs} />
-      <PageHeader 
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Coverage Areas", href: "/states" },
+          { name: state.name, href: `/states/${state.slug}` }
+        ]}
+      />
+      <PageHeader
         title={`Final Expense Insurance in ${state.name}`}
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Coverage Areas", href: "/states" }, { name: state.name, href: `/states/${state.slug}` }]}
       />
       <section className="py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-lg text-gray-700 mb-8">{state.shortBlurb}</p>
-          
+
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">How Phone Enrollment Works in {state.name}</h2>
           <p className="text-lg text-gray-700 mb-8">{state.phoneEnrollmentNote}</p>
-          
+
           <div className="bg-ba-bg rounded-lg p-6 mb-8">
             <h3 className="font-serif text-xl font-bold text-ba-navy mb-4">Getting Started is Easy</h3>
             <ol className="space-y-3">
@@ -59,7 +90,7 @@ export default async function StatePage({ params }: Props) {
 
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">{state.name} Final Expense Insurance FAQ</h2>
           <FAQAccordion faqs={faqs} />
-          
+
           {state.slug === "california" && (
             <div className="mt-8 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
               <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">California Residents — Important Notice</h3>
@@ -71,7 +102,7 @@ export default async function StatePage({ params }: Props) {
               </p>
             </div>
           )}
-          
+
           <div className="mt-8"><DisclaimerBlock /></div>
         </div>
       </section>

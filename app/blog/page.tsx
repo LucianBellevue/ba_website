@@ -2,17 +2,32 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
+import { BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 import { getAllBlogPosts } from "@/lib/blog";
 import { FiClock, FiCalendar, FiTag } from "react-icons/fi";
 
 export const metadata: Metadata = {
   title: "Insurance Blog & Resources | Bellevue Assurance",
   description: "Expert insights on life insurance, final expense, burial insurance, and senior coverage. Stay informed with our comprehensive insurance guides and articles.",
-  keywords: "life insurance blog, final expense tips, burial insurance guides, senior insurance resources",
+  keywords: ["life insurance blog", "final expense tips", "burial insurance guides", "senior insurance resources", "insurance articles"],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/blog`,
+  },
   openGraph: {
     title: "Insurance Blog & Resources | Bellevue Assurance",
     description: "Expert insights on life insurance, final expense, burial insurance, and senior coverage.",
+    url: `${SITE_CONFIG.url}/blog`,
+    siteName: SITE_CONFIG.name,
     type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Insurance Blog & Resources | Bellevue Assurance",
+    description: "Expert insights on life insurance, final expense, burial insurance, and senior coverage.",
+    images: [defaultOgImage.url],
   },
 };
 
@@ -21,7 +36,8 @@ export default function BlogPage() {
 
   return (
     <>
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }]} />
+      <PageHeader
         title="Insurance Blog & Resources"
         subtitle="Expert insights to help you make informed decisions about life insurance and final expense coverage"
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }]}
@@ -72,7 +88,7 @@ export default function BlogPage() {
                         {post.readTime}
                       </span>
                     </div>
-                    <Link 
+                    <Link
                       href={`/blog/${post.slug}`}
                       className="inline-flex items-center gap-2 text-ba-blue font-semibold hover:text-ba-navy transition-colors"
                     >

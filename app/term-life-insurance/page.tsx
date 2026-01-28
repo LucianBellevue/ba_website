@@ -3,7 +3,7 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { FiArrowRight } from "react-icons/fi";
 import { defaultOgImage } from "@/lib/metadata";
 
@@ -12,14 +12,21 @@ export const metadata: Metadata = {
   description: "Get simplified term life insurance with no medical exam required. Quick approval, affordable rates, and coverage from top carriers. Licensed agents ready to help.",
   keywords: ["simplified term life insurance", "no medical exam term life", "term life no exam", "affordable term life", "quick approval term life"],
   alternates: {
-    canonical: "/term-life-insurance",
+    canonical: "https://bellevueassurance.com/term-life-insurance",
   },
   openGraph: {
     title: "Simplified Term Life Insurance - No Medical Exam Required",
     description: "No medical exam term life insurance with quick approval. Get quotes from top carriers with competitive rates.",
     url: "https://bellevueassurance.com/term-life-insurance",
+    siteName: "Bellevue Assurance",
     type: "website",
     images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Simplified Term Life Insurance - No Medical Exam Required",
+    description: "No medical exam term life insurance with quick approval. Get quotes from top carriers.",
+    images: [defaultOgImage.url],
   },
 };
 
@@ -36,7 +43,8 @@ export default function TermLifeInsurancePage() {
   return (
     <>
       <FAQSchema faqs={faqs} />
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Term Life Insurance", href: "/term-life-insurance" }]} />
+      <PageHeader
         title="Simplified Term Life Insurance - No Medical Exam"
         subtitle="Get approved faster with minimal health questions. Affordable protection from trusted carriers."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Term Life Insurance", href: "/term-life-insurance" }]}
@@ -46,7 +54,7 @@ export default function TermLifeInsurancePage() {
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Simplified Term Life Insurance</h2>
           <p className="text-lg text-gray-700 mb-6">Get the protection your family needs without the hassle. Our simplified term life insurance provides straightforward, affordable coverage with minimal health questions and no medical exam required for qualified applicants—approval often within days.</p>
           <p className="text-lg text-gray-700 mb-8">Working with top-rated carriers, we offer term coverage for 10, 20, or 30 years at a fixed premium rate. If you pass away during the term, your beneficiaries receive a tax-free death benefit to replace your income, pay off debts, and secure their financial future.</p>
-          
+
           <div className="not-prose bg-blue-50 border-l-4 border-ba-blue rounded-lg p-6 mb-8">
             <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">What Makes Simplified Term Life Different?</h3>
             <ul className="space-y-2 text-gray-700">
@@ -64,18 +72,19 @@ export default function TermLifeInsurancePage() {
               </li>
             </ul>
           </div>
-          
+
           <div className="not-prose bg-ba-bg border border-gray-200 rounded-xl p-6 mb-8">
-            <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">See Your Estimated Premium</h3>
-            <p className="text-gray-600 mb-4">Get a personalized estimate in minutes. No obligation, no pressure.</p>
+            <h3 className="font-serif text-xl font-bold text-ba-navy mb-2">Calculate Your Term Life Insurance Rates</h3>
+            <p className="text-gray-600 mb-4">Use our free <Link href="/quotes?product=term" className="text-ba-blue font-medium hover:underline">term life insurance rate calculator</Link> to get a personalized estimate in minutes. No obligation, no pressure.</p>
             <Link
               href="/quotes?product=term"
               className="inline-flex items-center gap-2 px-6 py-3 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors"
+              aria-label="Calculate term life insurance rates"
             >
-              Get an Estimate <FiArrowRight size={18} />
+              Try the Calculator <FiArrowRight size={18} />
             </Link>
           </div>
-          
+
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Why Choose Simplified Term Life?</h2>
           <p className="text-lg text-gray-700 mb-4">This option may be perfect for you if:</p>
           <ul className="space-y-3 mb-8">

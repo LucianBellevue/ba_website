@@ -17,7 +17,7 @@ import {
   getMaxTermCoverageForAge,
 } from "@/data/rates/termLife20";
 import { nearestLowerBand, estimateRange, getRangePercentage, formatCurrency } from "@/lib/rateMath";
-import { calculateBMI, determineHealthClass, type HealthClassResult } from "@/lib/healthClass";
+import { calculateBMI, determineHealthClass } from "@/lib/healthClass";
 
 const stepLabels = ["Basic Info", "Health Details", "Coverage", "Contact Info", "Your Estimate"];
 
@@ -76,7 +76,6 @@ export default function TermLifeWizard() {
   const [submitError, setSubmitError] = useState<string>();
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [requiresAgent, setRequiresAgent] = useState(false);
-  const [healthClassResult, setHealthClassResult] = useState<HealthClassResult | null>(null);
 
   // Calculate max coverage based on age
   const maxCoverageForAge = useMemo(() => {
@@ -156,7 +155,6 @@ export default function TermLifeWizard() {
       gender: formData.gender,
       tobacco: formData.tobacco,
     });
-    setHealthClassResult(healthClass);
 
     baseValue *= healthClass.rateMultiplier;
 
@@ -283,7 +281,6 @@ export default function TermLifeWizard() {
     setContact(null);
     setEstimate(null);
     setRequiresAgent(false);
-    setHealthClassResult(null);
   };
 
   const showAgeWarning = formData.age > 55;

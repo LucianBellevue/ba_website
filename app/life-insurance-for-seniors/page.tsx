@@ -2,12 +2,31 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Life Insurance for Seniors",
-  description: "Find affordable life insurance options for seniors 50-85. No medical exam options, simplified applications, and coverage that fits your budget.",
-  keywords: ["life insurance for seniors", "senior life insurance", "life insurance over 50", "life insurance over 60"],
+  title: "Life Insurance for Seniors 50-85 | Affordable Coverage Options",
+  description: "Find affordable life insurance options for seniors 50-85. No medical exam options, simplified applications, and coverage that fits your budget. Final expense and guaranteed issue policies available.",
+  keywords: ["life insurance for seniors", "senior life insurance", "life insurance over 50", "life insurance over 60", "life insurance for elderly"],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/life-insurance-for-seniors`,
+  },
+  openGraph: {
+    title: "Life Insurance for Seniors 50-85 | Affordable Coverage Options",
+    description: "Find affordable life insurance options for seniors. No medical exam options, simplified applications, and coverage that fits your budget.",
+    url: `${SITE_CONFIG.url}/life-insurance-for-seniors`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Life Insurance for Seniors 50-85",
+    description: "Find affordable life insurance options for seniors. No medical exam options available.",
+    images: [defaultOgImage.url],
+  },
 };
 
 const faqs = [
@@ -22,7 +41,8 @@ export default function LifeInsuranceForSeniorsPage() {
   return (
     <>
       <FAQSchema faqs={faqs} />
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Life Insurance for Seniors", href: "/life-insurance-for-seniors" }]} />
+      <PageHeader
         title="Life Insurance for Seniors"
         subtitle="Affordable coverage options designed for adults 50 and older."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Life Insurance for Seniors", href: "/life-insurance-for-seniors" }]}
@@ -32,7 +52,7 @@ export default function LifeInsuranceForSeniorsPage() {
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Life Insurance Options for Seniors</h2>
           <p className="text-lg text-gray-700 mb-6">Finding life insurance as a senior doesn&apos;t have to be complicated or expensive. Whether you&apos;re 50, 65, or 80, there are coverage options designed to fit your needs and budget.</p>
           <p className="text-lg text-gray-700 mb-8">Many seniors choose final expense insurance to cover funeral costs and leave a small legacy for their loved ones. These policies offer affordable premiums, no medical exams, and guaranteed acceptance options.</p>
-          
+
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Coverage Options</h2>
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {[

@@ -2,19 +2,30 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import { FAQSchema } from "@/components/JsonLd";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions",
-  description: "Get answers to common questions about simplified term life, whole life, final expense insurance, and no medical exam coverage options.",
-  keywords: ["simplified term life faq", "whole life insurance faq", "no medical exam life insurance questions", "final expense insurance faq"],
+  title: "Frequently Asked Questions | Life Insurance FAQ",
+  description: "Get answers to common questions about simplified term life, whole life, final expense insurance, and no medical exam coverage options. Expert answers from licensed agents.",
+  keywords: ["simplified term life faq", "whole life insurance faq", "no medical exam life insurance questions", "final expense insurance faq", "life insurance questions"],
   alternates: {
-    canonical: "/faq",
+    canonical: `${SITE_CONFIG.url}/faq`,
   },
   openGraph: {
     title: "Life Insurance FAQ - Common Questions Answered",
     description: "Get answers about simplified term life, whole life, and final expense insurance. No medical exam options explained.",
-    url: "/faq",
+    url: `${SITE_CONFIG.url}/faq`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Life Insurance FAQ - Common Questions Answered",
+    description: "Get answers about simplified term life, whole life, and final expense insurance.",
+    images: [defaultOgImage.url],
   },
 };
 
@@ -42,7 +53,8 @@ export default function FAQPage() {
   return (
     <>
       <FAQSchema faqs={faqs} />
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "FAQ", href: "/faq" }]} />
+      <PageHeader
         title="Frequently Asked Questions"
         subtitle="Get answers to common questions about final expense and burial insurance."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "FAQ", href: "/faq" }]}

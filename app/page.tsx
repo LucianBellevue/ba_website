@@ -46,7 +46,7 @@ export default function Home() {
         showShield={true}
       />
       <TrustBar />
-      
+
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -137,21 +137,26 @@ export default function Home() {
       <section className="py-16 md:py-20 bg-ba-blue">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">Ready to See Your Estimated Premium?</h2>
-          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">Use our free quote calculator to get an instant estimate. No phone call required.</p>
+          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">Use our free <Link href="/quotes" className="underline font-semibold hover:text-ba-gold transition-colors">life insurance rate calculator</Link> to get an instant estimate. No phone call required.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/quotes?product=final-expense"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-ba-gold text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg"
+              aria-label="Calculate final expense insurance rates"
             >
-              Final Expense Estimate
+              Final Expense Calculator
             </Link>
             <Link
               href="/quotes?product=term"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-ba-navy font-semibold rounded-lg hover:opacity-90 transition-colors text-lg"
+              aria-label="Calculate term life insurance rates"
             >
-              Term Life Estimate
+              Term Life Calculator
             </Link>
           </div>
+          <p className="text-white/70 text-sm mt-6">
+            <Link href="/quotes" className="underline hover:text-white transition-colors">Try our whole life insurance calculator</Link> as well
+          </p>
         </div>
       </section>
 

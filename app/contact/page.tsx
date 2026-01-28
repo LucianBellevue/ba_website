@@ -2,22 +2,39 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import LeadForm from "@/components/LeadForm";
 import { SITE_CONFIG } from "@/lib/constants";
+import { defaultOgImage } from "@/lib/metadata";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { FiPhone, FiMail, FiCheckCircle } from "react-icons/fi";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Contact Bellevue Assurance for simplified term life, whole life, and final expense insurance questions. Call our licensed agents or submit a form for a free quote.",
-  keywords: ["contact life insurance agent", "simplified term life quote", "whole life insurance quote", "life insurance help"],
+  title: "Contact Us | Get Your Free Life Insurance Quote",
+  description: "Contact Bellevue Assurance for simplified term life, whole life, and final expense insurance questions. Call our licensed agents at (470) 202-8817 or submit a form for a free quote.",
+  keywords: ["contact life insurance agent", "simplified term life quote", "whole life insurance quote", "life insurance help", "life insurance contact"],
   alternates: {
-    canonical: "/contact",
+    canonical: `${SITE_CONFIG.url}/contact`,
+  },
+  openGraph: {
+    title: "Contact Bellevue Assurance | Get Your Free Life Insurance Quote",
+    description: "Contact our licensed agents for simplified term life, whole life, and final expense insurance. Call (470) 202-8817 or submit a form.",
+    url: `${SITE_CONFIG.url}/contact`,
+    siteName: SITE_CONFIG.name,
+    type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Bellevue Assurance | Get Your Free Quote",
+    description: "Contact our licensed agents for life insurance quotes. Call (470) 202-8817 or submit a form.",
+    images: [defaultOgImage.url],
   },
 };
 
 export default function ContactPage() {
   return (
     <>
-      <PageHeader 
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact" }]} />
+      <PageHeader
         title="Contact Us"
         subtitle="We're here to help. Reach out by phone or fill out the form below."
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact" }]}
@@ -28,8 +45,8 @@ export default function ContactPage() {
             <div>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-ba-navy mb-6">Get in Touch</h2>
               <p className="text-lg text-gray-700 mb-8">
-                Our licensed agents are available to answer your questions about simplified term life, 
-                whole life, final expense insurance, and no medical exam coverage options. Call us directly or fill out the form 
+                Our licensed agents are available to answer your questions about simplified term life,
+                whole life, final expense insurance, and no medical exam coverage options. Call us directly or fill out the form
                 and we&apos;ll call you back.
               </p>
               <div className="space-y-6">
@@ -59,17 +76,17 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-ba-navy text-lg">Follow Us</h3>
                     <div className="flex items-center gap-4 mt-1">
-                      <a 
-                        href="https://www.facebook.com/profile.php?id=61586684075863" 
-                        target="_blank" 
+                      <a
+                        href="https://www.facebook.com/profile.php?id=61586684075863"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-ba-blue hover:underline flex items-center gap-1"
                       >
                         <FaFacebook className="w-5 h-5" /> Facebook
                       </a>
-                      <a 
-                        href="https://www.linkedin.com/company/bellevue-assurance" 
-                        target="_blank" 
+                      <a
+                        href="https://www.linkedin.com/company/bellevue-assurance"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-ba-blue hover:underline flex items-center gap-1"
                       >
