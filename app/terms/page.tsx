@@ -5,12 +5,15 @@ import { SITE_CONFIG } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Bellevue Assurance terms of service. Read our terms and conditions for using our website and services.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/terms`,
+  },
 };
 
 export default function TermsPage() {
   return (
     <>
-      <PageHeader 
+      <PageHeader
         title="Terms of Service"
         subtitle="Last updated: January 2024"
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Terms of Service", href: "/terms" }]}

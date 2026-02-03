@@ -1,3 +1,4 @@
+/** Canonical site config: use https only, no www. All canonicals and OG URLs derive from SITE_CONFIG.url. */
 export const SITE_CONFIG = {
   name: "Bellevue Assurance",
   domain: "bellevueassurance.com",

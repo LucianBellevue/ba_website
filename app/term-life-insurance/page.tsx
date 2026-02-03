@@ -5,6 +5,7 @@ import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { FiArrowRight } from "react-icons/fi";
+import { SITE_CONFIG } from "@/lib/constants";
 import { defaultOgImage } from "@/lib/metadata";
 
 export const metadata: Metadata = {
@@ -12,13 +13,13 @@ export const metadata: Metadata = {
   description: "Get simplified term life insurance with no medical exam required. Quick approval, affordable rates, and coverage from top carriers. Licensed agents ready to help.",
   keywords: ["simplified term life insurance", "no medical exam term life", "term life no exam", "affordable term life", "quick approval term life"],
   alternates: {
-    canonical: "https://bellevueassurance.com/term-life-insurance",
+    canonical: `${SITE_CONFIG.url}/term-life-insurance`,
   },
   openGraph: {
     title: "Simplified Term Life Insurance - No Medical Exam Required",
     description: "No medical exam term life insurance with quick approval. Get quotes from top carriers with competitive rates.",
-    url: "https://bellevueassurance.com/term-life-insurance",
-    siteName: "Bellevue Assurance",
+    url: `${SITE_CONFIG.url}/term-life-insurance`,
+    siteName: SITE_CONFIG.name,
     type: "website",
     images: [defaultOgImage],
   },

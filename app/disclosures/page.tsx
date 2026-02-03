@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   title: "Disclosures",
   description: "Important disclosures about Bellevue Assurance insurance products and services, including state-specific licensing information.",
   alternates: {
-    canonical: "/disclosures",
+    canonical: `${SITE_CONFIG.url}/disclosures`,
   },
 };
 
 export default function DisclosuresPage() {
   return (
     <>
-      <PageHeader 
+      <PageHeader
         title="Important Disclosures"
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Disclosures", href: "/disclosures" }]}
       />
@@ -22,7 +22,7 @@ export default function DisclosuresPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-serif text-2xl font-bold text-ba-navy mb-4">About Bellevue Assurance</h2>
           <p className="text-gray-700 mb-6">Bellevue Assurance is a licensed insurance agency that works with multiple insurance carriers to provide simplified issue term life, fast issue term life, final expense, burial insurance, and life insurance products. We are not an insurance company; we are an independent agency that helps consumers find and apply for insurance coverage.</p>
-          
+
           <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6">
             <h3 className="font-serif text-lg font-bold text-ba-navy mb-2">California Residents</h3>
             <p className="text-gray-700">

@@ -5,12 +5,15 @@ import { SITE_CONFIG } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Bellevue Assurance privacy policy. Learn how we collect, use, and protect your personal information.",
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/privacy-policy`,
+  },
 };
 
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <PageHeader 
+      <PageHeader
         title="Privacy Policy"
         subtitle="Last updated: January 2024"
         breadcrumbs={[{ name: "Home", href: "/" }, { name: "Privacy Policy", href: "/privacy-policy" }]}

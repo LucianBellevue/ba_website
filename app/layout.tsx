@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileStickyBar from "@/components/MobileStickyBar";
 import { OrganizationSchema } from "@/components/JsonLd";
+import { SITE_CONFIG } from "@/lib/constants";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,9 +25,9 @@ const libre = Libre_Baskerville({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bellevueassurance.com"),
+  metadataBase: new URL(SITE_CONFIG.url),
   alternates: {
-    canonical: "/",
+    canonical: SITE_CONFIG.url,
   },
   title: {
     default: "Bellevue Assurance | Simplified Term Life & Final Expense Insurance",
@@ -54,18 +55,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://bellevueassurance.com",
-    siteName: "Bellevue Assurance",
+    url: SITE_CONFIG.url,
+    siteName: SITE_CONFIG.name,
     title: "Bellevue Assurance | Simplified Term Life & Final Expense Insurance",
     description:
       "Get simplified term life, whole life, and final expense insurance quotes by phone. No medical exam options from top carriers. Licensed agents, affordable coverage.",
-    images: [{ url: "https://bellevueassurance.com/og-image.png", width: 1200, height: 630, alt: "Bellevue Assurance - Life Insurance Made Simple" }],
+    images: [{ url: `${SITE_CONFIG.url}/og-image.png`, width: 1200, height: 630, alt: "Bellevue Assurance - Life Insurance Made Simple" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bellevue Assurance | Simplified Term Life & Final Expense Insurance",
     description: "Get simplified term life, whole life, and final expense insurance with no medical exam options. Quick approval from top carriers.",
-    images: ["https://bellevueassurance.com/og-image.png"],
+    images: [`${SITE_CONFIG.url}/og-image.png`],
   },
   robots: {
     index: true,
